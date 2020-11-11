@@ -1,0 +1,187 @@
+<template name="desafios">
+  <div class="info">
+    <h3 style="margin-top: 6px;">
+      <i class="material-icons" 
+         style="position: relative; top: 5px;">schedule</i> 
+      Habitación de desafíos
+    </h3>
+    <div class="creditos">
+      <div class="resumen">
+        <p class="titulo">Llevas</p>
+        <p class="contador">{{stats.entregas}}/{{stats.total}}</p>
+        <p class="pie">Desafíos</p>  
+      </div>      
+      <button class="btn-contactar-profesor">Consultar al profesor</button>
+    </div>
+  </div>
+  
+  <div class="contenedor-horarios">
+    <div class="barra-dia">
+			
+			{{#each desafios}}
+      <div class="barra {{color}}" id="{{_id}}">
+        <div class="tipo">
+					<span class="material-icons">history_edu</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Arturo Prat contra el Huascar</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span>{{formatoFecha desde 'dd D/MMM HH:mm'}} - 
+						<span class="material-icons">alarm_on</span> {{formatoFecha hasta 'dd D/MMM HH:mm'}}
+					</div>
+				</div>
+				<div class="check">
+          <span class="material-icons">{{icono}}</span>
+        </div>  
+      </div>
+			{{/each}}
+			
+      <!--div class="barra amarillo">
+        <div class="tipo">
+					<span class="material-icons">calculate</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Funciones</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">remove_circle</span>
+        </div>      
+      </div>
+			
+      <div class="barra rojo">
+        <div class="tipo">
+					<span class="material-icons">closed_caption</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Los indígenas de Chile</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">check_circle</span>
+        </div>      
+      </div>
+			
+      <div class="barra rojo">
+        <div class="tipo">
+					<span class="material-icons">language</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Arturo Prat contra el Huascar</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">military_tech</span>
+        </div>      
+      </div>
+			
+      <div class="barra verde">
+        <div class="tipo">
+					<span class="material-icons">science</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Arboles nativos</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">military_tech</span>
+        </div>      
+      </div>      
+						
+      <div class="barra verde">
+        <div class="tipo">
+					<span class="material-icons">explore</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Arturo Prat contra el Huascar</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">military_tech</span>
+        </div>      
+      </div>
+			
+      <div class="barra verde">
+        <div class="tipo">
+					<span class="material-icons">music_note</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">La llegada de los españoles</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">record_voice_over</span>
+        </div>      
+      </div>
+			
+      <div class="barra verde">
+        <div class="tipo">
+					<span class="material-icons">add_location</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Los indígenas de Chile</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">military_tech</span>
+        </div>      
+      </div>
+			
+      <div class="barra amarillo">
+        <div class="tipo">
+					<span class="material-icons">memory</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Arturo Prat contra el Huascar</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 -  - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">grade</span>
+        </div>      
+      </div>
+			
+      <div class="barra amarillo">
+        <div class="tipo">
+					<span class="material-icons">create</span>
+				</div>      
+        <div class="descripcion-tarea">
+					<div class="titulo">Arboles nativos</div>
+					<div class="plazo">
+						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
+						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
+					</div>
+				</div>
+        <div class="check">
+          <span class="material-icons">military_tech</span>
+        </div>      
+      </div-->
+			
+    </div>
+  </div>
+	
+	{{> desafio}}
+</template>

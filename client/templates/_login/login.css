@@ -1,0 +1,103 @@
+.contenedor .capa-foto {
+  position: relative;
+  background: url(img/background-login.jpg);
+  width: auto;
+  height: 100vh;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+	background-size: cover;
+  filter: opacity(.1);
+}
+
+.contenedor h1 {
+  font-weight: lighter;
+}
+
+.contenedor .formulario {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  display: none;
+}
+
+.contenedor .formulario.login {
+  margin: 100px 10%;
+}
+
+.contenedor .logo {
+  width: 120px;
+	border: 2px solid rgb(186, 186, 186);
+	border-radius: 50%;
+}
+
+.contenedor .formulario .campo {
+  position: relative;
+  width: 100%;
+  height: 3em;
+  display: block;
+}
+
+.contenedor .formulario .campo input {
+	width: 160px;
+}
+
+
+.contenedor .formulario.registrame {
+  text-align: left;
+  padding: 0 2em;
+}
+
+.contenedor .formulario.olvido {
+  text-align: center;
+  margin: 30% 10%;
+} 
+
+.contenedor .formulario.registrame .titulo,
+.contenedor .formulario.olvido .titulo {
+  margin-bottom: 1em;
+}
+
+.contenedor .formulario.registrame .titulo h2,
+.contenedor .formulario.olvido .titulo h2 {
+  margin-bottom: 0px;
+}
+
+.contenedor .formulario.registrame .campo {
+  width: 100%;
+  margin-bottom: 1em;  
+}
+
+.contenedor .formulario.registrame .campo input {
+  width: -webkit-fill-available;
+}
+
+.contenedor .formulario .campo i.material-icons {
+  position: absolute;
+  color: darkgrey;
+  top: 9px;
+  padding-left: 9px;
+}
+
+.contenedor .formulario button {
+  width: 207px;
+}
+
+.contenedor.login .formulario .campo input {
+  padding-left: 32px;
+}
+
+.contenedor .formulario button {
+  margin: 1em auto;
+}
+
+.contenedor .formulario .pie {
+  width: 100%;
+  text-align: center;
+}
+
+.contenedor a {
+  color: skyblue;
+  font-size: 11px;
+}

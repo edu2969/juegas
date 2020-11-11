@@ -1,0 +1,119 @@
+<template name="entregas">
+	<h1><i class="material-icons">rule</i> Entregas</h1>
+	<select id="curso">
+		<option>7A básico</option>
+		<option>7B básico</option>
+		<option>7C básico</option>		
+	</select>	
+	
+	<div class="tabla">
+		<div class="seccion-estatica">
+			<div class="encabezado">
+				<p>ALUMNO</p>
+			</div>
+			<div class="datos">
+				<div class="celda alumno">
+					<div class="nombres">Luis Cristobal Andrés</div>
+					<div class="apellidos">
+						Almonacid Ariz
+					</div>
+				</div>
+				<div class="celda alumno">
+					<div class="nombres">Constanza Fransheska</div>
+					<div class="apellidos">
+						Arenas Henriquez
+					</div>
+				</div>
+				<div class="celda alumno">
+					<div class="nombres">Yohanina Betzabeth</div>
+					<div class="apellidos">
+						Castillo Ágila
+					</div>
+				</div>
+				<div class="celda alumno">
+					<div class="nombres">Benjamín Vincente</div>
+					<div class="apellidos">
+						Concha Medina
+					</div>
+				</div>
+				<div class="celda alumno">
+					<div class="nombres">Isaias Delfor</div>
+					<div class="apellidos">
+						Fernández Andrade
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="entregas">
+			<table>
+				<thead>
+					<tr>
+						<th class="rotated">
+							<div class="periodo">
+								<div class="numero">3/sep</div>
+							</div>
+						</th>
+						<th class="rotated">
+							<div class="periodo">
+								<div class="numero">
+									<i class="material-icons">add_task</i>
+								</div>
+							</div>
+						</th>
+						<!--th class="rotated">
+							<div class="periodo">
+								<div class="numero">3/sep</div>
+							</div>
+						</th>
+						<th class="rotated">
+							<div class="periodo">
+								<div class="numero">3/sep</div>
+							</div>
+						</th>
+						<th class="rotated">
+							<div class="periodo">
+								<div class="numero">3/sep</div>
+							</div>
+						</th>
+						<th class="rotated">
+							<div class="periodo">
+								<div class="numero">3/sep</div>
+							</div>
+						</th-->
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<i class="material-icons">check_circle</i>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<i class="material-icons">check_circle</i>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<i class="material-icons">check_circle</i>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<i class="material-icons">check_circle</i>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="sr">
+								<i class="material-icons">remove_circle</i>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>				
+		</div>
+	</div>
+	{{> tarea}}
+	{{> revision}}
+</template>

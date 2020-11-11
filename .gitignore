@@ -1,0 +1,16 @@
+node_modules/
+.DS_Store
+**/.DS_Store
+\.idea/workspace\.xml
+uploads/
+.ini
+.meteor/platforms
+*.ini
+.meteor/release
+.meteor/versions
+
+documentuploads/
+
+package-lock.json
+
+private/.env

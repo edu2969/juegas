@@ -1,0 +1,82 @@
+<template name="desafio">
+	<div class="contenedor-desafio">
+		<div class="cruz">
+			<i class="material-icons">clear</i>
+		</div>
+		<div class="detalle">
+			<h1><span class="material-icons">memory</span> Desafío <small> en Tecnología</small></h1>
+			<div class="video">
+				<iframe width="400" height="315" src="{{desafio.url}}">
+				</iframe>
+			</div>
+			<div class="descripcion">
+				<div class="encabezado">
+					<i class="material-icons">keyboard_arrow_down</i>
+					&nbsp;<span>EL DESAFÍO</span>
+				</div>
+				<p>{{desafio.descripcion}}</p>
+			</div>
+
+			<div class="marco-fotografias">
+				<div class="camara">
+					<i class="material-icons">photo_camera</i><br />
+					<p>Tomar<br />fotografía</p>
+				</div>
+				<div class="fotos">
+
+					<div class="foto">
+						<div class="marco-desafio">
+							<img src="/img/tarea1.jpg">
+							<p class="nombre">Página 1</p>
+							<div class="eliminar">
+								<i class="material-icons">clear</i>
+								<span>Eliminar</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="foto">
+						<div class="marco-desafio">
+							<img src="/img/tarea2.jpg">
+							<p class="nombre">Página 2</p>
+							<div class="eliminar">
+								<i class="material-icons">clear</i>
+								<span>Eliminar</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="foto">
+						<div class="marco-desafio">
+							<img src="/img/tarea3.jpg">
+							<p class="nombre">Página 3</p>
+							<div class="eliminar">
+								<i class="material-icons">clear</i>
+								<span>Eliminar</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="foto">
+						<div class="marco-desafio">
+							<img src="/img/tarea1.jpg">
+							<p class="nombre">Página 4</p>
+							<div class="eliminar">
+								<i class="material-icons">clear</i>
+								<span>Eliminar</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			
+			<button class="btn-enviar-desafio">
+				<i class="material-icons">send</i>
+				<span>Enviar desafío a revisión</span>
+			</button>
+
+		</div>
+	</div>
+	{{> foto}}
+</template>

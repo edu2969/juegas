@@ -1,0 +1,19 @@
+<head>
+  <title>Juegas</title>
+  <meta name="viewport" content="width = device-width, initial-scale=1, user-scalable = no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <style>
+      html {
+          -webkit-text-size-adjust: 100%;
+      }
+  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+	{{#if enLogin}}
+		{{> panel}}
+	{{else}}
+		{{> login}}
+	{{/if}}
+</body>
