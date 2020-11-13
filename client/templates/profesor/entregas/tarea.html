@@ -4,22 +4,28 @@
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
-			<h1><span class="material-icons">add_task</span> Nuevo Desafío</h1>
-			<div class="row">
+			<h1>
+				{{#if desafio}}
+					<span class="material-icons">create</span> Editar Desafío
+				{{else}}
+					<span class="material-icons">add_task</span> Nuevo Desafío
+				{{/if}}
+			</h1>
+			<div class="campo-formulario">
 				<div class="label">Descripión</div>
-				<textarea rows="5"></textarea>
+				<textarea id="input-descripcion" rows="5">{{desafio.descripcion}}</textarea>
 			</div>
-			<div class="row">
+			<div class="campo-formulario">
 				<div class="label">URL Cápsula</div>
-				<input type="text">
+				<input type="text" id="input-url" value="{{desafio.url}}">
 			</div>
-			<div class="row">
+			<div class="campo-formulario">
 				<div class="label">Fecha Inicio</div>
-				<input type="text">
+				<input type="text" id="input-desde" class="datetimepicker-component" value="{{formatoFecha desafio.desde 'DD/MM/YY HH:mm'}}">
 			</div>
-			<div class="row">
+			<div class="campo-formulario">
 				<div class="label">Fecha Término</div>
-				<input type="text">
+				<input type="text" id="input-hasta" class="datetimepicker-component" value="{{formatoFecha desafio.desde 'DD/MM/YY HH:mm'}}">
 			</div>
 
 			<button class="btn-guardar-tarea">

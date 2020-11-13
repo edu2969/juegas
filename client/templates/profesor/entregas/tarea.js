@@ -1,3 +1,11 @@
+Template.tarea.rendered = function() {
+	$('.datetimepicker-component').datetimepicker({
+		format: 'DD/MM/YYYY HH:mm',
+		minDate: moment().startOf('hour').toDate(),
+		maxDate: moment().startOf('hour').add(2, 'month').toDate()
+	});
+}
+
 Template.tarea.helpers({
 	desafio() {
 		return Session.get("TareaSeleccionada");

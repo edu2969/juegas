@@ -1,13 +1,18 @@
-# FitUp
+# JUEGAS
 
-## Fit-Up ahora.
+## JUEGAS: Tecnologías para educar.
 
-Toda la gestión deportiva, en una herramienta, que agrega tanto valor para el entrenador como para el deportista.
+### JUEGAS es una multi-plataforma, reponsiva, que entrega valor a todo los participantes en el proceso educativo
 
-- Reac-Native
-- Reserva de horas y manejo de cuotas
-- Programa diario con evaluación cruzada y condecoraciones, lesiones, tips
-- Información resumen histórica relevante
-- Motion SelfMorph App que permite fotos frontal y perfi de las mejoras
+- Para los alumnos, permite revisar sus tareas, obtener retroalimentación de los profesores, realizar entregas, crear sus consultas. Todo esto en un contexto de "desafíos", de lenguaje proposicional.
+- Para los profesores, permite generar su set de tareas de manera intuitiva y esquematizada, permitiendo evaluación y retroalimentación en tiempo real. Se incluye un panel de visualización global de los cursos y asignaturas que maneja.
 
-> version 0.1
+### Próximos desafíos: 
+- Vista de directiva, para una vista general del proceso educativo, con indicadores pertinentes.
+- Generación de programas de tareas mediante templates
+- Subida de tareas, por parte de los alumnos, con herramientas de audio, video e imagen.
+- Correcciones de profesores, con herramientas de dibujo para observar sobre las imagenes, respuesta de voz o video según sea lo pertinente.
+- Panel de progreso del profesor en la historia de su actividad, con indicadores KPI pertinentes que impulsen su mejora.
+- Herramientas de elaboración de pautas de revisión, como lo son las listas de cotejo ó tablas de evaluación
+
+> version 0.9

@@ -1,4 +1,12 @@
-.contenedor .capa-foto {
+.contenedor-login {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  text-align: center;
+  position: absolute;
+}
+
+.contenedor-login .capa-foto {
   position: relative;
   background: url(img/background-login.jpg);
   width: auto;
@@ -10,11 +18,11 @@
   filter: opacity(.1);
 }
 
-.contenedor h1 {
+.contenedor-login h1 {
   font-weight: lighter;
 }
 
-.contenedor .formulario {
+.contenedor-login .formulario {
   position: absolute;
   top: 0;
   left: 0;
@@ -22,65 +30,65 @@
   display: none;
 }
 
-.contenedor .formulario.login {
+.contenedor-login .formulario.login {
   margin: 100px 10%;
 }
 
-.contenedor .logo {
+.contenedor-login .logo {
   width: 120px;
 	border: 2px solid rgb(186, 186, 186);
 	border-radius: 50%;
 }
 
-.contenedor .formulario .campo {
+.contenedor-login .formulario .campo {
   position: relative;
   width: 100%;
   height: 3em;
   display: block;
 }
 
-.contenedor .formulario .campo input {
+.contenedor-login .formulario .campo input {
 	width: 160px;
 }
 
 
-.contenedor .formulario.registrame {
+.contenedor-login .formulario.registrame {
   text-align: left;
   padding: 0 2em;
 }
 
-.contenedor .formulario.olvido {
+.contenedor-login .formulario.olvido {
   text-align: center;
   margin: 30% 10%;
 } 
 
-.contenedor .formulario.registrame .titulo,
-.contenedor .formulario.olvido .titulo {
+.contenedor-login .formulario.registrame .titulo,
+.contenedor-login .formulario.olvido .titulo {
   margin-bottom: 1em;
 }
 
-.contenedor .formulario.registrame .titulo h2,
-.contenedor .formulario.olvido .titulo h2 {
+.contenedor-login .formulario.registrame .titulo h2,
+.contenedor-login .formulario.olvido .titulo h2 {
   margin-bottom: 0px;
 }
 
-.contenedor .formulario.registrame .campo {
+.contenedor-login .formulario.registrame .campo {
   width: 100%;
   margin-bottom: 1em;  
 }
 
-.contenedor .formulario.registrame .campo input {
+.contenedor-login .formulario.registrame .campo input {
   width: -webkit-fill-available;
 }
 
-.contenedor .formulario .campo i.material-icons {
+.contenedor-login .formulario .campo i.material-icons {
   position: absolute;
   color: darkgrey;
   top: 9px;
   padding-left: 9px;
 }
 
-.contenedor .formulario button {
+.contenedor-login .formulario button {
   width: 207px;
 }
 
@@ -88,16 +96,21 @@
   padding-left: 32px;
 }
 
-.contenedor .formulario button {
+.contenedor-login .formulario button {
   margin: 1em auto;
 }
 
-.contenedor .formulario .pie {
+.contenedor-login .formulario .pie {
   width: 100%;
   text-align: center;
 }
 
-.contenedor a {
+.contenedor-login a {
   color: skyblue;
   font-size: 11px;
+}
+
+.contenedor-login input[type="text"],
+.contenedor-login input[type="password"] {
+  padding: 12px 16px 12px 36px;
 }

@@ -1,6 +1,7 @@
 Template.desafios.rendered = function() {		
 	Tracker.autorun(() => {
 		Meteor.subscribe('desafios');
+		Meteor.subscribe('entregas');
 	});
 	Session.set("DesafioSeleccionado", false);
 }
@@ -11,10 +12,8 @@ Template.desafios.helpers({
 		return desafios.map(function(desafio) {
 			let entrega = Entregas.findOne({ tareaId: desafio._id });
 			if(entrega) {
-				desafio.estado = entrega.estado;
-				desafio.color = entrega.estado=="terminado" ? "verde" : "amarillo";
-				desafio.icono = entrega.estado=="revision" ? 
-					"circle_check" : entrega.estado=="comentado" ? "military_tech" : "record_voice_over";
+				desafio.color = entrega && entrega.comentado ? "amarillo" : "verde";
+				desafio.icono = entrega && entrega.comentado ? "record_voice_over" : "circle_check";
 			} else {
 				desafio.color = "rojo";
 				desafio.icono = "remove_circle";

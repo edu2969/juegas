@@ -4,7 +4,7 @@
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
-			<h1><span class="material-icons">memory</span> Desafío <small> en Tecnología</small></h1>
+			<h1><span class="material-icons">{{desafio.asignaturaObj.icon}}</span> Desafío <small> en {{desafio.asignaturaObj.label}}</small></h1>
 			<div class="video">
 				<iframe width="400" height="315" src="{{desafio.url}}">
 				</iframe>
@@ -21,57 +21,28 @@
 				<div class="camara">
 					<i class="material-icons">photo_camera</i><br />
 					<p>Tomar<br />fotografía</p>
+					<div class="drop-texto"></div>					
 				</div>
 				<div class="fotos">
-
-					<div class="foto">
+					{{#each fotos}}
+					<div class="foto" id={{_id}}>
 						<div class="marco-desafio">
-							<img src="/img/tarea1.jpg">
-							<p class="nombre">Página 1</p>
-							<div class="eliminar">
+							<img src="{{imagen}}">
+							<p class="nombre" id="{{_id}}">Página {{indice}}</p>
+							<div class="eliminar" id="{{_id}}">
 								<i class="material-icons">clear</i>
 								<span>Eliminar</span>
 							</div>
 						</div>
 					</div>
-
-					<div class="foto">
-						<div class="marco-desafio">
-							<img src="/img/tarea2.jpg">
-							<p class="nombre">Página 2</p>
-							<div class="eliminar">
-								<i class="material-icons">clear</i>
-								<span>Eliminar</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="foto">
-						<div class="marco-desafio">
-							<img src="/img/tarea3.jpg">
-							<p class="nombre">Página 3</p>
-							<div class="eliminar">
-								<i class="material-icons">clear</i>
-								<span>Eliminar</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="foto">
-						<div class="marco-desafio">
-							<img src="/img/tarea1.jpg">
-							<p class="nombre">Página 4</p>
-							<div class="eliminar">
-								<i class="material-icons">clear</i>
-								<span>Eliminar</span>
-							</div>
-						</div>
-					</div>
-
+					{{else}}
+					<h2>Falta que subas fotos</h2>
+					{{/each}}
 				</div>
+				<input type="file" id="upload-image" style="display: none;">
 			</div>
 			
-			<button class="btn-enviar-desafio">
+			<button class="btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
 				<i class="material-icons">send</i>
 				<span>Enviar desafío a revisión</span>
 			</button>

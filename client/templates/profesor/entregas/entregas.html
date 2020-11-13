@@ -1,9 +1,9 @@
 <template name="entregas">
 	<h1><i class="material-icons">rule</i> Entregas</h1>
 	<select id="curso">
-		<option>7A básico</option>
-		<option>7B básico</option>
-		<option>7C básico</option>		
+		<option value="7Ab">7A básico</option>
+		<option value="7Bb">7B básico</option>
+		<option value="7Cb">7C básico</option>		
 	</select>	
 	
 	<div class="tabla">
@@ -12,47 +12,25 @@
 				<p>ALUMNO</p>
 			</div>
 			<div class="datos">
-				<div class="celda alumno">
-					<div class="nombres">Luis Cristobal Andrés</div>
-					<div class="apellidos">
-						Almonacid Ariz
-					</div>
+				{{#each alumnos}}
+				<div class="celda alumno" id="{{_id}}">
+					<div class="nombres">{{nombres}}</div>
+					<div class="apellidos">{{apellidos}}</div>
 				</div>
-				<div class="celda alumno">
-					<div class="nombres">Constanza Fransheska</div>
-					<div class="apellidos">
-						Arenas Henriquez
-					</div>
-				</div>
-				<div class="celda alumno">
-					<div class="nombres">Yohanina Betzabeth</div>
-					<div class="apellidos">
-						Castillo Ágila
-					</div>
-				</div>
-				<div class="celda alumno">
-					<div class="nombres">Benjamín Vincente</div>
-					<div class="apellidos">
-						Concha Medina
-					</div>
-				</div>
-				<div class="celda alumno">
-					<div class="nombres">Isaias Delfor</div>
-					<div class="apellidos">
-						Fernández Andrade
-					</div>
-				</div>
+				{{/each}}
 			</div>
 		</div>
 		<div class="entregas">
 			<table>
 				<thead>
 					<tr>
-						<th class="rotated">
+						{{#each tareas}}
+						<th class="rotated" id="{{_id}}">
 							<div class="periodo">
-								<div class="numero">3/sep</div>
+								<div class="numero">{{formatoFecha fecha 'D/MMM'}}</div>
 							</div>
 						</th>
+						{{/each}}
 						<th class="rotated">
 							<div class="periodo">
 								<div class="numero">
@@ -60,56 +38,18 @@
 								</div>
 							</div>
 						</th>
-						<!--th class="rotated">
-							<div class="periodo">
-								<div class="numero">3/sep</div>
-							</div>
-						</th>
-						<th class="rotated">
-							<div class="periodo">
-								<div class="numero">3/sep</div>
-							</div>
-						</th>
-						<th class="rotated">
-							<div class="periodo">
-								<div class="numero">3/sep</div>
-							</div>
-						</th>
-						<th class="rotated">
-							<div class="periodo">
-								<div class="numero">3/sep</div>
-							</div>
-						</th-->
 					</tr>
 				</thead>
 				<tbody>
+					{{#each alumnos}}
 					<tr>
-						<td>
-							<i class="material-icons">check_circle</i>
+						{{#each entregas}}
+						<td id="{{_id}}" style="background-color: {{celda.color}}">
+							<i class="material-icons">{{celda.icono}}</i>
 						</td>
+						{{/each}}
 					</tr>
-					<tr>
-						<td>
-							<i class="material-icons">check_circle</i>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<i class="material-icons">check_circle</i>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<i class="material-icons">check_circle</i>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="sr">
-								<i class="material-icons">remove_circle</i>
-							</div>
-						</td>
-					</tr>
+					{{/each}}
 				</tbody>
 			</table>				
 		</div>

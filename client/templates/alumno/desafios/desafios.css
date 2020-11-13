@@ -130,12 +130,6 @@
   border: 2px solid white;
 }
 
-.contenedor-horarios .barra-dia .barra.verde .descripcion-tarea,
-.contenedor-horarios .barra-dia .barra.verde .check {
-  color: white;
-}
-
-
 .contenedor-horarios .barra-dia .barra.amarillo .tipo {
   color: darkslategrey;
   border: 2px solid darkslategrey;

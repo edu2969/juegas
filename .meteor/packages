@@ -2,7 +2,6 @@ meteor-base@1.4.0
 mobile-experience@1.1.0       
 mongo@1.10.0                  
 blaze-html-templates    
-jquery                  
 reactive-var
 tracker@1.2.0            
 
@@ -21,3 +20,6 @@ accounts-base
 accounts-password
 momentjs:moment
 rzymek:moment-locale-es
+ostrio:files
+tsega:bootstrap3-datetimepicker
+jquery

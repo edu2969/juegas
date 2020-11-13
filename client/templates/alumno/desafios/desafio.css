@@ -128,3 +128,53 @@
 	font-size: 16px;
 	padding: 10px;
 }
+
+.camara {
+	background-image: url(/img/logo.png);
+	background-position: center;
+	background-size: 130px;
+	background-repeat: no-repeat;
+}
+.camara {
+	border: 1px solid #304efe;
+	min-height: 240px;
+	width: 100%;
+	margin-top: 1em;
+	border-radius: 5px;
+	overflow: hidden;
+	background-color: #3956fe05;
+	display: block;
+	position: relative;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+	z-index: 0;
+}
+.camara .drop-texto {
+	position: absolute;
+	pointer-events: none;
+	font-size: 16px;
+	color: black;
+	padding-top: 25%;
+	top: 0;
+	left: 0;
+	background-color: #F6F7FC;
+	width: 100%;
+	min-height: 240px;
+	border: 2px solid #8c9dff;
+	background-image: url(/img/logo.png);
+	background-position: center top 20px;
+	background-size: 160px;
+	background-repeat: no-repeat;
+	border-radius: 5px;
+	display: none;
+	z-index: 1;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.camara .drop-texto.activo {
+	display: block;
+}

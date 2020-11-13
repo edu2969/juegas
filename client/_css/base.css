@@ -21,7 +21,8 @@ body {
 }
 
 input[type="password"],
-input[type="text"] {
+input[type="text"],
+textarea {
   border: 2px solid #ccc;
   border-radius: 2em;  
   font-size: 12px;
@@ -31,8 +32,10 @@ input[type="text"] {
 }
 
 input[type="text"],
-input[type="password"] {
-  padding: 12px 16px 12px 36px;
+input[type="password"],
+textarea {
+  padding: 12px 16px 12px 16px;
+	width: 100%;
 }
 
 small {
