@@ -11,7 +11,6 @@
         <p class="contador">{{stats.entregas}}/{{stats.total}}</p>
         <p class="pie">Desafíos</p>  
       </div>      
-      <button class="btn-contactar-profesor">Consultar al profesor</button>
     </div>
   </div>
   
@@ -21,165 +20,25 @@
 			{{#each desafios}}
       <div class="barra {{color}}" id="{{_id}}">
         <div class="tipo">
-					<span class="material-icons">history_edu</span>
+					<i class="material-icons">history_edu</i>
 				</div>      
         <div class="descripcion-tarea">
 					<div class="titulo">Arturo Prat contra el Huascar</div>
 					<div class="plazo">
-						<span class="material-icons">flag</span>{{formatoFecha desde 'dd D/MMM HH:mm'}} - 
-						<span class="material-icons">alarm_on</span> {{formatoFecha hasta 'dd D/MMM HH:mm'}}
+						<i class="material-icons">flag</i>{{formatoFecha desde 'dd D/MMM HH:mm'}} - 
+						<i class="material-icons">alarm_on</i>{{formatoFecha hasta 'dd D/MMM HH:mm'}}
 					</div>
 				</div>
-				<div class="check">
-          <span class="material-icons">{{icono}}</span>
-        </div>  
+				<div class="marco-iconos">
+					<div class="contenedor-iconos">						
+						{{#if comentario}}
+							<i class="material-icons">record_voice_over</i>
+						{{/if}}
+						<i class="material-icons">{{icono}}</i>
+					</div>
+				</div>
       </div>
 			{{/each}}
-			
-      <!--div class="barra amarillo">
-        <div class="tipo">
-					<span class="material-icons">calculate</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">Funciones</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">remove_circle</span>
-        </div>      
-      </div>
-			
-      <div class="barra rojo">
-        <div class="tipo">
-					<span class="material-icons">closed_caption</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">Los indígenas de Chile</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">check_circle</span>
-        </div>      
-      </div>
-			
-      <div class="barra rojo">
-        <div class="tipo">
-					<span class="material-icons">language</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">Arturo Prat contra el Huascar</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">military_tech</span>
-        </div>      
-      </div>
-			
-      <div class="barra verde">
-        <div class="tipo">
-					<span class="material-icons">science</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">Arboles nativos</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">military_tech</span>
-        </div>      
-      </div>      
-						
-      <div class="barra verde">
-        <div class="tipo">
-					<span class="material-icons">explore</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">Arturo Prat contra el Huascar</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">military_tech</span>
-        </div>      
-      </div>
-			
-      <div class="barra verde">
-        <div class="tipo">
-					<span class="material-icons">music_note</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">La llegada de los españoles</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">record_voice_over</span>
-        </div>      
-      </div>
-			
-      <div class="barra verde">
-        <div class="tipo">
-					<span class="material-icons">add_location</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">Los indígenas de Chile</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">military_tech</span>
-        </div>      
-      </div>
-			
-      <div class="barra amarillo">
-        <div class="tipo">
-					<span class="material-icons">memory</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">Arturo Prat contra el Huascar</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 -  - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">grade</span>
-        </div>      
-      </div>
-			
-      <div class="barra amarillo">
-        <div class="tipo">
-					<span class="material-icons">create</span>
-				</div>      
-        <div class="descripcion-tarea">
-					<div class="titulo">Arboles nativos</div>
-					<div class="plazo">
-						<span class="material-icons">flag</span> ma 5/sep 8:00 - 
-						<span class="material-icons">alarm_on</span> ju 7/sep 18:00
-					</div>
-				</div>
-        <div class="check">
-          <span class="material-icons">military_tech</span>
-        </div>      
-      </div-->
-			
     </div>
   </div>
 	

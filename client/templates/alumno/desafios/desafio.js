@@ -38,6 +38,9 @@ Template.desafio.helpers({
 		let desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return false;
 		return Images.find({ "meta.tareaId": desafio._id }).count();
+	},
+	entrega() {
+		return Entregas.findOne();
 	}
 })
 

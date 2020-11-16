@@ -1,3 +1,5 @@
+VERSION = "0.9";
+
 ASIGNATURAS = {
 	"HIST": {
 		icon: "history_edu",
@@ -18,12 +20,12 @@ EVALUACIONES = {
 	},
 	"BI": {
 		icono: 'check_circle',
-		color: 'orange',
+		color: 'yellow',
 		etiqueta: 'Bien'
 	},
 	"ME": {
 		icono: 'feedback',
-		color: 'orangered',
+		color: 'orange',
 		etiqueta: 'Mejorable'
 	},
 	"SR": {

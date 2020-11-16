@@ -5,3 +5,7 @@ Handlebars.registerHelper("formatoFecha", function (date, mask) {
   if (!mask) mask = 'dd/MM/yyyy';
   return m.format(mask);
 });
+
+Handlebars.registerHelper("version", () => {
+	return VERSION;
+});

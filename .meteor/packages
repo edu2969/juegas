@@ -21,5 +21,7 @@ accounts-password
 momentjs:moment
 rzymek:moment-locale-es
 ostrio:files
-tsega:bootstrap3-datetimepicker
+
 jquery
+mizzao:bootstrap-3
+tsega:bootstrap3-datetimepicker

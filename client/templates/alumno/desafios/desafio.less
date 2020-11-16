@@ -1,0 +1,181 @@
+.contenedor-desafio {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  top: 0;
+  transform: translate(100%, 0); 
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+	background-image: url(/img/back-desafio.png);
+	background-size: cover;
+	padding-top: 42px;
+	
+	&.activo {
+		transform: translate(0%, 0); 
+		transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+	}
+	
+	.cruz {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		font-size: 18px;
+	}
+	
+	.detalle {
+		margin: 2px;
+		background-color: rgba(255, 255, 255, 0.95);
+		border-radius: 8px;
+		border: 2px solid gray;
+		color: black;
+		overflow-y: scroll;
+		height: calc(100vh - 120px);
+		
+		small {
+			color: black;
+		}
+		
+		.descripcion .encabezado {
+			display: flex;
+			padding: 0.4em;
+		}
+		
+		.marco-fotografias {
+			display: flex;
+			padding: 0.5em;
+			
+			.camara {
+				display: block;
+				width: 120px;
+				height: 150px;
+				border: 2px solid gray;
+				border-radius: 6px;
+				font-size: 12px;
+				margin: 4px;				
+				background-image: url(/img/logo.png);
+				background-position: center;
+				background-size: 130px;
+				background-repeat: no-repeat;
+				border: 1px solid #304efe;
+				min-height: 240px;
+				border-radius: 5px;
+				overflow: hidden;
+				flex-flow: row wrap;
+				justify-content: center;
+				align-items: center;
+				z-index: 0;
+				
+				.drop-texto {
+					position: absolute;
+					pointer-events: none;
+					font-size: 16px;
+					color: black;
+					padding-top: 25%;
+					top: 0;
+					left: 0;
+					background-color: #F6F7FC;
+					width: 100%;
+					min-height: 240px;
+					border: 2px solid #8c9dff;
+					background-image: url(/img/logo.png);
+					background-position: center top 20px;
+					background-size: 160px;
+					background-repeat: no-repeat;
+					border-radius: 5px;
+					display: none;
+					z-index: 1;
+					text-indent: 100%;
+					white-space: nowrap;
+					overflow: hidden;
+					
+					.activo {
+						display: block;
+					}
+				}
+
+				
+				.material-icons {
+					width: 45px;
+					height: 45px;
+					background-color: ghostwhite;
+					border: 2px solid gray;
+					border-radius: 50%;
+					margin-top: 20px;
+					font-size: 43px;
+					color: gray;
+				}
+			}
+			
+			.fotos {
+				display: block;
+				width: calc(100% - 120px);
+				
+				.foto {
+					.marco-desafio {
+						display: flex;
+						margin-left: 16px;
+						border: 2px solid gray;
+						border-radius: 4px;
+						margin: 4px;
+						
+						img {
+							width: 40px;
+							margin: 2px;
+						}
+
+						p {
+							padding-left: 4px;
+							text-decoration: underline;
+							color: royalblue;
+							width: 100%;
+							text-align: left;
+						}
+						
+						.eliminar {
+							background-color: orangered;
+							border-radius: 3px;
+							padding: 2px;
+							color: white;
+							height: 30px;
+							width: 220px;
+							margin-top: 10px;
+							margin-right: 8px;
+							
+							i {
+								margin-top: 3px;
+							}
+							
+							span {
+								position: relative;
+								top: -6px;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		button {
+			margin-top: 10px;
+			margin-bottom: 10px;
+			width: calc(100% - 20px);
+			font-size: 16px;
+			padding: 10px;
+		}
+		
+		.marco-comentarios-profesor {
+			background-color: white;
+			border-color: 2px solid blue;
+			border-radius: 8px;
+			margin: 0 1em 2em 1em;
+			padding: 0.2em 1em;
+			
+			p {
+				text-align: justify;
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+

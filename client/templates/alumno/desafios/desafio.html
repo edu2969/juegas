@@ -18,21 +18,25 @@
 			</div>
 
 			<div class="marco-fotografias">
+				{{#unless entrega}}
 				<div class="camara">
 					<i class="material-icons">photo_camera</i><br />
-					<p>Tomar<br />fotografía</p>
+					<p>Tomar / Arrastrar<br />fotografía</p>
 					<div class="drop-texto"></div>					
 				</div>
+				{{/unless}}
 				<div class="fotos">
 					{{#each fotos}}
 					<div class="foto" id={{_id}}>
 						<div class="marco-desafio">
 							<img src="{{imagen}}">
 							<p class="nombre" id="{{_id}}">Página {{indice}}</p>
+							{{#unless entrega}}
 							<div class="eliminar" id="{{_id}}">
 								<i class="material-icons">clear</i>
 								<span>Eliminar</span>
 							</div>
+							{{/unless}}
 						</div>
 					</div>
 					{{else}}
@@ -42,10 +46,19 @@
 				<input type="file" id="upload-image" style="display: none;">
 			</div>
 			
+			{{#unless entrega}}
 			<button class="btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
 				<i class="material-icons">send</i>
 				<span>Enviar desafío a revisión</span>
 			</button>
+			{{/unless}}
+			
+			{{#if entrega}}
+			<div class="marco-comentarios-profesor">
+				<h3><i class="material-icons">record_voice_over</i> Comentarios <small>del profesor</small></h3>
+				<p>{{entrega.comentario}}</p>
+			</div>
+			{{/if}}
 
 		</div>
 	</div>
