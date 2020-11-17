@@ -7,20 +7,31 @@ Template.revision.rendered = function() {
 }
 
 Template.revision.helpers({
-	tarea() {
-		return Tareas.findOne();
+	revision() {
+		return Session.get("Seleccion");		
 	},
 	evaluaciones() {
+		const revision = Session.get("Seleccion");
 		const keys = Object.keys(EVALUACIONES);
 		keys.pop();
 		return keys.map(function(key) {
 			let evaluacion = EVALUACIONES[key];
 			evaluacion.llave = key;
+			delete evaluacion.seleccionado;
+			if(revision) {
+				if(revision.entrega.evaluacion==key) {
+					evaluacion.seleccionado = true;
+				}
+			}
 			return evaluacion;
 		});
 	},
 	fotos() {
-		return Images.find().map(function(image, index) {
+		const revision = Session.get("Seleccion");
+		if(!revision) return false;
+		return Images.find({
+			"meta.tareaId": revision.tarea._id
+		}).map(function(image, index) {
 			var img = Images.findOne({ _id: image._id });
 			return {
 				_id: image._id,

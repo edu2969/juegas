@@ -13,7 +13,7 @@ Template.desafios.helpers({
 			let entrega = Entregas.findOne({ tareaId: desafio._id });
 			if(entrega) {
 				desafio.color = entrega && entrega.comentado ? "amarillo" : "verde";
-				desafio.icono = entrega && entrega.comentado ? "record_voice_over" : "check_circle";
+				desafio.icono = entrega && EVALUACIONES[entrega.evaluacion].icono;				
 				if(entrega.comentario) {
 					desafio.comentario = entrega.comentario;
 				}

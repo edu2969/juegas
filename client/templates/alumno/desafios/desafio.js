@@ -40,7 +40,10 @@ Template.desafio.helpers({
 		return Images.find({ "meta.tareaId": desafio._id }).count();
 	},
 	entrega() {
-		return Entregas.findOne();
+		var entrega = Entregas.findOne();
+		if(!entrega) return false;
+		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
+		return entrega;
 	}
 })
 

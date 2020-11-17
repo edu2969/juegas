@@ -54,6 +54,13 @@
 			{{/unless}}
 			
 			{{#if entrega}}
+			<div class="marco-calificacion">
+				<h4>Has sido calificado con un:</h4>
+				<div class="calificacion" style="background-color: {{entrega.calificacion.color}}">
+					<i class="material-icons">{{entrega.calificacion.icono}}</i>
+					<p>{{entrega.calificacion.etiqueta}}</p>
+				</div>
+			</div>
 			<div class="marco-comentarios-profesor">
 				<h3><i class="material-icons">record_voice_over</i> Comentarios <small>del profesor</small></h3>
 				<p>{{entrega.comentario}}</p>
