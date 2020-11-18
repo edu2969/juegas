@@ -1,38 +1,40 @@
 <template name="panel">
-  <div id="contenedor-panel" class="contenedor capa-gradiante blanca" 
-			 style="{{#if esAlumno}}background-image: url(img/parque.png);
+  <div id="contenedor-panel" class="contenedor capa-gradiante blanca" style="{{#if esAlumno}}background-image: url(img/parque.png);
 	background-size: cover;{{/if}}">
     <div class="menu"><i class="material-icons">menu</i></div>
     <section name="contenido">
-			{{#if esAlumno}}
-      <div class="area agenda">
-        {{> desafios}}
-      </div>
-      <div class="area sesion">
-        {{> sesion}}
-      </div>
-      <div class="area logros">
-        {{> logros}}
-      </div>
-			{{/if}}
-			{{#if esProfesor}}
-      <div class="area home">
-        {{> home}}
-      </div>
-      <div class="area entregas">
-        {{> entregas}}
-      </div>
-      <div class="area dudas">
-        {{> dudas}}
-      </div>
-      <div class="area historia">
-        {{> historia}}
-      </div>
-			{{/if}}
+      {{#if esAlumno}}
+        <div class="area agenda">
+          {{> desafios}}
+        </div>
+        <div class="area sesion">
+          {{> sesion}}
+        </div>
+        <div class="area logros">
+          {{> logros}}
+        </div>
+      {{/if}}
+      {{#if esProfesor}}
+        <div class="area home">
+          {{> home}}
+        </div>
+        <div class="area entregas">
+          {{> entregas}}
+        </div>
+        <div class="area dudas">
+          {{> dudas}}
+        </div>
+        <div class="area historia">
+          {{> historia}}
+        </div>
+      {{/if}}
+      {{#if esAdmin}}
+        {{> importarcurso}}
+      {{/if}}
     </section>
     <section name="pie">
-			{{#if esAlumno}}
-      <!--div class="accion agenda activo">
+      {{#if esAlumno}}
+        <!--div class="accion agenda activo">
         <i class="material-icons">schedule</i>
         <p>Desafíos</p>
       </div>
@@ -44,9 +46,9 @@
         <i class="material-icons">emoji_events</i>
         <p>Logros</p>
       </div-->
-			{{/if}}
-			{{#if esProfesor}}
-      <!--div class="accion home">
+      {{/if}}
+      {{#if esProfesor}}
+        <!--div class="accion home">
         <i class="material-icons">home</i>
         <p>Principal</p>
       </div>
@@ -62,7 +64,7 @@
         <i class="material-icons">bar_chart</i>
         <p>Historia</p>
       </div-->
-			{{/if}}
+      {{/if}}
     </section>
     {{> menu}}
     {{> modalconsultarprofesor}}

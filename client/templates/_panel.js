@@ -1,23 +1,28 @@
-Template.panel.onCreated(function() {
-	
+Template.panel.onCreated(function () {
+
 });
 
 Template.panel.rendered = function () {
-	let estado = Session.get("EstadoApp");
-	let home = estado.esAlumno ? 'agenda' : estado.esProfesor ? 'entregas' : 'panel-gestion';
-  UIUtils.toggleVisible('area', home);
+  let estado = Session.get("EstadoApp");
+  if( !estado.esAdmin ) {
+    let home = estado.esAlumno ? 'agenda' : estado.esProfesor ? 'entregas' : 'panel-gestion';
+    UIUtils.toggleVisible('area', home);    
+  }
 }
 
 Template.panel.helpers({
-	esAlumno() {
-		return Session.get("EstadoApp").esAlumno;
-	},
-	esProfesor() {
-		return Session.get("EstadoApp").esProfesor;
-	},
-	esDirector() {
-		return Session.get("EstadoApp").esDirector;
-	}
+  esAlumno() {
+    return Session.get("EstadoApp").esAlumno;
+  },
+  esProfesor() {
+    return Session.get("EstadoApp").esProfesor;
+  },
+  esDirector() {
+    return Session.get("EstadoApp").esDirector;
+  },
+  esAdmin() {
+    return Session.get("EstadoApp").esAdmin;
+  }
 })
 
 Template.panel.events({
@@ -25,7 +30,7 @@ Template.panel.events({
     var item = e.currentTarget.classList[1];
     UIUtils.toggleClass('accion', item, 'activo');
     UIUtils.toggleVisible('area', item);
-    
+
     if (item == "logros") {
       var width = window.innerWidth;
       var arreglo = [{
@@ -72,7 +77,7 @@ Template.panel.events({
           }
         }]).start(1000, 0, item.valor / 100);
       });
-      
+
 
       renderMultiTimer();
     }
@@ -100,15 +105,15 @@ function renderMultiTimer() {
       show: true
     }
   };
-  
+
   var timer = new DashTimer('.grafico-solo .resumen')
-  .init(clockOptions)
-  .setData(getClockData(), {
-          values: {
-            show: true
-          }
-        })
-  .start(1000, 0.5);
+    .init(clockOptions)
+    .setData(getClockData(), {
+      values: {
+        show: true
+      }
+    })
+    .start(1000, 0.5);
 }
 
 function getClockData() {
