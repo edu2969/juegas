@@ -8,45 +8,21 @@
 		padding-left: 0.4em;
 	}
 	
-	.seccion-estatica {
-		.encabezado {
-			
-			p {
-				width: 100px;
-				text-align: center;
-				margin: auto auto 20px auto;
-				height: 81px;
-				display: table-cell;
-  			vertical-align: bottom;
-				justify-content: center;
-				overflow: hidden;
-			}
-		}
-		
-		.datos {
-			width: 140px;
-			
-			.celda.alumno {
-				height: 48px;
-			}
-			
-			.nombres, .apellidos {
-				text-align: left;
-				display: inline-block;
-				width: 120px;
-				white-space: nowrap;
-				overflow: hidden !important;
-				text-overflow: ellipsis;
-			}
-		}
-	}
-	
 	.entregas {
 		overflow-x: scroll;
 		width: 100%;
+		margin-bottom: 64px;
 		
 		table {
 			border-spacing: 0px;
+			
+			th.cabecera {
+				p {
+					width: 140px;
+					text-align: center;
+					margin-top: 48px;
+				}
+			}
 			
 			th.rotated {
 				height: 80px;
@@ -76,6 +52,23 @@
 						margin-left: 4px;
 						margin-top: 4px;
 					}
+				}
+			}
+
+			th.estatica {
+				width: 140px;
+
+				.celda.alumno {
+					height: 48px;
+				}
+
+				.nombres, .apellidos {
+					text-align: left;
+					display: inline-block;
+					width: 120px;
+					white-space: nowrap;
+					overflow: hidden !important;
+					text-overflow: ellipsis;
 				}
 			}
 			

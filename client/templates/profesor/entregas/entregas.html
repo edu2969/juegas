@@ -7,23 +7,11 @@
 	</select>	
 	
 	<div class="tabla">
-		<div class="seccion-estatica">
-			<div class="encabezado">
-				<p>ALUMNO</p>
-			</div>
-			<div class="datos">
-				{{#each alumnos}}
-				<div class="celda alumno" id="{{_id}}">
-					<div class="nombres">{{nombres}}</div>
-					<div class="apellidos">{{apellidos}}</div>
-				</div>
-				{{/each}}
-			</div>
-		</div>
 		<div class="entregas">
 			<table>
-				<thead>
+				<thead>					
 					<tr>
+						<th class="cabecera"><p>ALUMNOS</p></th>
 						{{#each tareas}}
 						<th class="rotated" id="{{_id}}">
 							<div class="periodo">
@@ -43,6 +31,12 @@
 				<tbody>
 					{{#each alumnos}}
 					<tr>
+						<th class="estatica">
+							<div class="celda alumno">
+								<div class="nombres">{{nombres}}</div>
+								<div class="apellidos">{{apellidos}}</div>
+							</div>
+						</th>
 						{{#each entregas}}
 						<td id="{{_id}}" style="background-color: {{celda.color}}">
 							<i class="material-icons">{{celda.icono}}</i>
