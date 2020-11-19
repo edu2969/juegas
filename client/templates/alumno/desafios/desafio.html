@@ -6,15 +6,23 @@
 		<div class="detalle">
 			<h1><span class="material-icons">{{desafio.asignaturaObj.icon}}</span> Desafío <small> en {{desafio.asignaturaObj.label}}</small></h1>
 			<div class="video">
+				{{#if desafio.url}}
 				<iframe width="400" height="315" src="{{desafio.url}}">
 				</iframe>
+				{{/if}}
+				{{#if desafio.video}}
+				<video controls>
+					<source src="{{desafio.video}}" type="video/mp4">					
+					Your browser does not support the video tag.
+				</video>
+				{{/if}}
 			</div>
 			<div class="descripcion">
 				<div class="encabezado">
 					<i class="material-icons">keyboard_arrow_down</i>
 					&nbsp;<span>EL DESAFÍO</span>
 				</div>
-				<p>{{desafio.descripcion}}</p>
+				<p>{{{desafio.descripcion}}}</p>
 			</div>
 
 			<div class="marco-fotografias">

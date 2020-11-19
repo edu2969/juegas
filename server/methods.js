@@ -71,16 +71,16 @@ Meteor.methods({
 
 	// TEST
 	_TestTareas() {
-		let desde = moment().startOf("day").hour(10);
-		let hasta = moment(desde).add(2, "days").hour(18);
+		let desde = moment("19/11/2020 08:00", "DD/MM/YYYY HH:mm");
+		let hasta = moment("20/11/2020 08:00", "DD/MM/YYYY HH:mm");
 		Tareas.insert({
 			asignatura: "HIST",
 			nivel: "7",
-			titulo: "Arturo Prat contra el Huáscar",
-			descripcion: "A partir de la explicación del profesor, elaborar un trabajo que incluya una portada y su contenido, relatando tu versión de la caída del imperio Arcano, dibuja un recuadro de la vida de los pueblos en su apogeo. Finalmente, fotografía cada hoja y envíala.",
+			titulo: "El islam en la edad Media",
+			descripcion: "<p>Instrucciones: </p><ul><li>Responde las actividades de acuerdo a lo aprendido en la cápsula.</li><li>Al terminar la evaluación recuerda enviarla al WhatsApp de tu profesor.</li><li>Cualquier duda o consulta lo puedes hacer al WhatsApp de tu profesor.</li></ul><ol><li><p>Según el gráfico de crecimiento de la población en la edad media ¿cuánto es el aumento de la población entre los años 1150 y 1250?<img src='/img/tareas/tarea01.jpeg'></p></li><li>Buscar el significado de:<ul><li>Esperanza de vida: ______________</li><li>Demografía: _____________________</li><li>Tasa de mortalidad: _____________</li></ul></li><li><p>Según la fuente de la pág. 155 de tu texto escolar ¿Quiénes se ven beneficiadas ante las mejoras alimenticias y de qué forma?</p><img src='/img/tareas/tarea02.jpeg'></li><li>Averigüe que factor provoco el descenso demográfico repentino en Europa entre los años 1350 y 1450.</li></ol>",
 			desde: desde.toDate(),
 			hasta: hasta.toDate(),
-			url: "https://www.youtube.com/embed/vrziuvvARhU?autoplay=1"
+			video: "/videos/video01.mp4"
 		});
 	},
 	_DatosIniciales() {
