@@ -66,9 +66,7 @@ Template.desafio.events({
 		Session.set("ImagenSeleccionada", img && img.link());
     document.querySelector(".marco-foto-full")
 			.classList.toggle("activo");
-	},
-	
-	
+	},	
   "dragover .camara": function (e, t) {
     e.stopPropagation();
     e.preventDefault();

@@ -33,6 +33,10 @@ Meteor.publish('misentregas', function(alumnoId, tareaId) {
 	return Images.find({ userId: alumnoId, "meta.tareaId": tareaId }).cursor;
 });
 
+Meteor.publish('capsula', function(tareaId) {
+	return Capsulas.find({ "meta.tareaId": tareaId }).cursor;
+});
+
 Meteor.publish('entregasPorNivel', function(nivel) {
 	let alumnosId = Meteor.users.find({ "profile.curso": nivel }).map(function(alumno) {
 		return alumno._id;

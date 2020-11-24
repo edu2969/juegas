@@ -27,6 +27,13 @@ Meteor.methods({
 	IngresarTarea(doc) {
 		Tareas.insert(doc);
 	},
+	GuardarTarea(tareaId, doc) {
+		if(tareaId) {
+			Tareas.update({ _id: tareaId }, { $set: doc });
+		} else {
+			Tareas.insert(doc);
+		}		
+	},
 
 	// MISCELANEOS
 	uploadS: (bstr, name) => {

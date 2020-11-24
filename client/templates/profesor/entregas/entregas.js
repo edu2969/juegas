@@ -45,8 +45,36 @@ Template.entregas.helpers({
 Template.entregas.events({
 	"click th.rotated"(e) {
 		const id = e.currentTarget.id;
-		const tarea = Tareas.findOne({ _id: id });
-		Session.set("TareaSeleccionada", tarea);
+		["video", "youtube", "url"].forEach(function(tipo) {
+			document.querySelector("#tipo-" + tipo).style.display = 'none';
+		});
+		let tarea = {};
+		if( id ) {
+			tarea = Tareas.findOne({ _id: id });
+			Session.set("TareaSeleccionada", tarea);
+			//document.querySelector("#input-desde").value = moment(tarea.desde).format("DD/MM/YYYY HH:mm");
+			//document.querySelector("#input-hasta").value = moment(tarea.hasta).format("DD/MM/YYYY HH:mm");
+
+			/*$('#input-desde').datetimepicker({
+				format: 'DD/MM/YYYY HH:mm',
+				defaultDate: moment(tarea.desde)
+			});
+
+			$('#input-hasta').datetimepicker({
+				format: 'DD/MM/YYYY HH:mm',
+				defaultDate: moment(tarea.hasta)
+			});	*/		
+		} else {			
+			Session.set("TareaSeleccionada", tarea);
+		}
+		
+		let tipo = "video";
+		if( tarea.url ) 
+			tipo = "url"; 
+		else if( tarea.youtube ) 
+			tipo = "youtube";
+		document.querySelector("#tipo-" + tipo).style.display = 'block';
+		document.querySelector("input[name='tipo-" + tipo + "']").checked = true;
     document.querySelector(".contenedor-tarea").classList.toggle("activo");
 	},
 	"click td"(e) {
