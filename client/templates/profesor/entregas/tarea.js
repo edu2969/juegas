@@ -103,6 +103,7 @@ Template.tarea.events({
 		t.$(".uploading-video").addClass("activo");
     var tarea = Session.get("TareaSeleccionada");
     if (e.originalEvent.dataTransfer.files && e.originalEvent.dataTransfer.files[0]) {
+			Capsulas.remove({ "meta.tareaId": tarea._id });
       const upload = Capsulas.insert({
         file: e.originalEvent.dataTransfer.files[0],
         streams: 'dynamic',
@@ -134,6 +135,7 @@ Template.tarea.events({
   'change #upload-video'(e) {
     var tarea = Session.get("TareaSeleccionada");
     if (e.currentTarget.files && e.currentTarget.files[0]) {
+			Capsulas.remove({ "meta.tareaId": tarea._id });
       const upload = Capsulas.insert({
         file: e.currentTarget.files[0],
         streams: 'dynamic',

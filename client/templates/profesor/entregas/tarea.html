@@ -19,11 +19,11 @@
 				{{> htmleditor}}
 			</div>			
 			<div class="campo-formulario">
-				<input type="radio" name="tipo-video" value="video"> Video MP4
-				<input type="radio" name="tipo-youtube" value="youtube"> Youtube
-				<input type="radio" name="tipo-url" value="url"> URL
+				<input id="radio-video" type="radio" name="tipo-capsula" value="video"> Video MP4
+				<input id="radio-youtube" type="radio" name="tipo-capsula" value="youtube"> Youtube
+				<input id="radio-url" type="radio" name="tipo-capsula" value="url"> URL
 			</div>
-			<div class="campo-formulario" id="tipo-video">
+			<div class="campo-formulario cuadro-capsula" id="tipo-video">
 				<div class="label">Arrastre su video</div>
 				<div class="marco-video-upload">
 					<div class="video">
@@ -46,11 +46,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="campo-formulario" id="tipo-youtube">
+			<div class="campo-formulario cuadro-capsula" id="tipo-youtube">
 				<div class="label">URL Cápsula</div>
 				<input type="text" id="input-youtube" class="campo" value="{{tarea.youtube}}">				
 			</div>
-			<div class="campo-formulario" id="tipo-url">
+			<div class="campo-formulario cuadro-capsula" id="tipo-url">
 				<div class="label">URL Cápsula</div>
 				<input type="text" id="input-url" class="campo" value="{{tarea.url}}">				
 			</div>

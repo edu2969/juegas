@@ -64,9 +64,10 @@ Template.entregas.events({
 			else if( tarea.youtube ) 
 				tipo = "youtube";
 			Session.set("TareaSeleccionada", tarea);
-			$("#summernote").summernote("code", tarea.descripcion);
+			$("#summernote").summernote("code", tarea.descripcion ? tarea.descripcion : "");
+			document.querySelector(".cuadro-capsula").style.display = 'none';
 			document.querySelector("#tipo-" + tipo).style.display = 'block';
-			document.querySelector("input[name='tipo-" + tipo + "']").checked = true;
+			document.querySelector("#radio-" + tipo).checked = true;
 			document.querySelector(".contenedor-tarea").classList.toggle("activo");
 		}
 		

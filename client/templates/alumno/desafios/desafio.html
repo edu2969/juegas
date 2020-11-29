@@ -31,13 +31,13 @@
 			</div>
 
 			<div class="marco-fotografias">
-				{{#unless entrega}}
+				{{#if entrega.abierta}}
 				<div class="camara">
 					<i class="material-icons">photo_camera</i><br />
 					<p>Tomar / Arrastrar<br />fotografía</p>
 					<div class="drop-texto"></div>					
 				</div>
-				{{/unless}}
+				{{/if}}
 				<div class="fotos">
 					{{#each fotos}}
 					<div class="foto" id={{_id}}>
@@ -59,14 +59,14 @@
 				<input type="file" id="upload-image" style="display: none;">
 			</div>
 			
-			{{#unless entrega}}
+			{{#if entrega.abierta}}
 			<button class="btn-juegas btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
 				<i class="material-icons">send</i>
 				<span>Enviar desafío a revisión</span>
 			</button>
-			{{/unless}}
+			{{/if}}
 			
-			{{#if entrega}}
+			{{#if entrega.calificacion}}
 			<div class="marco-calificacion">
 				<h4>Has sido calificado con un:</h4>
 				<div class="calificacion" style="background-color: {{entrega.calificacion.color}}">

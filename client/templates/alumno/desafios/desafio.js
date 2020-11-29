@@ -50,6 +50,11 @@ Template.desafio.helpers({
 		var entrega = Entregas.findOne();
 		if(!entrega) return false;
 		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
+		let desafio = Session.get("DesafioSeleccionado");
+		const fechaLimite = moment(desafio.hasta);
+		if( moment().isBefore(fechaLimite) && !entrega.evaluacion ) {
+			entrega.abierta = true;
+		}
 		return entrega;
 	}
 })
