@@ -6,16 +6,21 @@
 		<div class="detalle">
 			<h1><span class="material-icons">{{desafio.asignaturaObj.icon}}</span> Desafío <small> en {{desafio.asignaturaObj.label}}</small></h1>
 			<div class="video">
-				{{#if desafio.url}}
-				<iframe width="400" height="315" src="{{desafio.url}}">
-				</iframe>
+				{{#if capsula}}
+				<video src="{{capsula}}" controls></video>
+				{{else}}
+					{{#if desafio.url}}
+					<iframe width="400" height="315" src="{{desafio.url}}">
+					</iframe>
+					{{/if}}
+					{{#if desafio.video}}
+					<video controls>
+						<source src="{{desafio.video}}" type="video/mp4">					
+						Your browser does not support the video tag.
+					</video>
+					{{/if}}
 				{{/if}}
-				{{#if desafio.video}}
-				<video controls>
-					<source src="{{desafio.video}}" type="video/mp4">					
-					Your browser does not support the video tag.
-				</video>
-				{{/if}}
+
 			</div>
 			<div class="descripcion">
 				<div class="encabezado">
@@ -55,7 +60,7 @@
 			</div>
 			
 			{{#unless entrega}}
-			<button class="btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
+			<button class="btn-juegas btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
 				<i class="material-icons">send</i>
 				<span>Enviar desafío a revisión</span>
 			</button>

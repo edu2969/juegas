@@ -60,8 +60,14 @@ Template.tarea.events({
 				doc[atributo] = valor;	
 			}
 		});
+		
 		if(tipo=="V") {
 			delete doc["url"];
+		}
+		
+		var descripcion = $("#summernote").summernote("code");
+		if( descripcion != tarea.descripcion ) {
+			doc.descripcion = descripcion;
 		}
 		
 		if( !IsEmpty(doc) ) {

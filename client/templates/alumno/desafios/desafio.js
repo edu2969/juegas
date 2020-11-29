@@ -1,5 +1,5 @@
 export {
-  Images
+  Images, Capsulas
 };
 
 var currentUpload;
@@ -10,7 +10,8 @@ Template.desafio.onCreated(function () {
 	Tracker.autorun(() => {
 		const desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return;
-		Meteor.subscribe('misentregas', Meteor.userId(), desafio._id);
+		Meteor.subscribe("misentregas", Meteor.userId(), desafio._id);
+		Meteor.subscribe("capsula", desafio._id);
 	});
 });
 
@@ -20,6 +21,12 @@ Template.desafio.helpers({
 		if(!desafio) return;
 		desafio.asignaturaObj = ASIGNATURAS[desafio.asignatura];
 		return desafio;
+	},
+	capsula() {
+		let desafio = Session.get("DesafioSeleccionado");
+		if(!desafio) return;
+		let capsula = Capsulas.findOne();
+		return capsula && capsula.link();
 	},
 	fotos() {
 		const desafio = Session.get("DesafioSeleccionado");

@@ -17,10 +17,13 @@ Template.entregas.helpers({
 		return Meteor.users.find({ "profile.curso": nivel }).map(function(alumno) {
 			let entregas = Tareas.find().map(function(tarea) {
 				const entrega = Entregas.findOne({ tareaId: tarea._id, alumnoId: alumno._id });
-				return {
-					_id: entrega && entrega._id,
+				let docEntrega = {
 					celda: EVALUACIONES[( entrega && entrega.evaluacion ) || ( entrega && "OK" ) || "SR"]			
+				};
+				if( entrega && entrega._id ) {
+					docEntrega._id = entrega._id;
 				}
+				return docEntrega;
 			});
 			return {
 				_id: alumno._id,
@@ -44,6 +47,29 @@ Template.entregas.helpers({
 
 Template.entregas.events({
 	"click th.rotated"(e) {
+		const renderTarea = (tarea) => {
+			$('#input-desde').datetimepicker({
+				format: 'DD/MM/YYYY HH:mm',
+				defaultDate: moment(tarea.desde, "DD/MM/YYYY HH:mm")
+			});
+
+			$('#input-hasta').datetimepicker({
+				format: 'DD/MM/YYYY HH:mm',
+				defaultDate: moment(tarea.hasta, "DD/MM/YYYY HH:mm")
+			});
+
+			let tipo = "video";
+			if( tarea.url ) 
+				tipo = "url"; 
+			else if( tarea.youtube ) 
+				tipo = "youtube";
+			Session.set("TareaSeleccionada", tarea);
+			$("#summernote").summernote("code", tarea.descripcion);
+			document.querySelector("#tipo-" + tipo).style.display = 'block';
+			document.querySelector("input[name='tipo-" + tipo + "']").checked = true;
+			document.querySelector(".contenedor-tarea").classList.toggle("activo");
+		}
+		
 		const id = e.currentTarget.id;
 		["video", "youtube", "url"].forEach(function(tipo) {
 			document.querySelector("#tipo-" + tipo).style.display = 'none';
@@ -51,31 +77,20 @@ Template.entregas.events({
 		let tarea = {};
 		if( id ) {
 			tarea = Tareas.findOne({ _id: id });
+			renderTarea(tarea);
+		} else {
+			tarea.desde = moment().startOf("day").hour(8).toDate();
+			tarea.hasta = moment().startOf("day").add(44, "hour").toDate();
 			Session.set("TareaSeleccionada", tarea);
-			//document.querySelector("#input-desde").value = moment(tarea.desde).format("DD/MM/YYYY HH:mm");
-			//document.querySelector("#input-hasta").value = moment(tarea.hasta).format("DD/MM/YYYY HH:mm");
-
-			/*$('#input-desde').datetimepicker({
-				format: 'DD/MM/YYYY HH:mm',
-				defaultDate: moment(tarea.desde)
-			});
-
-			$('#input-hasta').datetimepicker({
-				format: 'DD/MM/YYYY HH:mm',
-				defaultDate: moment(tarea.hasta)
-			});	*/		
-		} else {			
-			Session.set("TareaSeleccionada", tarea);
+			Meteor.call("GuardarTarea", false, tarea, function(err, resp) {
+				if(!err) {
+					tarea._id = resp;
+					renderTarea(tarea);
+				} else {
+					console.ward("Ha habido un error al crear la tarea");
+				}
+			});			
 		}
-		
-		let tipo = "video";
-		if( tarea.url ) 
-			tipo = "url"; 
-		else if( tarea.youtube ) 
-			tipo = "youtube";
-		document.querySelector("#tipo-" + tipo).style.display = 'block';
-		document.querySelector("input[name='tipo-" + tipo + "']").checked = true;
-    document.querySelector(".contenedor-tarea").classList.toggle("activo");
 	},
 	"click td"(e) {
 		const id = e.currentTarget.id;

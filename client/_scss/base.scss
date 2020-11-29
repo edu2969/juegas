@@ -43,7 +43,7 @@ small {
   color: darkgray;
 }
 
-button {
+button.btn-juegas {
   color: white;
   border-radius: 1.6em;
   background: #05BCC6;
@@ -66,8 +66,19 @@ select {
   color: black;
 }
 
-button i.material-icons {
-  font-size: 12px;
+button {
+	position: relative;
+	&.btn-juegas {
+		span {
+			position: relative;
+			top: -5px;
+		}
+		
+		.material-icons {
+  		font-size: 24px;
+			margin: 0px;
+		}
+	}
 }
 
 h4 {

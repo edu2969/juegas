@@ -24,14 +24,12 @@ Meteor.methods({
 	},
 
 	// Profesores
-	IngresarTarea(doc) {
-		Tareas.insert(doc);
-	},
 	GuardarTarea(tareaId, doc) {
 		if(tareaId) {
 			Tareas.update({ _id: tareaId }, { $set: doc });
+			return tareaId;
 		} else {
-			Tareas.insert(doc);
+			return Tareas.insert(doc);
 		}		
 	},
 

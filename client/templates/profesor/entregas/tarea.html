@@ -5,7 +5,7 @@
 		</div>
 		<div class="detalle">
 			<h1>
-				{{#if tarea}}
+				{{#if tarea.descripcion}}
 					<span class="material-icons">create</span> Editar Desafío
 				{{else}}
 					<span class="material-icons">add_task</span> Nuevo Desafío
@@ -15,8 +15,7 @@
 				<div class="label">Título</div>
 				<input type="text" id="input-titulo" class="campo" value="{{tarea.titulo}}">
 			</div>
-			<div class="campo-formulario">
-				<div class="label">Descripión</div>
+			<div class="campo-descripcion">
 				{{> htmleditor}}
 			</div>			
 			<div class="campo-formulario">
@@ -68,9 +67,14 @@
 				<i class="material-icons">calendar_today</i>				
 			</div>
 
-			<button class="btn-guardar-tarea">
+			<button class="btn-juegas btn-guardar-tarea">
 				<i class="material-icons">save</i>
 				<span>Guardar TAREA</span>
+			</button>
+			
+			<button class="btn-juegas btn-eliminar-tarea">
+				<i class="material-icons">delete_forever</i>
+				<span>ELIMINAR</span>
 			</button>
 
 		</div>

@@ -32,6 +32,11 @@
 		height: calc(100vh - 120px);
 	}
 	
+	.campo-descripcion {
+		text-align: justify;
+		margin: 0px 0.5em;
+	}
+	
 	.campo-formulario {
 		max-width: 320px;
 		margin: 0.7em auto;
@@ -155,11 +160,17 @@
 	}
 
 	button {
-		margin-top: 10px;
-		margin-bottom: 10px;
-		width: calc(100% - 20px);
-		max-width: 320px;
-		font-size: 16px;
-		padding: 10px;
+		&.btn-juegas {
+			margin-top: 10px;
+			margin-bottom: 10px;
+			width: calc(100% - 20px);
+			max-width: 320px;
+			font-size: 16px;
+			padding: 10px;
+		}
+
+		&.btn-eliminar-tarea {
+			background-color: salmon;
+		}
 	}
 }
