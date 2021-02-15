@@ -22,6 +22,13 @@
 						</th>
 						{{/each}}
 						<th class="rotated">
+							<div class="periodo nota{{promedio}}">
+								<div class="promedio">
+									PROMEDIO
+								</div>								
+							</div>
+						</th>
+						<th class="rotated">
 							<div class="periodo">
 								<div class="numero">
 									<i class="material-icons">add_task</i>
@@ -50,6 +57,9 @@
 						</td>
 						{{/if}}
 						{{/each}}
+						<td style="background-color: rgb({{promedio.color1}}); color: white;">
+							{{promedio.valor}}
+						</td>
 					</tr>
 					{{/each}}
 				</tbody>

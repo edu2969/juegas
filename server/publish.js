@@ -1,3 +1,7 @@
+Meteor.publish('cuentas', function() {
+	return Meteor.users.find();
+});
+
 Meteor.publish('desafios', function() {
 	return Tareas.find();
 });

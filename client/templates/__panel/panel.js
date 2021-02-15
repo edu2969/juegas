@@ -4,10 +4,12 @@ Template.panel.onCreated(function () {
 
 Template.panel.rendered = function () {
   let estado = Session.get("EstadoApp");
-  if( !estado.esAdmin ) {
-    let home = estado.esAlumno ? 'agenda' : estado.esProfesor ? 'entregas' : 'panel-gestion';
-    UIUtils.toggleVisible('area', home);    
-  }
+	
+	let home = estado.esAlumno ? 'agenda' : 
+	estado.esProfesor ? 'entregas' : 
+	estado.esAdmin ? 'cuentas' : 'panel-gestion';	
+	
+	UIUtils.toggleVisible('area', home);  
 }
 
 Template.panel.helpers({

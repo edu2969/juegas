@@ -4,39 +4,111 @@ ASIGNATURAS = {
 	"HIST": {
 		icon: "history_edu",
 		label: "Historia"
-	}
+	},
+	"MATE": {
+		icon: "calculate",
+		label: "Matemáticas"
+	},
+	"INGL": {
+		icon: "closed_caption",
+		label: "Inglés"
+	},
+	"CIEN": {
+		icon: "science",
+		label: "Ciencias"
+	},
+	"ORIE": {
+		icon: "explore",
+		label: "Orientación"
+	},
+	"MUSI": {
+		icon: "music_note",
+		label: "Música"
+	},
+	"RELI": {
+		icon: "add_location",
+		label: "Religión"
+	},
+	"TECH": {
+		icon: "memory",
+		label: "Tecnología"
+	},
 }
-	
+
 EVALUACIONES = {
 	"EX": {
 		icono: 'military_tech',
 		color: 'green',
-		etiqueta: 'Excelente'
+		etiqueta: 'Excelente',
+		ponderacion: 1
 	},
 	"MB": {
 		icono: 'stars',
 		color: 'limegreen',
-		etiqueta: 'Muy Bien'
+		etiqueta: 'Muy Bien',
+		ponderacion: 0.86
 	},
 	"BI": {
 		icono: 'check_circle',
 		color: 'yellow',
-		etiqueta: 'Bien'
+		etiqueta: 'Bien',
+		ponderacion: 0.7
 	},
 	"ME": {
 		icono: 'feedback',
 		color: 'orange',
-		etiqueta: 'Mejorable'
+		etiqueta: 'Mejorable',
+		ponderacion: 0.59
 	},
 	"SR": {
 		icono: 'remove_circle',
 		color: 'red',
-		etiqueta: 'Sin realizar'
+		etiqueta: 'Sin realizar',
+		ponderacion: 0
 	},
 	"OK": {
 		icono: 'notifications_paused',
 		color: 'lightgray',
-		etiqueta: 'Sin revisar'
+		etiqueta: 'Sin revisar',
+		ponderacion: -1
+	}
+}
+
+CALIFICACIONES = {
+	"A": {
+		colores: ["187,211,158", "221,232,201"],
+		glosa: "El estudiante muestra un grado lo logro alto",
+		aprueba(valor) {
+			return valor >= 0.86;
+		}
+	},
+	"B": {
+		colores: ["41,175,188", "157,219,224"],
+		glosa: "El estudiante muestra un grado lo logro adecuado",
+		aprueba(valor) {
+			return valor >= 0.71 && valor < 0.86;
+		}
+	},
+	"C": {
+		colores: ["152,133,181", "210,198,224"],
+		glosa: "El estudiante puede realizar un mayor progreso de su aprendizaje",
+		aprueba(valor) {
+			return valor >= 0.60 && valor < 0.71;
+		}
+	},
+	"D": {
+		colores: ["206,130,174", "234,208,224"],
+		glosa: "El estudiante requiere apoyo específico para alcanzar un mayor grado de aprendizaje",
+		aprueba(valor) {
+			return valor && valor < 0.60;
+		}
+	},
+	"E": {
+		colores: ["232,106,47", "242,212,207"],
+		glosa: "Sin información. No existe evidencia del estudiante para reportar su aprendizaje",
+		aprueba(valor) {
+			return !valor;
+		}
 	}
 }
 

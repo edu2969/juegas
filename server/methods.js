@@ -1,6 +1,46 @@
 var XLSX = Npm.require('xlsx');
 
 Meteor.methods({
+	// Core
+	ActualizarCuenta(doc) {
+		if(doc._id) {
+			let docSet = {};
+			if(doc.username) {
+				docSet.username = doc.username;
+				delete doc.username;
+			}
+			let id = doc._id;
+			delete doc._id;
+			delete doc.perfil;
+			let password;
+			if(doc.password) {
+				password = doc.password;
+				delete doc.password;
+			}
+			Object.keys(doc).forEach((key) => {
+				let valor = doc[key];
+				docSet["profile." + key] = valor;
+			});
+			Meteor.users.update({
+				_id: id
+			}, { $set: docSet });
+			if(password) {
+				Accounts.setPassword(id, password);
+			}
+		} else {
+			let docNew = {
+				username: doc.username,
+				password: doc.password,
+				profile: {
+					nombres: doc.nombres,
+					apellidos: doc.apellidos,
+					rol: doc.perfil
+				}
+			};
+			Accounts.createUser(docNew);
+		}
+  },
+	
 	// Alumnos
 	EnviarDesafio(tareaId) {
 		Entregas.insert({
@@ -29,6 +69,8 @@ Meteor.methods({
 			Tareas.update({ _id: tareaId }, { $set: doc });
 			return tareaId;
 		} else {
+			let profesor = Meteor.user();
+			doc.asignatura = profesor.profile.asignaturas[0];
 			return Tareas.insert(doc);
 		}		
 	},

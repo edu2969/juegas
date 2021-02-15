@@ -157,7 +157,4 @@ Template.tarea.events({
       upload.start();
     }
   },
-	
-	
-	
 });

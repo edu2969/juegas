@@ -5,6 +5,9 @@ Template.menu.helpers({
 	esAlumno() {
 		return Meteor.user() && Meteor.user().profile.rol == 2;
 	},
+	esAdmin() {
+		return Meteor.user() && Meteor.user().profile.rol == 1;
+	},
 	asignaturas() {
 		var keys = Object.keys(ASIGNATURAS);
 		return keys.map(function(key) {

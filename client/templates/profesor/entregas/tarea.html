@@ -12,8 +12,24 @@
 				{{/if}}
 			</h1>
 			<div class="campo-formulario">
-				<div class="label">Título</div>
-				<input type="text" id="input-titulo" class="campo" value="{{tarea.titulo}}">
+				<div class="label">Nombre Unidad</div>
+				<input type="text" id="input-unidad" class="campo" value="{{tarea.unidad}}">
+			</div>
+			<div class="campo-formulario">
+				<div class="label">Objetivo</div>
+				<input type="text" id="input-objetivo" class="campo" value="{{tarea.objetivo}}">
+			</div>
+			<div class="campo-formulario">
+				<div class="label">¿Qué aprenderán?</div>
+				<textarea id="input-que" class="campo" rows="3"></textarea>
+			</div>
+			<div class="campo-formulario">
+				<div class="label">¿Para qué lo aprenderán?</div>
+				<textarea id="input-paraque" class="campo" rows="3"></textarea>
+			</div>
+			<div class="campo-formulario">
+				<div class="label">¿Cómo lo aprenderán?</div>
+				<textarea id="input-como" class="campo" rows="3"></textarea>
 			</div>
 			<div class="campo-descripcion">
 				{{> htmleditor}}

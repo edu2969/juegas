@@ -15,21 +15,36 @@ Template.entregas.helpers({
 	alumnos() {
 		const nivel = Template.instance().nivel.get();
 		return Meteor.users.find({ "profile.curso": nivel }).map(function(alumno) {
+			var sumatoria = 0;
+			var cantidad = 0;
 			let entregas = Tareas.find().map(function(tarea) {
 				const entrega = Entregas.findOne({ tareaId: tarea._id, alumnoId: alumno._id });
+				var evaluacion = EVALUACIONES[( entrega && entrega.evaluacion ) || ( entrega && "OK" ) || "SR"];
 				let docEntrega = {
-					celda: EVALUACIONES[( entrega && entrega.evaluacion ) || ( entrega && "OK" ) || "SR"]			
+					celda: evaluacion
 				};
+				let ponderacion = EVALUACIONES[( entrega && entrega.evaluacion ) || ( entrega && "OK" ) || "SR"].ponderacion;
+				sumatoria += ponderacion != -1 && ponderacion;
+				cantidad += ponderacion != -1;
 				if( entrega && entrega._id ) {
 					docEntrega._id = entrega._id;
 				}
 				return docEntrega;
 			});
+			let promedio = sumatoria && ( sumatoria / cantidad );
+			let calificacion = Object.keys(CALIFICACIONES).filter((key) => {
+				return CALIFICACIONES[key].aprueba(promedio);
+			})[0];			
 			return {
 				_id: alumno._id,
 				nombres: alumno.profile.nombres,
 				apellidos: alumno.profile.apellidos,
-				entregas: entregas
+				entregas: entregas,
+				promedio: {
+					valor: calificacion,
+					color1: CALIFICACIONES[calificacion].colores[0],
+					color2: CALIFICACIONES[calificacion].colores[1]
+				}
 			}
 		});
 	},

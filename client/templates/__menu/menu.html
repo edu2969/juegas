@@ -63,9 +63,10 @@
 			</div>
 			
 		</div>
-		{{else}}
-		<div class="contenedor-leyendas">
-			
+		{{/if}}
+		
+		{{#if esProfesor}}
+		<div class="contenedor-leyendas">			
 			<div class="contenedor-leyenda">
 				<h3>INSTRUCCIONES</h3>
 				<p class="parrafo">Cada casilla muestra el estado de una entrega, que puede ser, estado de espera ó la evaluación.</p>
@@ -83,8 +84,13 @@
 					<p>{{etiqueta}}</p>
 				</div>
 				{{/each}}
-			</div>
-			
+			</div>			
+		</div>
+		{{/if}}
+		
+		{{#if esAdmin}}
+		<div class="contenedor-leyendas">
+			<h3>Hola EdU!</h3>
 		</div>
 		{{/if}}
 		

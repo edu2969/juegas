@@ -41,6 +41,7 @@ Template.desafios.events({
 		const id = e.currentTarget.id;
 		const desafio = Tareas.findOne({ _id: id });
 		Session.set("DesafioSeleccionado", desafio);
+		console.log(desafio);
     document.querySelector(".contenedor-desafio").classList.toggle("activo");
 	}
 });

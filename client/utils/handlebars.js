@@ -6,6 +6,10 @@ Handlebars.registerHelper("formatoFecha", function (date, mask) {
   return m.format(mask);
 });
 
+Handlebars.registerHelper("selectValor", (valor1, valor2) => {
+	return valor1==valor2 ? 'selected' : '';
+});
+
 Handlebars.registerHelper("version", () => {
 	return VERSION;
 });

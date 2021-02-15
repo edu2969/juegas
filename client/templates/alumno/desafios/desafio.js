@@ -47,11 +47,13 @@ Template.desafio.helpers({
 		return Images.find({ "meta.tareaId": desafio._id }).count();
 	},
 	entrega() {
-		var entrega = Entregas.findOne();
-		if(!entrega) return false;
-		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
 		let desafio = Session.get("DesafioSeleccionado");
+		if(!desafio) return false;
+		var entrega = Entregas.findOne({ tareaId: desafio._id });
+		if(!entrega) entrega = {};
+		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
 		const fechaLimite = moment(desafio.hasta);
+		console.log(fechaLimite.format());
 		if( moment().isBefore(fechaLimite) && !entrega.evaluacion ) {
 			entrega.abierta = true;
 		}

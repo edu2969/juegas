@@ -32,6 +32,12 @@
 					width: 96px;
 					transform: translate(5px, 4px)
 						rotate(315deg);
+					
+					.promedio {
+						background-color: azure;
+						padding-left: 10px;
+						border-radius: 3px;
+					}
 
 					.numero {
 						border-bottom: 2px solid #ccc;
