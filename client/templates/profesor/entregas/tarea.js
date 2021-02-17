@@ -43,7 +43,8 @@ Template.tarea.events({
 			.classList.toggle("activo");
 	},
 	"click input[type='radio']"(e) {
-		console.log(e.currentTarget.value);
+		$(".cuadro-capsula").hide();
+		$("#tipo-" + e.currentTarget.id.split("-")[1]).show();
 	},
 	"click .btn-guardar-tarea"() {
 		const tarea = Session.get("TareaSeleccionada");

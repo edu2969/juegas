@@ -19,6 +19,9 @@
 						Your browser does not support the video tag.
 					</video>
 					{{/if}}
+					{{#if desafio.youtube}}
+						<div class="youtube" id="{{desafio.youtubeId}}" style="width:560px; height: 315px;"></div>
+					{{/if}}
 				{{/if}}
 
 			</div>
@@ -44,12 +47,12 @@
 						<div class="marco-desafio">
 							<img src="{{imagen}}">
 							<p class="nombre" id="{{_id}}">Página {{indice}}</p>
-							{{#unless entrega}}
+							{{#if entrega.abierta}}
 							<div class="eliminar" id="{{_id}}">
 								<i class="material-icons">clear</i>
 								<span>Eliminar</span>
 							</div>
-							{{/unless}}
+							{{/if}}
 						</div>
 					</div>
 					{{else}}

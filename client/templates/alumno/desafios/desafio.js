@@ -15,11 +15,18 @@ Template.desafio.onCreated(function () {
 	});
 });
 
+Template.desafio.rendered = function() {
+	const desafio = Session.get("DesafioSeleccionado");
+}
+
 Template.desafio.helpers({
 	desafio() {
 		let desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return;
 		desafio.asignaturaObj = ASIGNATURAS[desafio.asignatura];
+		if(desafio.youtube) {
+			desafio.youtubeId = desafio.youtube.split("?v=")[1];
+		}
 		return desafio;
 	},
 	capsula() {
@@ -53,7 +60,6 @@ Template.desafio.helpers({
 		if(!entrega) entrega = {};
 		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
 		const fechaLimite = moment(desafio.hasta);
-		console.log(fechaLimite.format());
 		if( moment().isBefore(fechaLimite) && !entrega.evaluacion ) {
 			entrega.abierta = true;
 		}

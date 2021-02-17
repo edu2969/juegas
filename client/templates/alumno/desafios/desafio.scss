@@ -39,6 +39,11 @@
 			video {
 				width: 100%;
 			}
+			
+			.thumb {
+				width: 400px;
+				margin-left: 50%;
+			}
 		}
 		
 		.descripcion {			
@@ -100,12 +105,11 @@
 			}
 			
 			.fotos {
-				display: block;
+				display: flex;
 				width: calc(100% - 120px);
 				
 				.foto {
 					.marco-desafio {
-						display: flex;
 						margin-left: 16px;
 						border: 2px solid gray;
 						border-radius: 4px;
@@ -127,12 +131,10 @@
 						.eliminar {
 							background-color: orangered;
 							border-radius: 3px;
-							padding: 2px;
+							padding: 2px 8px;
 							color: white;
 							height: 30px;
-							width: 230px;
-							margin-top: 10px;
-							margin-right: 8px;
+							margin: 2px;
 							
 							i {
 								margin-top: 1px;

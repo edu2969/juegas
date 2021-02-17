@@ -29,9 +29,9 @@
 				padding-bottom: 16px;
 
 				.periodo {
-					width: 96px;
-					transform: translate(5px, 4px)
-						rotate(315deg);
+					width: 62px;
+					transform: translate(0px, 14px)
+						rotate(305deg);
 					
 					.promedio {
 						background-color: azure;
@@ -65,7 +65,7 @@
 				width: 140px;
 
 				.celda.alumno {
-					height: 48px;
+					height: 48px;					
 				}
 
 				.nombres, .apellidos {
@@ -83,11 +83,23 @@
 					border: 1px solid #ccc;
 					padding: 0px;
 					height: 48px;
+					border-radius: 12px;
 
 					&:hover {
 						background-color: darkseagreen;
 						cursor: pointer;
 						color: white;
+					}
+					
+					.calificacion {
+						display: block;
+						color: black;
+						font-size: 20px;
+						width: 60px;
+						border-bottom-left-radius: 50%;
+						border-bottom-right-radius: 50%;
+						margin: -4px auto 10px auto;
+						padding-top: 6px;
 					}
 				}				
 			}

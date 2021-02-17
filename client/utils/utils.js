@@ -38,31 +38,31 @@ ASIGNATURAS = {
 EVALUACIONES = {
 	"EX": {
 		icono: 'military_tech',
-		color: 'green',
+		color: 'rgb(187,211,158)',
 		etiqueta: 'Excelente',
 		ponderacion: 1
 	},
 	"MB": {
 		icono: 'stars',
-		color: 'limegreen',
+		color: 'rgb(41,175,188)',
 		etiqueta: 'Muy Bien',
 		ponderacion: 0.86
 	},
 	"BI": {
 		icono: 'check_circle',
-		color: 'yellow',
+		color: 'rgb(152,133,181)',
 		etiqueta: 'Bien',
 		ponderacion: 0.7
 	},
 	"ME": {
 		icono: 'feedback',
-		color: 'orange',
+		color: 'rgb(206,130,174)',
 		etiqueta: 'Mejorable',
 		ponderacion: 0.59
 	},
 	"SR": {
 		icono: 'remove_circle',
-		color: 'red',
+		color: 'rgb(232,106,47)',
 		etiqueta: 'Sin realizar',
 		ponderacion: 0
 	},
@@ -136,5 +136,13 @@ UIUtils = {
       .querySelector("." + global + "." + selector)
       .classList
       .add(clase);
-  }
+  },
+	toggle: (selector, clase) => {
+		var elementos = document.querySelectorAll("." + selector);
+    for(var i=0; i < elementos.length; i++) {
+      elementos[i]
+        .classList
+        .toggle(clase);
+    }
+	}
 }
