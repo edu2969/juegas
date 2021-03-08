@@ -12,6 +12,10 @@
 				{{/if}}
 			</h1>
 			<div class="campo-formulario">
+				<div class="label">Título</div>
+				<input type="text" id="input-titulo" class="campo" value="{{tarea.titulo}}">
+			</div>
+			<div class="campo-formulario">
 				<div class="label">Nombre Unidad</div>
 				<input type="text" id="input-unidad" class="campo" value="{{tarea.unidad}}">
 			</div>
@@ -21,15 +25,15 @@
 			</div>
 			<div class="campo-formulario">
 				<div class="label">¿Qué aprenderán?</div>
-				<textarea id="input-que" class="campo" rows="3"></textarea>
+				<textarea id="input-que" class="campo" rows="3">{{tarea.que}}</textarea>
 			</div>
 			<div class="campo-formulario">
 				<div class="label">¿Para qué lo aprenderán?</div>
-				<textarea id="input-paraque" class="campo" rows="3"></textarea>
+				<textarea id="input-paraque" class="campo" rows="3">{{tarea.paraque}}</textarea>
 			</div>
 			<div class="campo-formulario">
 				<div class="label">¿Cómo lo aprenderán?</div>
-				<textarea id="input-como" class="campo" rows="3"></textarea>
+				<textarea id="input-como" class="campo" rows="3">{{tarea.como}}</textarea>
 			</div>
 			<div class="campo-descripcion">
 				{{> htmleditor}}
@@ -81,6 +85,26 @@
 				<input type="text" id="input-hasta" class="datetimepicker-component campo" 
 							 value="{{formatoFecha tarea.hasta 'DD/MM/YYYY HH:mm'}}">
 				<i class="material-icons">calendar_today</i>				
+			</div>
+			
+			<div class="kpsi">
+				<div class="titulo">KPSI</div>
+				<div class="campo-formulario">
+					<div class="label">KSPI 1</div>
+					<textarea id="input-kpsi1" class="campo" rows="3">{{tarea.kpsi1}}</textarea>
+				</div>
+				<div class="campo-formulario">
+					<div class="label">KSPI 2</div>
+					<textarea id="input-kpsi2" class="campo" rows="3">{{tarea.kpsi2}}</textarea>
+				</div>
+				<div class="campo-formulario">
+					<div class="label">KSPI 3</div>
+					<textarea id="input-kpsi3" class="campo" rows="3">{{tarea.kpsi3}}</textarea>
+				</div>
+				<div class="campo-formulario">
+					<div class="label">KSPI 4</div>
+					<textarea id="input-kpsi4" class="campo" rows="3">{{tarea.kpsi4}}</textarea>
+				</div>
 			</div>
 
 			<button class="btn-juegas btn-guardar-tarea">

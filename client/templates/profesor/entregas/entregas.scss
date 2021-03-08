@@ -84,6 +84,10 @@
 					padding: 0px;
 					height: 48px;
 					border-radius: 12px;
+					
+					&.mejora {
+						color: lime;
+					}
 
 					&:hover {
 						background-color: darkseagreen;

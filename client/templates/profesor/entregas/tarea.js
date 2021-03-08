@@ -81,6 +81,17 @@ Template.tarea.events({
 		} else document.querySelector(".contenedor-tarea")
 			.classList.toggle("activo");
 	},
+	"click .btn-eliminar-tarea"(e) {
+		const tarea = Session.get("TareaSeleccionada");
+		Meteor.call("DetallesEliminarTarea", tarea._id, function(err, resp) {
+			if(!err) {
+				Session.set("DetallesEliminarTarea", resp);
+				$("#modaleliminartarea").modal("show");
+			} else {
+				console.error(err);
+			}
+		});		
+	},
 	
 	
   "dragover .video": function (e, t) {

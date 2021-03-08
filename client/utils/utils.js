@@ -1,4 +1,4 @@
-VERSION = "0.91";
+VERSION = "0.98";
 
 ASIGNATURAS = {
 	"HIST": {
@@ -40,31 +40,31 @@ EVALUACIONES = {
 		icono: 'military_tech',
 		color: 'rgb(187,211,158)',
 		etiqueta: 'Excelente',
-		ponderacion: 1
+		ponderacion: 5
 	},
 	"MB": {
 		icono: 'stars',
 		color: 'rgb(41,175,188)',
 		etiqueta: 'Muy Bien',
-		ponderacion: 0.86
+		ponderacion: 4
 	},
 	"BI": {
 		icono: 'check_circle',
 		color: 'rgb(152,133,181)',
 		etiqueta: 'Bien',
-		ponderacion: 0.7
+		ponderacion: 3
 	},
 	"ME": {
 		icono: 'feedback',
 		color: 'rgb(206,130,174)',
 		etiqueta: 'Mejorable',
-		ponderacion: 0.59
+		ponderacion: 2
 	},
 	"SR": {
 		icono: 'remove_circle',
 		color: 'rgb(232,106,47)',
 		etiqueta: 'Sin realizar',
-		ponderacion: 0
+		ponderacion: 1
 	},
 	"OK": {
 		icono: 'notifications_paused',

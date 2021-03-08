@@ -24,6 +24,9 @@ Template.entregas.helpers({
 					celda: evaluacion
 				};
 				let ponderacion = EVALUACIONES[( entrega && entrega.evaluacion ) || ( entrega && "OK" ) || "SR"].ponderacion;
+				if( entrega && entrega.mejora && entrega.evaluacion == "ME" ) {
+					docEntrega.mejora = true;
+				}
 				sumatoria += ponderacion != -1 && ponderacion;
 				cantidad += ponderacion != -1;
 				if( entrega && entrega._id ) {
@@ -34,7 +37,7 @@ Template.entregas.helpers({
 			let promedio = sumatoria && ( sumatoria / cantidad );
 			let calificacion = Object.keys(CALIFICACIONES).filter((key) => {
 				return CALIFICACIONES[key].aprueba(promedio);
-			})[0];			
+			})[0];
 			return {
 				_id: alumno._id,
 				nombres: alumno.profile.nombres,
@@ -111,6 +114,7 @@ Template.entregas.events({
 	"click td"(e) {
 		const id = e.currentTarget.id;
 		if(!id) return;
+		$(".evaluacion.seleccionado").toggleClass("seleccionado");
 		const entrega = Entregas.findOne({ _id: id });
 		Session.set("Seleccion", {
 			tarea: Tareas.findOne({ _id: entrega.tareaId }),

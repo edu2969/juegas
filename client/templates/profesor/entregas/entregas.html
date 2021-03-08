@@ -48,7 +48,7 @@
 						</th>
 						{{#each entregas}}
 						{{#if _id}}
-						<td id="{{_id}}" style="background-color: {{celda.color}}">
+						<td id="{{_id}}" class="{{#if mejora}}mejora{{/if}}" style="background-color: {{celda.color}}">
 							<i class="material-icons">{{celda.icono}}</i>
 						</td>
 						{{else}}

@@ -27,6 +27,12 @@ Template.desafio.helpers({
 		if(desafio.youtube) {
 			desafio.youtubeId = desafio.youtube.split("?v=")[1];
 		}
+		desafio.kpsis = [ desafio.kpsi1, desafio.kpsi2, desafio.kpsi3, desafio.kpsi4 ].map((kpsi, index) => {
+			return {
+				indice: index + 1,
+				valor: kpsi
+			}
+		});
 		return desafio;
 	},
 	capsula() {
@@ -60,7 +66,7 @@ Template.desafio.helpers({
 		if(!entrega) entrega = {};
 		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
 		const fechaLimite = moment(desafio.hasta);
-		if( moment().isBefore(fechaLimite) && !entrega.evaluacion ) {
+		if( moment().isBefore(fechaLimite) && entrega.calificacion && entrega.calificacion.ponderacion <= 0.59 ) {
 			entrega.abierta = true;
 		}
 		return entrega;
@@ -73,13 +79,20 @@ Template.desafio.events({
 			.classList.toggle("activo");
 	},
 	"click .btn-enviar-desafio"() {
-		let desafio = Session.get("DesafioSeleccionado");		
-		Meteor.call("EnviarDesafio", desafio._id, function(err, resp) {
+		let desafio = Session.get("DesafioSeleccionado");
+		let doc = { 
+			desafioId: desafio._id
+		};
+		const entrega = Entregas.findOne();
+		if(entrega) {
+			doc.entregaId = entrega._id;
+		}
+		Meteor.call("EnviarDesafio", doc, function(err, resp) {
 			if(!err) {
 		    document.querySelector(".contenedor-desafio")
 					.classList.toggle("activo");
 			}
-		})
+		});
 	},
 	"click .marco-desafio .nombre"(e) {
 		let img = Images.findOne({ _id: e.currentTarget.id });

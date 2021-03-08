@@ -4,7 +4,18 @@
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
-			<h1><span class="material-icons">{{desafio.asignaturaObj.icon}}</span> Desafío <small> en {{desafio.asignaturaObj.label}}</small></h1>
+			
+			<div class="resumen bordeado">
+				<h4><span class="material-icons">{{desafio.asignaturaObj.icon}}</span> Desafío <small> en {{desafio.asignaturaObj.label}}</small></h4>
+				<h2>{{desafio.titulo}}</h2>
+				<p class="pregunta">¿Qué aprenderé hoy?</p>
+				<p>{{desafio.que}}</p>
+				<p class="pregunta">¿Para qué lo aprenderé?</p>
+				<p>{{desafio.paraque}}</p>
+				<p class="pregunta">¿Cómo lo aprenderé?</p>
+				<p>{{desafio.como}}</p>			
+			</div>
+			
 			<div class="video">
 				{{#if capsula}}
 				<video src="{{capsula}}" controls></video>
@@ -25,41 +36,45 @@
 				{{/if}}
 
 			</div>
-			<div class="descripcion">
+			
+			<div class="descripcion bordeado">
 				<div class="encabezado">
 					<i class="material-icons">keyboard_arrow_down</i>
 					&nbsp;<span>EL DESAFÍO</span>
 				</div>
 				<p>{{{desafio.descripcion}}}</p>
 			</div>
-
-			<div class="marco-fotografias">
-				{{#if entrega.abierta}}
-				<div class="camara">
-					<i class="material-icons">photo_camera</i><br />
-					<p>Tomar / Arrastrar<br />fotografía</p>
-					<div class="drop-texto"></div>					
-				</div>
-				{{/if}}
-				<div class="fotos">
-					{{#each fotos}}
-					<div class="foto" id={{_id}}>
-						<div class="marco-desafio">
-							<img src="{{imagen}}">
-							<p class="nombre" id="{{_id}}">Página {{indice}}</p>
-							{{#if entrega.abierta}}
-							<div class="eliminar" id="{{_id}}">
-								<i class="material-icons">clear</i>
-								<span>Eliminar</span>
-							</div>
-							{{/if}}
-						</div>
+			
+			<div class="marco-fotografias bordeado">
+				<p class="titulo">TUS ENTREGAS</p>
+				<div class="evidencias">
+					{{#if entrega.abierta}}
+					<div class="camara">
+						<i class="material-icons">photo_camera</i><br />
+						<p>Tomar / Arrastrar<br />fotografía</p>
+						<div class="drop-texto"></div>					
 					</div>
-					{{else}}
-					<h2>Falta que subas fotos</h2>
-					{{/each}}
+					{{/if}}
+					<div class="fotos">
+						{{#each fotos}}
+						<div class="foto" id={{_id}}>
+							<div class="marco-desafio">
+								<img src="{{imagen}}">
+								<p class="nombre" id="{{_id}}">Página {{indice}}</p>
+								{{#if entrega.abierta}}
+								<div class="eliminar" id="{{_id}}">
+									<i class="material-icons">clear</i>
+									<span>Eliminar</span>
+								</div>
+								{{/if}}
+							</div>
+						</div>
+						{{else}}
+						<h2>Falta que subas fotos</h2>
+						{{/each}}
+					</div>
+					<input type="file" id="upload-image" style="display: none;">
 				</div>
-				<input type="file" id="upload-image" style="display: none;">
 			</div>
 			
 			{{#if entrega.abierta}}
@@ -70,18 +85,36 @@
 			{{/if}}
 			
 			{{#if entrega.calificacion}}
-			<div class="marco-calificacion">
+			<div class="marco-calificacion bordeado">
 				<h4>Has sido calificado con un:</h4>
 				<div class="calificacion" style="background-color: {{entrega.calificacion.color}}">
 					<i class="material-icons">{{entrega.calificacion.icono}}</i>
 					<p>{{entrega.calificacion.etiqueta}}</p>
 				</div>
 			</div>
-			<div class="marco-comentarios-profesor">
+			<div class="marco-comentarios-profesor bordeado">
 				<h3><i class="material-icons">record_voice_over</i> Comentarios <small>del profesor</small></h3>
 				<p>{{entrega.comentario}}</p>
 			</div>
 			{{/if}}
+			
+			<div class="contenedor-kpsis bordeado">
+				<div class="titulo">Autoevaluandome</div>
+				<div class="subtitulo">Desarolla tu capacidad de evaluar lo aprendido.</div>
+				<div class="kpsis">
+					{{#each desafio.kpsis}}
+					<div class="kpsi">
+						<div class="texto">{{indice}}. {{valor}}</div>
+						<div class="valor">
+							<div class="numero">1</div>
+							<div class="numero">2</div>
+							<div class="numero">3</div>
+							<div class="numero">4</div>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
 
 		</div>
 	</div>

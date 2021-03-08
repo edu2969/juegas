@@ -42,12 +42,23 @@ Meteor.methods({
   },
 	
 	// Alumnos
-	EnviarDesafio(tareaId) {
-		Entregas.insert({
-			alumnoId: this.userId,
-			tareaId: tareaId,
-			fecha: new Date()
-		});
+	EnviarDesafio(doc) {
+		if(!doc.entregaId) {
+			Entregas.insert({
+				alumnoId: this.userId,
+				tareaId: doc.desafioId,
+				fecha: new Date()
+			});
+		} else {
+			Entregas.update({
+				alumnoId: this.userId,
+				tareaId: doc.desafioId
+			}, {
+				$set: {
+					mejora: true
+				}
+			});
+		}
 	},
 	GuardarEvaluacion(doc) {
 		let docSet = {
@@ -73,6 +84,17 @@ Meteor.methods({
 			doc.asignatura = profesor.profile.asignaturas[0];
 			return Tareas.insert(doc);
 		}		
+	},
+	DetallesEliminarTarea(tareaId) {
+		const tarea = Tareas.findOne({ _id: tareaId });
+		return {
+			fecha: tarea.desde,
+			titulo: tarea.titulo,
+			entregas: Entregas.find({ tareaId: tarea._id }).count()
+		}
+	},
+	EliminarTarea(tareaId) {
+		Tareas.remove(tareaId);
 	},
 
 	// MISCELANEOS

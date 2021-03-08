@@ -1,0 +1,29 @@
+<template name="modaleliminartarea">
+  <div class="modal" id="modaleliminartarea">
+    <div class="overlay"></div>
+    <div class="contenido">
+      <div class="cruz">
+        <i class="material-icons">close</i>
+      </div>
+      <div class="titulo">
+        <h3>¡Atención!</h3>
+        <div class="tip">
+          <i class="material-icons">info</i>
+          <span>Estás apunto de eliminar ésta tarea. Todas las entregas asociadas serán eliminadas permanentemente</span>
+        </div>
+      </div>      
+      <div class="detalle">
+        <p>Serán eliminados</p>
+				<ul>
+					<li>Fecha tarea: {{formatoFecha detalle.fecha 'DD/MM/YYYY HH:mm'}}</li>
+					<li>Título: {{#if detalle.titulo}}{{detalle.titulo}}{{else}}----{{/if}}</li>
+					<li>Entregas: {{#if detalle.entregas}}{{detalle.entregas}}{{else}}Sin entregas aún{{/if}}</li>
+				</ul>
+      </div>
+			<div class="botonera">
+				<button class="btn btn-juegas btn-confirmar">Si, confirmo.</button>
+				<button class="btn btn-juegas btn-cancelar">No. Cancela.</button>
+			</div>
+    </div>
+  </div>
+</template>

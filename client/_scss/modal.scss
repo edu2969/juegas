@@ -29,7 +29,7 @@
   
   .contenido {
     position: relative;
-    background-color: lime;
+    background-color: white;
     border-radius: 8px;
     color: black;
     margin: 2em;
@@ -39,104 +39,19 @@
     .titulo {
       h3 {
         margin-top: .5em;
-        margin-bottom: 0;
+        margin-bottom: .5em;
       }
       
       span {
         font-size: 11px;      
       }
     }    
-    
-    .asignatura {
-      display: flex;
-      
-      .opcion {        
-        width: 33%;
-        background-color: white;
-        color: darkgray;
-        margin: .3em;
-        border-radius: 6px;
-        -webkit-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
-        padding: .2em 0 .2em 0;
-        
-        .avatar {
-          color: black;
-          font-size: 24px; 
-          font-weight: bolder;
-					margin-top: 6px;
-					
-					span {
-						top: -18px;
-						position: relative;
-						right: -16px;
-					}
-					
-					img {
-						width: 80px;
-						border-radius: 50%;
-						border: 2px solid gray;
-					}
-        }
-        
-        p {
-          margin-top: -28px;
-          font-size: 10px;
-        }
-      }
-    }
 		
-		.mensaje {
-      
-      .opcion {        
-        width: 100%;
-        color: darkgray;
-        margin: .3em;
-				
-        .avatar {
-          color: black;
-          font-size: 24px; 
-          font-weight: bolder;
-					margin-top: 6px;
-					
-					img {
-						width: 120px;
-						border-radius: 50%;
-						border: 2px solid gray;
-					}
-					
-					span {
-						top: -18px;
-						position: relative;
-						right: -16px;
-					}
-					
-					.material-icons {
-						position: relative;
-						right: -24px;
-						top: -34px;
-						font-size: 40px;
-						background-color: white;
-						color: black;
-						border-radius: 50%;
-						border: 2px solid gray;
-					}
-        }
-        
-        p {
-					position: relative;
-					top: -10px;
-					left: 74px;
-          margin-top: -48px;
-          font-size: 10px;
-        }
-      }
-			
-			textarea {
-				width: 100%;
+		.detalle {
+			ul {
+				text-align: justify;
 			}
-			
+      
 			button {
 				margin-bottom: 8px;
 				width: 180px;
@@ -159,12 +74,20 @@
       border-radius: 4px;
       padding: 0 .5em 1em .5em;
       font-size: 9px;
+			margin-bottom: .5em;
       
       i {
         position: relative;
         top: .3em;
       }
     }
+		
+		.botonera {
+			margin: 1em auto;
+			.btn-cancelar {
+				background-color: salmon;
+			}
+		}
   }
   
   &.activo {
