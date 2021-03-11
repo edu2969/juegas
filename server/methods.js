@@ -122,6 +122,7 @@ Meteor.methods({
 				registro.apellidos = registro.apellidos.map(function(item) {
 					return item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
 				});
+				console.log("USERNAME: " + registro.rut, key, registro.nombres.join(" ").trim(), registro.apellidos.join(" ").trim());
 				let alumno = {
 					username: registro.rut,
 					password: registro.rut.substring(0, 4),
@@ -129,7 +130,7 @@ Meteor.methods({
 						nombres: registro.nombres.join(" ").trim(),
 						apellidos: registro.apellidos.join(" ").trim(),
 						rol: 2,
-						curso: key + "b"
+						curso: key
 					}
 				}					
 				Accounts.createUser(alumno);
@@ -171,11 +172,11 @@ Meteor.methods({
 				curso: "7Cb"
 			}
 		}, {
-			username: "17046844-9",
-			password: "1704",
+			username: "11111111-1",
+			password: "1111",
 			profile: {
-				nombres: "Carlos",
-				apellidos: "Cruces Grandón",
+				nombres: "Profe Test",
+				apellidos: "Apellidos Ambos",
 				asignaturas: ["HIST"],
 				rol: 3
 			}

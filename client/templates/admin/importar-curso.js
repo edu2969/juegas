@@ -1,6 +1,5 @@
 Template.importarcurso.events({
   "change input[type='file']"(event) {
-    console.log("ACA!");
     const file = event.currentTarget.files[0];
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
@@ -17,24 +16,30 @@ Template.importarcurso.events({
         if (err) throw err;
 				for(let curso = 0; curso < wb.SheetNames.length; curso++ ) {
 					const ws = wb.Sheets[wb.SheetNames[curso]];
-					var columnas = ["rut", "nombres"];
-					let j = 1;
+					var columnas = ["numero", "rut", "nombres"];
+					let j = 6;
 					var registros = [];
-					cursos[wb.SheetNames[curso]] = [];
-					while (ws["A" + j]) {						
-						var rut = ws["A" + j].v;
-						var nombreCompleto = ws["B" + j].v.split(" ");
+					let etiqueta = wb.SheetNames[curso];
+					let nivel = etiqueta.split("° ")[0];
+					let numero = etiqueta.split("° ")[1];
+					const nombreCurso = nivel + numero;
+					cursos[nombreCurso] = [];
+					while (ws["B" + j]) {
+						var rut = ws["C" + j].v;
+						var nombreCompleto = ws["D" + j].v.trim().split(" ");
 						var nombres = nombreCompleto.slice(2, nombreCompleto.length);
-						var apellidos = nombreCompleto.slice(0, 2);						
-						cursos[wb.SheetNames[curso]].push({
+						var apellidos = nombreCompleto.slice(0, 2);
+						cursos[nombreCurso].push({
 							rut: rut, 
 							nombres: nombres, 
 							apellidos: apellidos
 						})
 						j++;						
 					}
-					doc[wb.SheetNames[curso]] = cursos[wb.SheetNames[curso]];
+					doc[nombreCurso] = cursos[nombreCurso];
 				}
+				
+				console.log(doc);
 
 				Meteor.call("IngresarAlumnos", doc, function(err, resp) {
           if(!err) {
