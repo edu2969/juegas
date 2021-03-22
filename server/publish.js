@@ -46,4 +46,8 @@ Meteor.publish('entregasPorNivel', function(nivel) {
 		return alumno._id;
 	});
 	return Entregas.find({ alumnoId: { $in: alumnosId }});
-})
+});
+
+Meteor.publish('cursos', () => {
+	return Cursos.find();
+});

@@ -7,7 +7,9 @@
   transform: translate(100%, 0); 
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 	padding-top: 42px;
+	padding-bottom: 62px;
 	color: white;
+	overflow-y: scroll;
 	
 	.titulo {
 		margin-top: -40px;
@@ -48,6 +50,26 @@
 				
 				li {
 					list-style-type: none;
+				}
+			}
+			
+			ul.cursos {
+				margin-top: 8px;
+				columns: 5;
+				-webkit-columns: 5;
+				-moz-columns: 5;
+				
+				li {
+					background-color: darkgray;
+					border-radius: 6px;
+					text-align: center;
+					padding: 4px;
+					margin-bottom: 4px;
+					cursor: pointer;
+					
+					&.activo {
+						background-color: orange;
+					}
 				}
 			}
 			

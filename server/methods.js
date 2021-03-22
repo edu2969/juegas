@@ -3,6 +3,7 @@ var XLSX = Npm.require('xlsx');
 Meteor.methods({
 	// Core
 	ActualizarCuenta(doc) {
+		// Actualizando
 		if(doc._id) {
 			let docSet = {};
 			if(doc.username) {
@@ -11,7 +12,6 @@ Meteor.methods({
 			}
 			let id = doc._id;
 			delete doc._id;
-			delete doc.perfil;
 			let password;
 			if(doc.password) {
 				password = doc.password;
@@ -27,7 +27,7 @@ Meteor.methods({
 			if(password) {
 				Accounts.setPassword(id, password);
 			}
-		} else {
+		} else { // Nuevo
 			let docNew = {
 				username: doc.username,
 				password: doc.password,
@@ -37,7 +37,10 @@ Meteor.methods({
 					rol: doc.perfil
 				}
 			};
-			Accounts.createUser(docNew);
+			if(profile.rol==3) {
+				docNew.profile.asignaturas = doc.asignaturas;
+			}
+			Accounts.createUser(docNew);			
 		}
   },
 	
@@ -123,6 +126,11 @@ Meteor.methods({
 					return item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
 				});
 				console.log("USERNAME: " + registro.rut, key, registro.nombres.join(" ").trim(), registro.apellidos.join(" ").trim());
+				let curso = Cursos.findOne({ nivel: key });
+				if(!curso) {
+					const cursoId = Cursos.insert({ nivel: key });
+					curso = Cursos.findOne({ _id: cursoId });
+				}
 				let alumno = {
 					username: registro.rut,
 					password: registro.rut.substring(0, 4),
@@ -130,7 +138,7 @@ Meteor.methods({
 						nombres: registro.nombres.join(" ").trim(),
 						apellidos: registro.apellidos.join(" ").trim(),
 						rol: 2,
-						curso: key
+						curso: curso._id
 					}
 				}					
 				Accounts.createUser(alumno);
@@ -177,7 +185,10 @@ Meteor.methods({
 			profile: {
 				nombres: "Profe Test",
 				apellidos: "Apellidos Ambos",
-				asignaturas: ["HIST"],
+				asignaturas: { 
+					"HIST": ["7GLNXrzttrRmHzoYN", "heWkGc5CBK5xfvpxQ", "5G8fyb55eyzS3mM7b"], 
+					"MATH": [] 
+				},
 				rol: 3
 			}
 		}];

@@ -1,10 +1,26 @@
 Template.entregas.onCreated(function() {
-	this.nivel = new ReactiveVar("7Ab");
+	this.nivel = new ReactiveVar(false);
 });
 
 Template.entregas.rendered = function() {	
 	const instance = Template.instance();
+	Meteor.subscribe('cursos');
 	Tracker.autorun(() => {
+		if(!instance.nivel.get()) {
+			const profesor = Meteor.user();
+			if(!profesor) return false;
+			const asignaturas = profesor.profile.asignaturas;
+			const cursos = [];
+			Object.keys(asignaturas).forEach(asignatura => {
+				asignaturas[asignatura].forEach(curso => {
+					if(cursos.indexOf(curso)==-1) {
+						cursos.push(curso);
+					}
+				})
+			});
+			console.log(cursos[0]);
+			instance.nivel.set(cursos[0]);
+		}
 		Meteor.subscribe('curso', instance.nivel.get());
 		Meteor.subscribe('desafios');
 		Meteor.subscribe('entregasPorNivel', instance.nivel.get());
@@ -60,6 +76,29 @@ Template.entregas.helpers({
 				fecha: tarea.desde
 			}
 		})
+	},
+	cursos() {
+		const profesor = Meteor.user();
+		if(!profesor) return false;
+		const asignaturas = profesor.profile.asignaturas;
+		const cursos = [];
+		Object.keys(asignaturas).forEach(asignatura => {
+			asignaturas[asignatura].forEach(curso => {
+				if(cursos.indexOf(curso)==-1) {
+					cursos.push(curso);
+				}
+			})
+		});
+		return cursos.map(curso => {
+			const entidad = Cursos.findOne({ _id: curso });
+			if(!entidad) return false;
+			const nivel = entidad.nivel;
+			let etiqueta = nivel.charAt(0) == "P" ? ( "Prekinder " + nivel.charAt(2) ) : ( nivel + " básico" ); 
+			return {
+				_id: entidad._id,
+				etiqueta: etiqueta
+			};
+		});
 	}
 })
 

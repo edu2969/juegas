@@ -38,7 +38,20 @@
 					<span>ASIGNATURAS</span>
 					<ul>
 						{{#each asignaturas}}
-						<li><input type="checkbox" value="{{llave}}" checked="{{#if checked}}checked{{/if}}">  {{etiqueta}}</li>
+						<li><input class="checkbox-asignatura" type="checkbox" value="{{llave}}" checked="{{#if checked}}checked{{/if}}">  {{etiqueta}}</li>
+						{{/each}}
+					</ul>
+				</div>
+				<div class="campo">
+					<span>CURSOS</span><br/>
+					<select id="selector-asignaturas">
+						{{#each asignaturasSeleccionadas}}
+						<option value="{{asignatura}}">{{glosa}}</option>
+						{{/each}}
+					</select>
+					<ul class="cursos">
+						{{#each cursos}}
+						<li class="{{#if activo}}activo{{/if}}">{{nivel}}</li>
 						{{/each}}
 					</ul>
 				</div>

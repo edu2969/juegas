@@ -1,6 +1,22 @@
 Template.editorCuenta.onCreated(function() {
 	this.error = new ReactiveVar(false);
+	this.asignaturaSeleccionada = new ReactiveVar(false);
+	Meteor.subscribe('cursos');
 });
+
+Template.editorCuenta.rendered = () => {
+	const instance = Template.instance();
+	Tracker.autorun(() => {
+		const cuenta = Session.get("CuentaSeleccionada");
+		if(!cuenta) return;
+		const asignaturas = cuenta.profile.asignaturas;
+		const actual = instance.asignaturaSeleccionada.get();
+		if(asignaturas && !actual) {
+			const primera = Object.keys(asignaturas)[0];
+			instance.asignaturaSeleccionada.set(primera);
+		}
+	})
+}
 
 Template.editorCuenta.helpers({
 	cuenta() {
@@ -14,15 +30,43 @@ Template.editorCuenta.helpers({
 		let keys = Object.keys(ASIGNATURAS);
 		let cuenta = Session.get("CuentaSeleccionada");
 		if(!cuenta) return false;
-		return keys.map(function(key) {
+		if( cuenta.profile.rol!=3 ) return;
+		return keys.map(function(asignatura) {
 			let checked;
-			if( cuenta.profile.asignaturas && cuenta.profile.asignaturas.indexOf(key) != -1 ) {
+			if( cuenta.profile.asignaturas && cuenta.profile.asignaturas[asignatura] ) {
 				checked = true;
 			}
 			return {
-				llave: key,
-				etiqueta: ASIGNATURAS[key].label,
+				llave: asignatura,
+				etiqueta: ASIGNATURAS[asignatura].label,
 				checked: checked
+			}
+		});
+	},
+	cursos() {
+		const instance = Template.instance();
+		const cuenta = Session.get("CuentaSeleccionada");
+		if( cuenta.profile.rol!=3 ) return;
+		let asignaturas = cuenta.profile.asignaturas;
+		const cursoSeleccionado = instance.asignaturaSeleccionada.get();
+		return Cursos.find().map(curso => {
+			const nivel = curso.nivel;
+			const asignaturaSeleccionada = instance.asignaturaSeleccionada.get();
+			const asignaciones = asignaturas[asignaturaSeleccionada];
+			if(asignaciones && asignaciones.indexOf(curso._id)!=-1) {
+				curso.activo = true;
+			}
+			return curso;
+		});
+	},
+	asignaturasSeleccionadas() {
+		const cuenta = Session.get("CuentaSeleccionada");
+		if( cuenta.profile.rol!=3 ) return;
+		const keys = Object.keys(cuenta.profile.asignaturas);
+		return keys.map(asignatura => {
+			return {
+				glosa: ASIGNATURAS[asignatura].label,
+				asignatura: asignatura 
 			}
 		});
 	},
@@ -57,15 +101,7 @@ Template.editorCuenta.events({
 		let perfil = Number(document.querySelector("select").value);
 		if(cuenta.profile.rol != perfil) doc.perfil = perfil;
 		if(perfil == 3) {
-			let asignaturas = [];
-			document.querySelectorAll("input[type='checkbox']").forEach(function(item) {
-				if(item.checked) {
-					asignaturas.push(item.value);
-				}
-			});
-			if( cuenta.profile.asignaturas.toString() !== asignaturas.toString() ) {
-				doc.asignaturas = asignaturas;
-			}
+			doc.asignaturas = cuenta.profile.asignaturas;
 		}
 		if(!IsEmpty(doc)) {
 			let valido = true;
@@ -74,13 +110,13 @@ Template.editorCuenta.events({
 			} else {
 				valido = Object.keys(doc).length == 5;
 			}
-			if(valido) {			
+			if(valido) {
 				console.log(doc);
-				/*Meteor.call("ActualizarCuenta", doc, function(err, resp) {
+				Meteor.call("ActualizarCuenta", doc, function(err, resp) {
 					if(!err) {
 						ocultarEditor();
 					}
-				});*/
+				});
 			} else {
 				document.querySelectorAll("input").forEach(function(item) {
 					item.classList.remove("is-invalid");
@@ -93,5 +129,32 @@ Template.editorCuenta.events({
 			}
 
 		} else ocultarEditor();		
+	},
+	"click ul.cursos li"(e, template) {
+		const target = e.currentTarget;
+		const curso = target.innerText;
+		var cuenta = Session.get("CuentaSeleccionada");
+		var asignaturas = cuenta.profile.asignaturas;
+		const asignatura = $("#selector-asignaturas").val();
+		const cursoEntity = Cursos.findOne({ nivel: curso });
+		asignaturas[asignatura].push(cursoEntity._id);
+		cuenta.profile.asignaturas = asignaturas;
+		Session.set("CuentaSeleccionada", cuenta);
+	},
+	"click .checkbox-asignatura"(e, template) {
+		const asignatura = e.currentTarget.value;
+		const isChecked = e.currentTarget.checked;
+		const cuenta = Session.get("CuentaSeleccionada");
+		let asignaturas = cuenta.profile.asignaturas;
+		if(isChecked) {
+			asignaturas[asignatura] = [];
+		} else {
+			delete asignaturas[asignatura];
+		};
+		cuenta.profile.asignaturas = asignaturas;
+		Session.set("CuentaSeleccionada", cuenta);
+	},
+	"change #selector-asignaturas"(e, template) {
+		template.asignaturaSeleccionada.set($("#selector-asignaturas").val());
 	}
 })
