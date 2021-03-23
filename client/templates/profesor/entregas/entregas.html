@@ -1,10 +1,24 @@
 <template name="entregas">
 	<h1><i class="material-icons">rule</i> Entregas</h1>
-	<select id="curso">
-		{{#each cursos}}
-		<option value="{{_id}}">{{etiqueta}}</option>
-		{{/each}}
-	</select>	
+	<div class="formulario-normal flex">
+		<div class="campo">
+			<p>Asignatura</p>
+			<select id="select-asignatura">
+				{{#each asignaturas}}
+				<option value="{{_id}}">{{etiqueta}}</option>
+				{{/each}}
+			</select>
+		</div>
+		<div class="campo">
+			<p>Curso</p>
+			<select id="select-curso">
+				{{#each cursos}}
+				<option value="{{_id}}">{{etiqueta}}</option>
+				{{/each}}
+			</select>
+		</div>
+	</div>
+	
 	
 	<!-- COLUMNA ESTATICA DE EJEMPLO EN https://www.codeply.com/go/bp/g8pfBXOcY9 -->
 	

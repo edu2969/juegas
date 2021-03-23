@@ -1,4 +1,5 @@
 Template.entregas.onCreated(function() {
+	this.asignatura = new ReactiveVar(false);
 	this.nivel = new ReactiveVar(false);
 });
 
@@ -18,7 +19,7 @@ Template.entregas.rendered = function() {
 					}
 				})
 			});
-			console.log(cursos[0]);
+			instance.asignatura.set(Object.keys(asignaturas)[0]);
 			instance.nivel.set(cursos[0]);
 		}
 		Meteor.subscribe('curso', instance.nivel.get());
@@ -80,14 +81,14 @@ Template.entregas.helpers({
 	cursos() {
 		const profesor = Meteor.user();
 		if(!profesor) return false;
+		const asignatura = Template.instance().asignatura.get();
+		if(!asignatura) return;
 		const asignaturas = profesor.profile.asignaturas;
 		const cursos = [];
-		Object.keys(asignaturas).forEach(asignatura => {
-			asignaturas[asignatura].forEach(curso => {
-				if(cursos.indexOf(curso)==-1) {
-					cursos.push(curso);
-				}
-			})
+		asignaturas[asignatura].forEach(curso => {
+			if(cursos.indexOf(curso)==-1) {
+				cursos.push(curso);
+			}
 		});
 		return cursos.map(curso => {
 			const entidad = Cursos.findOne({ _id: curso });
@@ -98,6 +99,16 @@ Template.entregas.helpers({
 				_id: entidad._id,
 				etiqueta: etiqueta
 			};
+		});
+	},
+	asignaturas() {
+		const profesor = Meteor.user();
+		if(!profesor) return;
+		return Object.keys(profesor.profile.asignaturas).map(asignatura => {
+			return {
+				_id: asignatura,
+				etiqueta: ASIGNATURAS[asignatura].label
+			}
 		});
 	}
 })
@@ -161,8 +172,17 @@ Template.entregas.events({
 		});
     document.querySelector(".contenedor-revision").classList.toggle("activo");
 	},
-	"change #curso"(e, template) {
+	"change #select-curso"(e, template) {
 		const nivel = e.currentTarget.value;
 		template.nivel.set(nivel);
-	}
+	},
+	"change #select-asignatura"(e, template) {
+		const asignatura = e.currentTarget.value;
+		console.log(asignatura);
+		template.asignatura.set(asignatura);
+		const profesor = Meteor.user();
+		const asignaturas = profesor.profile.asignaturas;
+		const cursosId = asignaturas[asignatura];
+		template.nivel.set(cursosId[0]);
+	},
 });
