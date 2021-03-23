@@ -63,12 +63,16 @@ Template.desafio.helpers({
 		let desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return false;
 		var entrega = Entregas.findOne({ tareaId: desafio._id });
-		if(!entrega) entrega = {};
+		if(!entrega) {
+			entrega = {};
+		}
 		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
 		const fechaLimite = moment(desafio.hasta);
-		if( moment().isBefore(fechaLimite) && entrega.calificacion && entrega.calificacion.ponderacion <= 0.59 ) {
+		if( moment().isBefore(fechaLimite) && 
+			 ( !entrega.calificacion || entrega.calificacion.ponderacion <= 0.59 ) ) {
 			entrega.abierta = true;
 		}
+		console.log(entrega);
 		return entrega;
 	}
 })
