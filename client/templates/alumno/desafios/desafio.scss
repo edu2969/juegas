@@ -206,28 +206,51 @@
 		.titulo {
 			font-size: 22px;
 		}
+			
+		.leyenda-kpsi {
+			padding: 4px 20px 0px 20px;
+			margin: 10px 80px;
+			border: 2px solid gray;
+			border-radius: 8px;
+
+			li {
+				text-decoration: none;
+				text-align: left;
+			}
+		}
 		
 		.kpsis {
+		
 			.kpsi {
 				display: flex;
+				margin-bottom: 4px;
 				
 				.texto {
+					width: 20px;
+				}
+				
+				.descripcion-kpsi {
 					width: 250px;
+					text-align: left;
 				}
 				
 				.valor {
 					display: flex;
 					
 					.numero {
-						width: 18px;
-						height: 18px;
+						width: 32px;
+						height: 32px;
 						text-align: center;
 						border: 2px solid gray;
 						border-radius: 8px;
 						margin-right: 6px;
+						padding-top: 3px;
+						cursor: pointer;
 						
-						&.selected {
+						&.activo {
 							border: 2px solid skyblue;
+							background-color: deepskyblue;
+							color: white;
 						}
 					}
 				}

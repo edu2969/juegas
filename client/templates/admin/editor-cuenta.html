@@ -59,10 +59,16 @@
 			{{#if error}}
 			<div class="error">{{{error}}}</div>
 			{{/if}}
-			<button class="btn-juegas" id="btn-guardar">
-				<i class="material-icons">save</i>
-				<span> Guardar</span>
-			</button>
+			<div class="flex">
+				<button class="btn-juegas" id="btn-cancelar">
+					<i class="material-icons">clear</i>
+					<span> Cancelar</span>
+				</button>
+				<button class="btn-juegas btn-danger" id="btn-guardar">
+					<i class="material-icons">save</i>
+					<span> Guardar</span>
+				</button>
+			</div>
 		</div>
 		{{/with}}
 	</div>

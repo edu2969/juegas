@@ -64,6 +64,7 @@ Template.editorCuenta.helpers({
 		if( cuenta.profile.rol!=3 ) return;
 		const keys = Object.keys(cuenta.profile.asignaturas);
 		return keys.map(asignatura => {
+			console.log("ASIGNATURA", asignatura);
 			return {
 				glosa: ASIGNATURAS[asignatura].label,
 				asignatura: asignatura 
@@ -82,7 +83,7 @@ let ocultarEditor = () => {
 }
 
 Template.editorCuenta.events({
-	"click .contenedor-editor-cuenta .cruz"() {
+	"click .contenedor-editor-cuenta .cruz, click #btn-cancelar"() {
     ocultarEditor();
 	},
 	"click #btn-guardar"(e, template) {
@@ -111,7 +112,6 @@ Template.editorCuenta.events({
 				valido = Object.keys(doc).length == 5;
 			}
 			if(valido) {
-				console.log(doc);
 				Meteor.call("ActualizarCuenta", doc, function(err, resp) {
 					if(!err) {
 						ocultarEditor();
@@ -137,7 +137,17 @@ Template.editorCuenta.events({
 		var asignaturas = cuenta.profile.asignaturas;
 		const asignatura = $("#selector-asignaturas").val();
 		const cursoEntity = Cursos.findOne({ nivel: curso });
-		asignaturas[asignatura].push(cursoEntity._id);
+		const indice = asignaturas[asignatura].indexOf(cursoEntity._id);
+		if(indice==-1) {
+			asignaturas[asignatura].push(cursoEntity._id);	
+		} else {
+			asignaturas[asignatura].splice(indice, 1);
+		}		
+		asignaturas[asignatura].sort((a, b) => {
+			const cursoA = Cursos.findOne({ _id: a });
+			const cursoB = Cursos.findOne({ _id: b });
+			return cursoA.nivel < cursoB.nivel ? -1 : 1;
+		});
 		cuenta.profile.asignaturas = asignaturas;
 		Session.set("CuentaSeleccionada", cuenta);
 	},

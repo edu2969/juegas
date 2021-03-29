@@ -79,6 +79,9 @@ button {
 			margin: 0px;
 		}
 	}
+	&.btn-danger {
+		background-color: salmon;
+	}
 }
 
 h4 {
@@ -92,4 +95,8 @@ h4 {
 
 .flex {
 	display: inline-flex;
+	
+	button {
+		margin-right: 10px;
+	}
 }

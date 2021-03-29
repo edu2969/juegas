@@ -83,8 +83,6 @@ Meteor.methods({
 			Tareas.update({ _id: tareaId }, { $set: doc });
 			return tareaId;
 		} else {
-			let profesor = Meteor.user();
-			doc.asignatura = profesor.profile.asignaturas[0];
 			return Tareas.insert(doc);
 		}		
 	},
@@ -171,23 +169,26 @@ Meteor.methods({
 				rol: 1
 			}
 		}, {
-			username: "55555555-5",
-			password: "5555",
-			profile: {
-				nombres: "Alumno Ejemplo",
-				apellidos: "Torres Torres",
-				rol: 2,
-				curso: "7Cb"
-			}
-		}, {
-			username: "11111111-1",
-			password: "1111",
+			username: "1-1",
+			password: "1",
 			profile: {
 				nombres: "Profe Test",
 				apellidos: "Apellidos Ambos",
 				asignaturas: { 
-					"HIST": ["7GLNXrzttrRmHzoYN", "heWkGc5CBK5xfvpxQ", "5G8fyb55eyzS3mM7b"], 
-					"MATH": [] 
+					"HIST": [], 
+					"MATE": [] 
+				},
+				rol: 3
+			}
+		}, {
+			username: "2-2",
+			password: "2",
+			profile: {
+				nombres: "Profe Dos",
+				apellidos: "Test Segundo",
+				asignaturas: {
+					"INGL": [], 
+					"CIEN": [] 
 				},
 				rol: 3
 			}

@@ -4,13 +4,14 @@
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
-			<h1>
+			<h3>
 				{{#if tarea.descripcion}}
 					<span class="material-icons">create</span> Editar Desafío
 				{{else}}
 					<span class="material-icons">add_task</span> Nuevo Desafío
 				{{/if}}
-			</h1>
+			</h3>
+			<h2><i class="material-icons">{{tarea.asignatura.icon}}</i> {{tarea.asignatura.label}}</h2>
 			<div class="campo-formulario">
 				<div class="label">Título</div>
 				<input type="text" id="input-titulo" class="campo" value="{{tarea.titulo}}">

@@ -2,8 +2,12 @@ Meteor.publish('cuentas', function() {
 	return Meteor.users.find();
 });
 
-Meteor.publish('desafios', function() {
-	return Tareas.find();
+Meteor.publish('desafios', function(nivel) {
+	let doc = {};
+	if(nivel) {
+		doc.nivel = nivel;
+	}
+	return Tareas.find(doc);
 });
 
 Meteor.publish('profesores', function() {
@@ -24,8 +28,14 @@ Meteor.publish('alumnos', function() {
 	return Meteor.users.find({ "profile.rol": 2 });
 });
 
-Meteor.publish('curso', function(nivel) {
+Meteor.publish('alumnosCurso', function(nivel) {
 	return Meteor.users.find({ "profile.curso": nivel });
+});
+
+Meteor.publish('curso', () => {
+	const user = Meteor.user();
+	const cursoId = user.profile.curso;
+	return Cursos.find({ _id: cursoId });
 });
 
 Meteor.publish('tareas', function(nivel) {

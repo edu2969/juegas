@@ -46,7 +46,7 @@
 			</div>
 			
 			<div class="marco-fotografias bordeado">
-				<p class="titulo">TUS ENTREGAS</p>
+				<p class="titulo">TUS EVIDENCIAS</p>
 				<div class="evidencias">
 					{{#if entrega.abierta}}
 					<div class="camara">
@@ -77,13 +77,6 @@
 				</div>
 			</div>
 			
-			{{#if entrega.abierta}}
-			<button class="btn-juegas btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
-				<i class="material-icons">send</i>
-				<span>Enviar desafío a revisión</span>
-			</button>
-			{{/if}}
-			
 			{{#if entrega.calificacion}}
 			<div class="marco-calificacion bordeado">
 				<h4>Has sido calificado con un:</h4>
@@ -99,22 +92,38 @@
 			{{/if}}
 			
 			<div class="contenedor-kpsis bordeado">
-				<div class="titulo">Autoevaluandome</div>
+				<div class="titulo">Autoevaluándome</div>
 				<div class="subtitulo">Desarolla tu capacidad de evaluar lo aprendido.</div>
+				<div class="leyenda-kpsi">
+					<ul>
+						<li>1 = No soy capaz</li>
+						<li>2 = Algo capaz</li>
+						<li>3 = Soy capaz</li>
+						<li>4 = Capaz</li>
+					</ul>
+				</div>
 				<div class="kpsis">
 					{{#each desafio.kpsis}}
 					<div class="kpsi">
-						<div class="texto">{{indice}}. {{valor}}</div>
-						<div class="valor">
-							<div class="numero">1</div>
-							<div class="numero">2</div>
-							<div class="numero">3</div>
-							<div class="numero">4</div>
+						<div class="texto">{{letra}})</div>
+						<p class="descripcion-kpsi">{{valor}}</p>
+						<div class="valor" id="{{indice}}">
+							<div class="numero {{#if seleccionado1}}activo{{/if}}">1</div>
+							<div class="numero {{#if seleccionado2}}activo{{/if}}">2</div>
+							<div class="numero {{#if seleccionado3}}activo{{/if}}">3</div>
+							<div class="numero {{#if seleccionado4}}activo{{/if}}">4</div>
 						</div>
 					</div>
 					{{/each}}
 				</div>
 			</div>
+			
+			{{#if entrega.abierta}}
+			<button class="btn-juegas btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
+				<i class="material-icons">send</i>
+				<span>Enviar desafío a revisión</span>
+			</button>
+			{{/if}}
 
 		</div>
 	</div>

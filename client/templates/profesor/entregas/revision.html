@@ -4,7 +4,7 @@
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
-			<h1><span class="material-icons">rule</span> Revisión <small>{{revision.tarea.titulo}}</small></h1>
+			<h1><span class="material-icons">rule</span> Revisión<br/><small>{{revision.tarea.titulo}}</small></h1>
 			<div class="descripcion">
 				<div class="encabezado">
 					<i class="material-icons">keyboard_arrow_down</i>
@@ -13,23 +13,28 @@
 				<p>{{{revision.tarea.descripcion}}}</p>
 			</div>
 
-			<div class="fotos">
-				{{#each fotos}}
-				<div class="foto" id="{{_id}}">
-					<img src="{{imagen}}">
-					<p class="nombre">Página {{indice}}</p>
+			<div class="marco-fotos">
+				<div class="titulo">Evidencias <small>({{cantidadEvidencias}})</small></div>
+				<div class="fotos">
+					{{#each fotos}}
+					<div class="foto" id="{{_id}}">
+						<img src="{{imagen}}">
+						<p class="nombre">Página {{indice}}</p>
+					</div>
+					{{/each}}
 				</div>
-				{{/each}}
 			</div>
 			
-			<h4>{{#if revision.entrega.evaluacion}}Ésta fue tu evaluación{{else}}¿Cómo calificas ésta entrega?{{/if}}</h4>
-			<div class="marco-evaluaciones">				
-				{{#each evaluaciones}}
-				<div class="evaluacion{{#if seleccionado}} seleccionado{{/if}}" style="background-color: {{color}}" id="{{llave}}">
-					<span class="material-icons">{{icono}}</span>
-					<p>{{etiqueta}}</p>
+			<div class="marco-evaluacion">
+				<div class="titulo">{{#if revision.entrega.evaluacion}}Ésta fue tu evaluación{{else}}¿Cómo calificas ésta entrega?{{/if}}</div>
+				<div class="marco-evaluaciones">				
+					{{#each evaluaciones}}
+					<div class="evaluacion{{#if seleccionado}} seleccionado{{/if}}" style="background-color: {{color}}" id="{{llave}}">
+						<span class="material-icons">{{icono}}</span>
+						<p>{{etiqueta}}</p>
+					</div>
+					{{/each}}
 				</div>
-				{{/each}}
 			</div>
 			
 			<div class="cuadro-comentario">

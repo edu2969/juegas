@@ -10,12 +10,14 @@
 			
 			<div class="contenedor-leyenda leyendas-asignaturas">
 				<h3>ASIGNATURAS</h3>
-				{{#each asignaturas}}
-				<div class="leyenda">
-					<i class="material-icons">history_edu</i>
-					<p>Historia</p>
+				<div class="contenedor-asignaturas">
+					{{#each asignaturas}}
+					<div class="leyenda">
+						<i class="material-icons">{{icon}}</i>
+						<p>{{label}}</p>
+					</div>
+					{{/each}}
 				</div>
-				{{/each}}
 			</div>
 			
 			<div class="contenedor-leyenda leyendas-desafio">

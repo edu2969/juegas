@@ -39,9 +39,16 @@ const inicializarYoutube = function() {
 	}
 }
 
-Template.desafios.rendered = function() {		
+Template.desafios.rendered = function() {
+	Meteor.subscribe('curso');
 	Tracker.autorun(() => {
-		Meteor.subscribe('desafios');
+		const alumno = Meteor.user();
+		if(!alumno) return;
+		const cursoId = alumno.profile.curso;
+		const curso = Cursos.findOne({ _id: cursoId });
+		if(!curso) return;
+		const nivel = curso.nivel.charAt(0)=="P" ? "PK" : curso.nivel.charAt(0);
+		Meteor.subscribe('desafios', nivel);
 		Meteor.subscribe('entregas');
 	});
 	Session.set("DesafioSeleccionado", false);
@@ -62,6 +69,7 @@ Template.desafios.helpers({
 				desafio.color = "rojo";
 				desafio.icono = "remove_circle";
 			}
+			desafio.asignatura = ASIGNATURAS[desafio.asignatura];
 			return desafio;
 		});
 	},

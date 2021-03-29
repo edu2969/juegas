@@ -80,15 +80,25 @@
 				.titulo {
 					position: relative;
 					top: -2px;
-					font-size: 18px;					
+					font-size: 18px;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden; 
+					width: 320px;
 				}
 				
 				.plazo {
 					position: relative;
 					top: -4px;
+					width: 160px;
 					
-					.material-icons {
-						font-size: 14px;
+					span {
+						white-space: pre-wrap;
+						width: 160px;
+						
+						.material-icons {
+							font-size: 14px;
+						}
 					}
 				}
 			}			

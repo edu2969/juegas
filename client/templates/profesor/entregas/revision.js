@@ -39,6 +39,13 @@ Template.revision.helpers({
 				indice: index + 1
 			}
 		})
+	},
+	cantidadEvidencias() {
+		const revision = Session.get("Seleccion");
+		if(!revision) return false;
+		return Images.find({
+			"meta.tareaId": revision.tarea._id
+		}).count();
 	}
 })
 

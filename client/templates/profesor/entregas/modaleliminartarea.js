@@ -14,6 +14,7 @@ Template.modaleliminartarea.events({
 			if(!err) {
 				$("#modaleliminartarea").modal("hide");
 				delete Session.keys.DetallesEliminarTarea;
+				delete Session.keys.TareaSeleccionada;
 				document.querySelector(".contenedor-tarea")
 					.classList.toggle("activo");
 			} else {

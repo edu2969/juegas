@@ -1,13 +1,13 @@
 Template.entregas.onCreated(function() {
 	this.asignatura = new ReactiveVar(false);
-	this.nivel = new ReactiveVar(false);
+	this.cursoId = new ReactiveVar(false);
 });
 
 Template.entregas.rendered = function() {	
 	const instance = Template.instance();
 	Meteor.subscribe('cursos');
 	Tracker.autorun(() => {
-		if(!instance.nivel.get()) {
+		if(!instance.cursoId.get()) {
 			const profesor = Meteor.user();
 			if(!profesor) return false;
 			const asignaturas = profesor.profile.asignaturas;
@@ -20,21 +20,38 @@ Template.entregas.rendered = function() {
 				})
 			});
 			instance.asignatura.set(Object.keys(asignaturas)[0]);
-			instance.nivel.set(cursos[0]);
+			instance.cursoId.set(cursos[0]);
 		}
-		Meteor.subscribe('curso', instance.nivel.get());
-		Meteor.subscribe('desafios');
-		Meteor.subscribe('entregasPorNivel', instance.nivel.get());
+		Meteor.subscribe('alumnosCurso', instance.cursoId.get());
+		Meteor.subscribe('desafios', false);
+		Meteor.subscribe('entregasPorNivel', instance.cursoId.get());
 	});
 }
 
 Template.entregas.helpers({
 	alumnos() {
-		const nivel = Template.instance().nivel.get();
-		return Meteor.users.find({ "profile.curso": nivel }).map(function(alumno) {
+		const template = Template.instance();
+		const cursoId = template.cursoId.get();
+		const asignatura = template.asignatura.get();
+		if(!cursoId || !asignatura) {
+			return;
+		}
+		console.log("C, A", cursoId, asignatura);
+		const curso = Cursos.findOne({ _id: cursoId });
+		console.log("CURSO=====>", curso);
+		if(!curso) return;
+		const nivel = curso.nivel.charAt(0)=="P" ? "PK" : curso.nivel.charAt(0);
+		return Meteor.users.find({ "profile.curso": cursoId }).map(function(alumno) {
 			var sumatoria = 0;
 			var cantidad = 0;
-			let entregas = Tareas.find().map(function(tarea) {
+			console.log("TAREA", {
+				asignatura: asignatura,
+				nivel: nivel
+			});
+			let entregas = Tareas.find({
+				asignatura: asignatura,
+				nivel: nivel
+			}).map(function(tarea) {
 				const entrega = Entregas.findOne({ tareaId: tarea._id, alumnoId: alumno._id });
 				var evaluacion = EVALUACIONES[( entrega && entrega.evaluacion ) || ( entrega && "OK" ) || "SR"];
 				let docEntrega = {
@@ -69,9 +86,20 @@ Template.entregas.helpers({
 		});
 	},
 	tareas() {
-		const nivel = Template.instance().nivel.get();
-		return Tareas.find().map(function(tarea) {
-			let entregas = Meteor.users.find({ "profile.curso": nivel })
+		const template = Template.instance();
+		const asignatura = template.asignatura.get();
+		const cursoId = template.cursoId.get();
+		if(!cursoId || !asignatura) {
+			return;
+		}
+		const curso = Cursos.findOne({ _id: cursoId });
+		if(!curso) return;
+		const nivel = curso.nivel.charAt(0)=="P" ? "PK" : curso.nivel.charAt(0)
+		return Tareas.find({
+			asignatura: asignatura,
+			nivel: nivel
+		}).map(function(tarea) {
+			let entregas = Meteor.users.find({ "profile.curso": curso.nivel })
 			return {
 				_id: tarea._id,
 				fecha: tarea.desde
@@ -148,6 +176,9 @@ Template.entregas.events({
 			tarea = Tareas.findOne({ _id: id });
 			renderTarea(tarea);
 		} else {
+			tarea.asignatura = $("#select-asignatura").val();
+			const curso = Cursos.findOne({ _id: $("#select-curso").val() });
+			tarea.nivel = curso.nivel.charAt(0)=="P" ? "PK" : curso.nivel.charAt(0);
 			tarea.desde = moment().startOf("day").hour(8).toDate();
 			tarea.hasta = moment().startOf("day").add(44, "hour").toDate();
 			Session.set("TareaSeleccionada", tarea);
@@ -174,15 +205,14 @@ Template.entregas.events({
 	},
 	"change #select-curso"(e, template) {
 		const nivel = e.currentTarget.value;
-		template.nivel.set(nivel);
+		template.cursoId.set(nivel);
 	},
 	"change #select-asignatura"(e, template) {
 		const asignatura = e.currentTarget.value;
-		console.log(asignatura);
 		template.asignatura.set(asignatura);
 		const profesor = Meteor.user();
 		const asignaturas = profesor.profile.asignaturas;
 		const cursosId = asignaturas[asignatura];
-		template.nivel.set(cursosId[0]);
+		template.cursoId.set(cursosId[0]);
 	},
 });

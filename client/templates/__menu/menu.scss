@@ -7,6 +7,8 @@
   transform: translate(100%, 0); 
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 	color: white;
+	overflow-y: scroll;
+	padding-bottom: 10px;
 	
 	h1 small {
 		color: ghostwhite;
@@ -26,6 +28,12 @@
 	
 	.contenedor-leyendas {
 		margin: auto;
+		
+		.contenedor-asignaturas {
+			columns: 2;
+			-webkit-columns: 2;
+			-moz-columns: 2;
+		}
 		
 		h3 {
 			background-color: white;

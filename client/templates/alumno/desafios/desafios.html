@@ -20,13 +20,17 @@
 			{{#each desafios}}
       <div class="barra {{color}}" id="{{_id}}">
         <div class="tipo">
-					<i class="material-icons">history_edu</i>
+					<i class="material-icons">{{asignatura.icon}}</i>
 				</div>      
         <div class="descripcion-tarea">
 					<div class="titulo">{{titulo}}</div>
 					<div class="plazo">
-						<i class="material-icons">flag</i>{{formatoFecha desde 'dd D/MMM HH:mm'}} - 
-						<i class="material-icons">alarm_on</i>{{formatoFecha hasta 'dd D/MMM HH:mm'}}
+						<div class="desde">
+							<span><i class="material-icons">flag</i>{{formatoFecha desde 'dd D/MMM HH:mm'}}</span>
+						</div>
+						<div class="hasta">
+							<span><i class="material-icons">alarm_on</i>{{formatoFecha hasta 'dd D/MMM HH:mm'}}</span>
+						</div>						
 					</div>
 				</div>
 				<div class="marco-iconos">

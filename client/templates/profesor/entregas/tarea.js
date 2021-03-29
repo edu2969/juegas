@@ -18,7 +18,11 @@ Template.tarea.rendered = () => {
 
 Template.tarea.helpers({
 	tarea() {
-		return Session.get("TareaSeleccionada");
+		const tarea = Session.get("TareaSeleccionada");
+		if(!tarea) return;
+		const asignatura = ASIGNATURAS[tarea.asignatura];
+		tarea.asignatura = asignatura;
+		return tarea;
 	},
 	capsula() {
 		const tarea = Session.get("TareaSeleccionada");
@@ -39,6 +43,7 @@ Template.tarea.helpers({
 
 Template.tarea.events({
 	"click .contenedor-tarea .cruz"() {
+		delete Session.keys.TareaSeleccionada;
     document.querySelector(".contenedor-tarea")
 			.classList.toggle("activo");
 	},
@@ -70,7 +75,7 @@ Template.tarea.events({
 		if( descripcion != tarea.descripcion ) {
 			doc.descripcion = descripcion;
 		}
-		
+		delete Session.keys.TareaSeleccionada;
 		if( !IsEmpty(doc) ) {
 			Meteor.call("GuardarTarea", tarea._id, doc, function(err, resp) {
 				if(!err) {
