@@ -1,40 +1,40 @@
-<template name="tarea">
-	<div class="contenedor-tarea">
+<template name="desafioestudiante">
+	<div class="contenedor-desafio-estudiante">
 		<div class="cruz">
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
 			<h3>
-				{{#if tarea.descripcion}}
+				{{#if desafio._id}}
 					<span class="material-icons">create</span> Editar Desafío
 				{{else}}
 					<span class="material-icons">add_task</span> Nuevo Desafío
 				{{/if}}
 			</h3>
-			<h2><i class="material-icons">{{tarea.asignatura.icon}}</i> {{tarea.asignatura.label}}</h2>
+			<h2><i class="material-icons">{{desafio.asignatura.icon}}</i> {{desafio.asignatura.label}}</h2>
 			<div class="campo-formulario">
 				<div class="label">Título</div>
-				<input type="text" id="input-titulo" class="campo" value="{{tarea.titulo}}">
+				<input type="text" id="input-titulo" class="campo" value="{{desafio.titulo}}">
 			</div>
 			<div class="campo-formulario">
 				<div class="label">Nombre Unidad</div>
-				<input type="text" id="input-unidad" class="campo" value="{{tarea.unidad}}">
+				<input type="text" id="input-unidad" class="campo" value="{{desafio.unidad}}">
 			</div>
 			<div class="campo-formulario">
 				<div class="label">Objetivo</div>
-				<input type="text" id="input-objetivo" class="campo" value="{{tarea.objetivo}}">
+				<input type="text" id="input-objetivo" class="campo" value="{{desafio.objetivo}}">
 			</div>
 			<div class="campo-formulario">
 				<div class="label">¿Qué aprenderán?</div>
-				<textarea id="input-que" class="campo" rows="3">{{tarea.que}}</textarea>
+				<textarea id="input-que" class="campo" rows="3">{{desafio.que}}</textarea>
 			</div>
 			<div class="campo-formulario">
 				<div class="label">¿Para qué lo aprenderán?</div>
-				<textarea id="input-paraque" class="campo" rows="3">{{tarea.paraque}}</textarea>
+				<textarea id="input-paraque" class="campo" rows="3">{{desafio.paraque}}</textarea>
 			</div>
 			<div class="campo-formulario">
 				<div class="label">¿Cómo lo aprenderán?</div>
-				<textarea id="input-como" class="campo" rows="3">{{tarea.como}}</textarea>
+				<textarea id="input-como" class="campo" rows="3">{{desafio.como}}</textarea>
 			</div>
 			<div class="campo-descripcion">
 				{{> htmleditor}}
@@ -55,12 +55,12 @@
 						<div class="uploading-video">
 							<progress id="video-upload" value="0" max="100"> {{progress.get}}% </progress>
 						</div>
-						{{/with}}
-						<input type="file" id="upload-video">
+						{{/with}}						
 					</div>
+					<input type="file" id="upload-video">
 					<div class="nombre-archivo {{#unless capsula}}rojo{{/unless}}">
 						{{#if capsula}}
-							<i class="material-icons">attach_file</i><a link="{{capsula}}"> capsula.mp4</a>
+							<i class="material-icons">attach_file</i><a>{{capsula}}</a>
 						{{else}}
 							<i class="material-icons">videocam_off</i><span> Sin video</span>
 						{{/if}}
@@ -69,22 +69,22 @@
 			</div>
 			<div class="campo-formulario cuadro-capsula" id="tipo-youtube">
 				<div class="label">URL Youtube</div>
-				<input type="text" id="input-youtube" class="campo" value="{{tarea.youtube}}">				
+				<input type="text" id="input-youtube" class="campo" value="{{desafio.youtube}}">				
 			</div>
 			<div class="campo-formulario cuadro-capsula" id="tipo-url">
 				<div class="label">URL Cápsula</div>
-				<input type="text" id="input-url" class="campo" value="{{tarea.url}}">				
+				<input type="text" id="input-url" class="campo" value="{{desafio.url}}">				
 			</div>
 			<div class="campo-formulario addonleft">
 				<div class="label">Fecha Inicio</div>
 				<input type="text" id="input-desde" class="datetimepicker-component campo" 
-							 value="{{formatoFecha tarea.desde 'DD/MM/YYYY HH:mm'}}">
+							 value="{{formatoFecha desafio.desde 'DD/MM/YYYY HH:mm'}}">
 				<i class="material-icons">calendar_today</i>				
 			</div>
 			<div class="campo-formulario addonleft">
 				<div class="label">Fecha Término</div>
 				<input type="text" id="input-hasta" class="datetimepicker-component campo" 
-							 value="{{formatoFecha tarea.hasta 'DD/MM/YYYY HH:mm'}}">
+							 value="{{formatoFecha desafio.hasta 'DD/MM/YYYY HH:mm'}}">
 				<i class="material-icons">calendar_today</i>				
 			</div>
 			
@@ -92,31 +92,39 @@
 				<div class="titulo">KPSI</div>
 				<div class="campo-formulario">
 					<div class="label">KSPI 1</div>
-					<textarea id="input-kpsi1" class="campo" rows="3">{{tarea.kpsi1}}</textarea>
+					<textarea id="input-kpsi1" class="campo" rows="3">{{desafio.kpsi1}}</textarea>
 				</div>
 				<div class="campo-formulario">
 					<div class="label">KSPI 2</div>
-					<textarea id="input-kpsi2" class="campo" rows="3">{{tarea.kpsi2}}</textarea>
+					<textarea id="input-kpsi2" class="campo" rows="3">{{desafio.kpsi2}}</textarea>
 				</div>
 				<div class="campo-formulario">
 					<div class="label">KSPI 3</div>
-					<textarea id="input-kpsi3" class="campo" rows="3">{{tarea.kpsi3}}</textarea>
+					<textarea id="input-kpsi3" class="campo" rows="3">{{desafio.kpsi3}}</textarea>
 				</div>
 				<div class="campo-formulario">
 					<div class="label">KSPI 4</div>
-					<textarea id="input-kpsi4" class="campo" rows="3">{{tarea.kpsi4}}</textarea>
+					<textarea id="input-kpsi4" class="campo" rows="3">{{desafio.kpsi4}}</textarea>
 				</div>
 			</div>
 
-			<button class="btn-juegas btn-guardar-tarea">
-				<i class="material-icons">save</i>
-				<span>Guardar TAREA</span>
-			</button>
-			
-			<button class="btn-juegas btn-eliminar-tarea">
-				<i class="material-icons">delete_forever</i>
-				<span>ELIMINAR</span>
-			</button>
+			<div class="flex">
+				<button class="btn-juegas btn-guardar-desafio">
+					<i class="material-icons">save</i>
+					<span>Guardar</span>
+				</button>
+				{{#if desafio._id}}
+				<button class="btn-juegas btn-eliminar-desafio">
+					<i class="material-icons">delete_forever</i>
+					<span>Eliminar</span>
+				</button>
+				{{else}}
+				<button class="btn-juegas btn-cancelar">
+					<i class="material-icons">clear</i>
+					<span>Cancelar</span>
+				</button>
+				{{/if}}
+			</div>
 
 		</div>
 	</div>

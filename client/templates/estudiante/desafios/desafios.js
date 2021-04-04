@@ -1,3 +1,5 @@
+const { EVALUACIONES, ASIGNATURAS } = require('../../../../lib/constantes');
+
 const inicializarYoutube = function() {
 	var videos = document.getElementsByClassName("youtube"); 
 
@@ -40,25 +42,14 @@ const inicializarYoutube = function() {
 }
 
 Template.desafios.rendered = function() {
-	Meteor.subscribe('curso');
-	Tracker.autorun(() => {
-		const alumno = Meteor.user();
-		if(!alumno) return;
-		const cursoId = alumno.profile.curso;
-		const curso = Cursos.findOne({ _id: cursoId });
-		if(!curso) return;
-		const nivel = curso.nivel.charAt(0)=="P" ? "PK" : curso.nivel.charAt(0);
-		Meteor.subscribe('desafios', nivel);
-		Meteor.subscribe('entregas');
-	});
 	Session.set("DesafioSeleccionado", false);
 }
 
 Template.desafios.helpers({
 	desafios() {
-		var desafios = Tareas.find();
+		var desafios = Desafios.find();
 		return desafios.map(function(desafio) {
-			let entrega = Entregas.findOne({ tareaId: desafio._id });
+			let entrega = Entregas.findOne({ desafioId: desafio._id });
 			if(entrega) {
 				desafio.color = entrega && entrega.comentado ? "amarillo" : "verde";
 				desafio.icono = ( entrega && entrega.evaluacion ) ? EVALUACIONES[entrega.evaluacion].icono : "hourglass_top";				
@@ -76,7 +67,7 @@ Template.desafios.helpers({
 	stats() {
 		return {
 			entregas: Entregas.find().count(),
-			total: Tareas.find().count()
+			total: Desafios.find().count()
 		}
 	}
 })
@@ -88,7 +79,7 @@ Template.desafios.events({
   },
 	"click .barra"(e) {
 		const id = e.currentTarget.id;
-		const desafio = Tareas.findOne({ _id: id });
+		const desafio = Desafios.findOne({ _id: id });
 		$("iframe").remove();
 		Session.set("DesafioSeleccionado", desafio);
     document.querySelector(".contenedor-desafio").classList.toggle("activo");

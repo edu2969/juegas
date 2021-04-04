@@ -1,20 +1,10 @@
-Template.cuentas.onCreated(function () {
-	this.perfil = new ReactiveVar(1);
-	this.cursoId = new ReactiveVar(false);
-})
+const { PERFILES } = require('../../../lib/constantes');
 
-Template.cuentas.rendered = function() {
-	const template = Template.instance();
-	Tracker.autorun(() => {
-		Meteor.subscribe('cuentas', template.perfil.get());
-		const cursoId = template.cursoId.get();
-		if(!cursoId) {
-			const curso = Cursos.findOne();
-			if(!curso) return;
-			template.cursoId.set(curso._id);
-		}
-	});
-}
+Template.cuentas.onCreated(function () {
+	let tipo = PERFILES.indexOf(Router.current().params.tipo) + 1;
+	this.perfil = new ReactiveVar(tipo);
+	this.cursoId = new ReactiveVar(Cursos.findOne()._id);
+});
 
 Template.cuentas.helpers({
 	cuentas() {
@@ -22,7 +12,7 @@ Template.cuentas.helpers({
 		const perfil = template.perfil.get();
 		var selector = { "profile.rol": perfil };
 		if(perfil==2) {
-			selector["profile.curso"] = template.cursoId.get();
+			selector["profile.cursoId"] = template.cursoId.get();
 		}
 		return Meteor.users.find(selector).map(function(usuario) {
 			return {
@@ -41,6 +31,16 @@ Template.cuentas.helpers({
 	},
 	cursos() {
 		return Cursos.find();
+	},
+	perfiles() {
+		const tipo = Router.current().params.tipo;
+		return PERFILES.map(perfil => {
+			return {
+				id: PERFILES.indexOf(perfil) + 1,
+				etiqueta: perfil.charAt(0).toUpperCase() + perfil.substr(1),
+				seleccionado: perfil == tipo
+			}
+		});
 	}
 });
 
@@ -67,7 +67,7 @@ Template.cuentas.events({
 	},
 	"change .selector-perfil"(e, template) {
 		let perfil = e.currentTarget.value;
-		template.perfil.set(Number(perfil));
+		Router.go('/cuentas/' + PERFILES[perfil - 1]);
 	},
 	"change .selector-curso"(e, template) {
 		template.cursoId.set(e.currentTarget.value);

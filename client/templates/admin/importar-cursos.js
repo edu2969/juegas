@@ -1,4 +1,4 @@
-Template.importarcurso.events({
+Template.importarcursos.events({
   "change input[type='file']"(event) {
     const file = event.currentTarget.files[0];
     const reader = new FileReader();
@@ -39,13 +39,11 @@ Template.importarcurso.events({
 					doc[nombreCurso] = cursos[nombreCurso];
 				}
 				
-				console.log(doc);
-
 				Meteor.call("IngresarAlumnos", doc, function(err, resp) {
           if(!err) {
-            console.log("TODO CORRECTO!");
-          } else {
-						console.log("UPS... algo malo ocurrio", err);
+						
+					} else {
+
 					}
         });
       });

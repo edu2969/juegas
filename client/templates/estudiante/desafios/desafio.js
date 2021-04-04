@@ -1,33 +1,26 @@
 export {
-  Images, Capsulas
+  ImagesEvidencias, VideosCapsulas
 };
+
+const { ASIGNATURAS, EVALUACIONES } = require('../../../../lib/constantes');
 
 var currentUpload;
 
 Template.desafio.onCreated(function () {
   currentUpload = new ReactiveVar(false);
-	
-	Tracker.autorun(() => {
-		const desafio = Session.get("DesafioSeleccionado");
-		if(!desafio) return;
-		Meteor.subscribe("misentregas", Meteor.userId(), desafio._id);
-		Meteor.subscribe("capsula", desafio._id);
-	});
 });
-
-Template.desafio.rendered = function() {
-	const desafio = Session.get("DesafioSeleccionado");
-}
 
 Template.desafio.helpers({
 	desafio() {
 		let desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return;
+		let entrega = Entregas.findOne({ desafioId: desafio._id });
+		if(!entrega) entrega = {};
 		desafio.asignaturaObj = ASIGNATURAS[desafio.asignatura];
 		if(desafio.youtube) {
 			desafio.youtubeId = desafio.youtube.split("?v=")[1];
 		}
-		const valoresKpsis = desafio.kpsis ? desafio.kpsis : [-1, -1, -1, -1];
+		const valoresKpsis = entrega.kpsis || desafio.respuestasKpsis || [-1, -1, -1, -1];
 		desafio.kpsis = [ desafio.kpsi1, desafio.kpsi2, desafio.kpsi3, desafio.kpsi4 ].map((kpsi, index) => {
 			let resultado = {
 				indice: index,
@@ -44,14 +37,14 @@ Template.desafio.helpers({
 	capsula() {
 		let desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return;
-		let capsula = Capsulas.findOne();
+		let capsula = VideosCapsulas.findOne({ "meta.desafioId": desafio._id });
 		return capsula && capsula.link();
 	},
 	fotos() {
 		const desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return;
-		return Images.find({ "meta.tareaId": desafio._id }).map(function(foto, index) {
-			let img = Images.findOne({ _id: foto._id });
+		return ImagesEvidencias.find({ "meta.desafioId": desafio._id }).map(function(foto, index) {
+			let img = ImagesEvidencias.findOne({ _id: foto._id });
 			let imagen = img && img.link();
 			return {
 				_id: foto._id,
@@ -63,19 +56,19 @@ Template.desafio.helpers({
 	tieneFotos() {
 		let desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return false;
-		return Images.find({ "meta.tareaId": desafio._id }).count();
+		return ImagesEvidencias.find({ "meta.desafioId": desafio._id }).count();
 	},
 	entrega() {
 		let desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return false;
-		var entrega = Entregas.findOne({ tareaId: desafio._id });
+		var entrega = Entregas.findOne({ desafioId: desafio._id });
 		if(!entrega) {
-			entrega = {};
+			entrega = { };
 		}
 		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
 		const fechaLimite = moment(desafio.hasta);
 		if( moment().isBefore(fechaLimite) && 
-			 ( !entrega.calificacion || entrega.calificacion.ponderacion <= 0.59 ) ) {
+			 ( !entrega.calificacion || entrega.calificacion.ponderacion <= 2 ) ) {
 			entrega.abierta = true;
 		}
 		return entrega;
@@ -84,6 +77,7 @@ Template.desafio.helpers({
 
 Template.desafio.events({
 	"click .contenedor-desafio .cruz"() {
+		Session.set("DesafioSeleccionado", {});
     document.querySelector(".contenedor-desafio")
 			.classList.toggle("activo");
 	},
@@ -95,19 +89,19 @@ Template.desafio.events({
 		const entrega = Entregas.findOne();
 		if(entrega) {
 			doc.entregaId = entrega._id;
-		}
-		if(desafio.kpsis) {
-			doc.kpsis = desafio.kpsis;
+		} else {
+			doc.kpsis = desafio.respuestasKpsis || [-1, -1, -1, -1];
 		}
 		Meteor.call("EnviarDesafio", doc, function(err, resp) {
 			if(!err) {
+				Session.set("DesafioSeleccionado", {});
 		    document.querySelector(".contenedor-desafio")
 					.classList.toggle("activo");
 			}
 		});
 	},
 	"click .marco-desafio .nombre"(e) {
-		let img = Images.findOne({ _id: e.currentTarget.id });
+		let img = ImagesEvidencias.findOne({ _id: e.currentTarget.id });
 		Session.set("ImagenSeleccionada", img && img.link());
     document.querySelector(".marco-foto-full")
 			.classList.toggle("activo");
@@ -131,12 +125,12 @@ Template.desafio.events({
     e.preventDefault();
     var desafio = Session.get("DesafioSeleccionado");
     if (e.originalEvent.dataTransfer.files && e.originalEvent.dataTransfer.files[0]) {
-      const upload = Images.insert({
+      const upload = ImagesEvidencias.insert({
         file: e.originalEvent.dataTransfer.files[0],
         streams: 'dynamic',
         chunkSize: 'dynamic',
         meta: {
-          tareaId: desafio._id
+          desafioId: desafio._id
         }
       }, false);
 
@@ -162,12 +156,12 @@ Template.desafio.events({
   'change #upload-image'(e) {
     var desafio = Session.get("DesafioSeleccionado");
     if (e.currentTarget.files && e.currentTarget.files[0]) {
-      const upload = Images.insert({
+      const upload = ImagesEvidencias.insert({
         file: e.currentTarget.files[0],
         streams: 'dynamic',
         chunkSize: 'dynamic',
         meta: {
-          tareaId: desafio._id
+          desafioId: desafio._id
         }
       }, false);
 
@@ -184,16 +178,16 @@ Template.desafio.events({
     }
   },
 	"click .eliminar"(e, template) {
-		Images.remove({ _id: e.currentTarget.id });
+		ImagesEvidencias.remove({ _id: e.currentTarget.id });
 	},
 	"click .numero"(e, template) {
 		const numero = e.currentTarget.innerHTML;
 		const indice = e.currentTarget.parentElement.id;
 		let desafio = Session.get("DesafioSeleccionado");
-		if(!desafio.kpsis) {
-			desafio.kpsis = [-1, -1, -1, -1];
+		if(!desafio.respuestasKpsis) {
+			desafio.respuestasKpsis = [-1, -1, -1, -1];
 		}
-		desafio.kpsis[indice] = numero;
+		desafio.respuestasKpsis[indice] = numero;
 		Session.set("DesafioSeleccionado", desafio);
 	}
 });

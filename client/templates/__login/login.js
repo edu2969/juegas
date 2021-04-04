@@ -21,17 +21,13 @@ Template.login.events({
       username: rut
     }, password, function (err, resp) {
       if (!err) {
-        let estado = {
-          enLogin: true
-        };
         if (Meteor.user().profile.rol == 2) {
-          estado.esAlumno = true;
+          Router.go('/desafios');
         } else if( Meteor.user().profile.rol == 1 ) {
-          estado.esAdmin = true;
+          Router.go('/cuentas/profesor');
         } else {
-          estado.esProfesor = true;
+          Router.go('/entregas');
         }
-        Session.set("EstadoApp", estado);
       } else {
         template.errores.set("Ups!, no puedes jugar :(");
       }

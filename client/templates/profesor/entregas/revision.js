@@ -1,17 +1,35 @@
-Template.revision.rendered = function() {	
-	Tracker.autorun(() => {
-		let seleccion = Session.get("Seleccion");
-		if(!seleccion) return;	
-		Meteor.subscribe('misentregas', seleccion.entrega.alumnoId, seleccion.tarea._id);
-	});
-}
+export {
+  ImagesEvidencias
+};
+
+const { EVALUACIONES } = require('../../../../lib/constantes');
 
 Template.revision.helpers({
 	revision() {
-		return Session.get("Seleccion");		
+		const revision = Session.get("Seleccion");
+		if(!revision || !revision.desafio) return;
+		const desafio = revision.desafio;
+		const entrega = revision.entrega;
+		const valoresKpsis = entrega.kpsis || [-1, -1, -1, -1];
+		entrega.kpsis = [ 
+			desafio.kpsi1, desafio.kpsi2, 
+			desafio.kpsi3, desafio.kpsi4 
+		].map((kpsi, index) => {
+			let resultado = {
+				indice: index,
+				letra: String.fromCharCode(97 + index),
+				valor: kpsi
+			};
+			if(valoresKpsis[index]!=-1) {
+				resultado["seleccionado" + valoresKpsis[index]] = true;
+			}									
+			return resultado;
+		});
+		return revision;
 	},
 	evaluaciones() {
 		const revision = Session.get("Seleccion");
+		if(!revision || !revision.desafio) return;
 		const keys = Object.keys(EVALUACIONES);
 		keys.pop();
 		return keys.map(function(key) {
@@ -28,11 +46,11 @@ Template.revision.helpers({
 	},
 	fotos() {
 		const revision = Session.get("Seleccion");
-		if(!revision) return false;
-		return Images.find({
-			"meta.tareaId": revision.tarea._id
+		if(!revision || !revision.desafio) return;
+		return ImagesEvidencias.find({
+			"meta.desafioId": revision.desafio._id
 		}).map(function(image, index) {
-			var img = Images.findOne({ _id: image._id });
+			var img = ImagesEvidencias.findOne({ _id: image._id });
 			return {
 				_id: image._id,
 				imagen: img && img.link(),
@@ -42,15 +60,16 @@ Template.revision.helpers({
 	},
 	cantidadEvidencias() {
 		const revision = Session.get("Seleccion");
-		if(!revision) return false;
-		return Images.find({
-			"meta.tareaId": revision.tarea._id
-		}).count();
+		if(!revision || !revision.desafio) return;
+		return ImagesEvidencias.find({
+			"meta.desafioId": revision.desafio._id
+		}).count() || "Sin evidencias";
 	}
 })
 
 Template.revision.events({
 	"click .contenedor-revision .cruz"() {
+		Session.set("Seleccion", {});
     document.querySelector(".contenedor-revision")
 			.classList.toggle("activo");
 	},
@@ -64,6 +83,7 @@ Template.revision.events({
 			comentario: comentario,
 			evaluacion: evaluacion
 		}, function(err, resp) {
+			Session.set("Seleccion", {});
 			document.querySelector(".contenedor-revision")
 				.classList.toggle("activo");			
 		})
@@ -76,7 +96,7 @@ Template.revision.events({
 		document.querySelector(".btn-guardar-revision").classList.add("habilitado");
 	},
 	"click .foto"(e) {
-		let img = Images.findOne({ _id: e.currentTarget.id });
+		let img = ImagesEvidencias.findOne({ _id: e.currentTarget.id });
 		Session.set("ImagenSeleccionada", img && img.link());
     document.querySelector(".marco-foto-full")
 			.classList.toggle("activo");

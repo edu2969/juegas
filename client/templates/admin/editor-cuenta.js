@@ -1,7 +1,8 @@
+const { ASIGNATURAS, PERFILES } = require('../../../lib/constantes');
+
 Template.editorCuenta.onCreated(function() {
-	this.error = new ReactiveVar(false);
 	this.asignaturaSeleccionada = new ReactiveVar(false);
-	Meteor.subscribe('cursos');
+	this.error = new ReactiveVar(false);
 });
 
 Template.editorCuenta.rendered = () => {
@@ -9,13 +10,14 @@ Template.editorCuenta.rendered = () => {
 	Tracker.autorun(() => {
 		const cuenta = Session.get("CuentaSeleccionada");
 		if(!cuenta) return;
-		const asignaturas = cuenta.profile.asignaturas;
-		const actual = instance.asignaturaSeleccionada.get();
-		if(asignaturas && !actual) {
-			const primera = Object.keys(asignaturas)[0];
+		const actual = PERFILES.indexOf(Router.current().params.tipo) + 1;
+		const asignaciones = cuenta.profile.asignaciones;
+		if(asignaciones && !instance.asignaturaSeleccionada.get()) {
+			const primera = Object.keys(asignaciones)[0];
+			console.log("PRIMERA", primera);
 			instance.asignaturaSeleccionada.set(primera);
 		}
-	})
+	});
 }
 
 Template.editorCuenta.helpers({
@@ -33,7 +35,7 @@ Template.editorCuenta.helpers({
 		if( cuenta.profile.rol!=3 ) return;
 		return keys.map(function(asignatura) {
 			let checked;
-			if( cuenta.profile.asignaturas && cuenta.profile.asignaturas[asignatura] ) {
+			if( cuenta.profile.asignaciones && cuenta.profile.asignaciones[asignatura] ) {
 				checked = true;
 			}
 			return {
@@ -46,45 +48,49 @@ Template.editorCuenta.helpers({
 	cursos() {
 		const instance = Template.instance();
 		const cuenta = Session.get("CuentaSeleccionada");
-		if( cuenta.profile.rol!=3 ) return;
-		let asignaturas = cuenta.profile.asignaturas;
+		if( !cuenta || cuenta.profile.rol!=3 ) return;
+		let asignaciones = cuenta.profile.asignaciones;
 		const cursoSeleccionado = instance.asignaturaSeleccionada.get();
-		return Cursos.find().map(curso => {
-			const nivel = curso.nivel;
+		return Cursos.find().map(cursoEntity => {
 			const asignaturaSeleccionada = instance.asignaturaSeleccionada.get();
-			const asignaciones = asignaturas[asignaturaSeleccionada];
-			if(asignaciones && asignaciones.indexOf(curso._id)!=-1) {
-				curso.activo = true;
+			const asignatura = asignaciones[asignaturaSeleccionada];
+			if(asignatura && asignatura.indexOf(cursoEntity._id)!=-1) {
+				cursoEntity.activo = true;
 			}
-			return curso;
+			return cursoEntity;
 		});
 	},
 	asignaturasSeleccionadas() {
 		const cuenta = Session.get("CuentaSeleccionada");
-		if( cuenta.profile.rol!=3 ) return;
-		const keys = Object.keys(cuenta.profile.asignaturas);
+		if( !cuenta || cuenta.profile.rol!=3 ) return;
+		const keys = Object.keys(cuenta.profile.asignaciones);
+		const asignaturaSeleccionada = Template.instance().asignaturaSeleccionada.get();
 		return keys.map(asignatura => {
-			console.log("ASIGNATURA", asignatura);
 			return {
 				glosa: ASIGNATURAS[asignatura].label,
-				asignatura: asignatura 
+				asignatura: asignatura,
+				seleccionada: asignatura == asignaturaSeleccionada
 			}
 		});
 	},
 	error() {
 		return Template.instance().error.get();
+	},
+	asignaturaSeleccionada() {
+		return Template.instance().asignaturaSeleccionada.get();
 	}
 });
 
-let ocultarEditor = () => {
+let ocultarEditor = (template) => {
 	document.querySelector(".contenedor-editor-cuenta")
 			.classList.toggle("activo");
+	template.asignaturaSeleccionada.set(false);
 	delete Session.keys.CuentaSeleccionada;
 }
 
 Template.editorCuenta.events({
-	"click .contenedor-editor-cuenta .cruz, click #btn-cancelar"() {
-    ocultarEditor();
+	"click .contenedor-editor-cuenta .cruz, click #btn-cancelar"(e, template) {
+    ocultarEditor(template);
 	},
 	"click #btn-guardar"(e, template) {
 		let cuenta = Session.get("CuentaSeleccionada");
@@ -102,7 +108,7 @@ Template.editorCuenta.events({
 		let perfil = Number(document.querySelector("select").value);
 		if(cuenta.profile.rol != perfil) doc.perfil = perfil;
 		if(perfil == 3) {
-			doc.asignaturas = cuenta.profile.asignaturas;
+			doc.asignaciones = cuenta.profile.asignaciones;
 		}
 		if(!IsEmpty(doc)) {
 			let valido = true;
@@ -114,54 +120,53 @@ Template.editorCuenta.events({
 			if(valido) {
 				Meteor.call("ActualizarCuenta", doc, function(err, resp) {
 					if(!err) {
-						ocultarEditor();
+						ocultarEditor(template);
 					}
 				});
 			} else {
 				document.querySelectorAll("input").forEach(function(item) {
 					item.classList.remove("is-invalid");
 					if(item.value == "") {
-						console.log(item.id, "vacio");
 						item.classList.add("is-invalid");
 					}
 				});
 				template.error.set("<i class='material-icons'>warning</i><span> Los campos son obligatorios</span>");
 			}
 
-		} else ocultarEditor();		
+		} else ocultarEditor(template);		
 	},
 	"click ul.cursos li"(e, template) {
 		const target = e.currentTarget;
 		const curso = target.innerText;
 		var cuenta = Session.get("CuentaSeleccionada");
-		var asignaturas = cuenta.profile.asignaturas;
+		var asignaciones = cuenta.profile.asignaciones;
 		const asignatura = $("#selector-asignaturas").val();
-		const cursoEntity = Cursos.findOne({ nivel: curso });
-		const indice = asignaturas[asignatura].indexOf(cursoEntity._id);
+		const cursoEntity = Cursos.findOne({ curso: curso });
+		const indice = asignaciones[asignatura].indexOf(cursoEntity._id);
 		if(indice==-1) {
-			asignaturas[asignatura].push(cursoEntity._id);	
+			asignaciones[asignatura].push(cursoEntity._id);	
 		} else {
-			asignaturas[asignatura].splice(indice, 1);
+			asignaciones[asignatura].splice(indice, 1);
 		}		
-		asignaturas[asignatura].sort((a, b) => {
+		asignaciones[asignatura].sort((a, b) => {
 			const cursoA = Cursos.findOne({ _id: a });
 			const cursoB = Cursos.findOne({ _id: b });
-			return cursoA.nivel < cursoB.nivel ? -1 : 1;
+			return cursoA.curso < cursoB.curso ? -1 : 1;
 		});
-		cuenta.profile.asignaturas = asignaturas;
+		cuenta.profile.asignaciones = asignaciones;
 		Session.set("CuentaSeleccionada", cuenta);
 	},
 	"click .checkbox-asignatura"(e, template) {
 		const asignatura = e.currentTarget.value;
 		const isChecked = e.currentTarget.checked;
 		const cuenta = Session.get("CuentaSeleccionada");
-		let asignaturas = cuenta.profile.asignaturas;
+		let asignaciones = cuenta.profile.asignaciones;
 		if(isChecked) {
-			asignaturas[asignatura] = [];
+			asignaciones[asignatura] = [];
 		} else {
-			delete asignaturas[asignatura];
+			delete asignaciones[asignatura];
 		};
-		cuenta.profile.asignaturas = asignaturas;
+		cuenta.profile.asignaciones = asignaciones;
 		Session.set("CuentaSeleccionada", cuenta);
 	},
 	"change #selector-asignaturas"(e, template) {

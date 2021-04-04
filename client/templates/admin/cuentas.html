@@ -1,20 +1,20 @@
 <template name="cuentas">
+	<div class="menu"><i class="material-icons">menu</i></div>
 	<h3><i class="material-icons">people_alt</i> Cuentas</h3>
 	<div class="selector">
 		<div class="tipo">
 			<p>Perfil</p>
 			<select class="selector-perfil">
-				<option value="1">Admin</option>
-				<option value="2">Alumno</option>
-				<option value="3">Profesor</option>
-				<option value="4">Director</option>
+				{{#each perfiles}}
+				<option value="{{id}}" selected="{{seleccionado}}">{{etiqueta}}</option>
+				{{/each}}
 			</select>
 		</div>
 		<div class="curso{{#if perfilAlumno}} activo{{/if}}">
 			<p>Curso</p>
 			<select class="selector-curso">
 				{{#each cursos}}
-				<option value="{{_id}}">{{nivel}}</option>				
+				<option value="{{_id}}">{{curso}}</option>				
 				{{/each}}
 			</select>
 		</div>
@@ -23,7 +23,7 @@
 			<span> Nuevo</span>
 		</button>
 	</div>
-	
+
 	<div class="contenedor-cuentas">
 		{{#each cuentas}}
 		<div class="contenedor-cuenta">

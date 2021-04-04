@@ -46,12 +46,12 @@
 					<span>CURSOS</span><br/>
 					<select id="selector-asignaturas">
 						{{#each asignaturasSeleccionadas}}
-						<option value="{{asignatura}}">{{glosa}}</option>
+						<option value="{{asignatura}}" selected="{{#if seleccionada}}selected{{/if}}">{{glosa}}</option>
 						{{/each}}
 					</select>
 					<ul class="cursos">
 						{{#each cursos}}
-						<li class="{{#if activo}}activo{{/if}}">{{nivel}}</li>
+						<li class="{{#if activo}}activo{{/if}}">{{curso}}</li>
 						{{/each}}
 					</ul>
 				</div>

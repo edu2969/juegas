@@ -1,3 +1,5 @@
+const { VERSION } = require('../../lib/constantes');
+
 Handlebars.registerHelper("formatoFecha", function (date, mask) {
   if(!date) return '--/--';
   var m = moment(date);

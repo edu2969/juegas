@@ -1,4 +1,4 @@
-.contenedor-tarea {
+.contenedor-desafio-estudiante {
   position: absolute;
   width: 100%;
   height: 100vh;
@@ -20,6 +20,7 @@
 		right: 10px;
 		top: 10px;
 		font-size: 18px;
+		cursor: pointer;
 	}
 	
 	.detalle {
@@ -115,10 +116,6 @@
 					}
 				}				
 
-				input[type="file"] {
-					display: none;
-				}
-
 				i {
 					width: 45px;
 					height: 45px;
@@ -130,6 +127,10 @@
 					font-size: 38px;
 					color: gray;
 				}				
+			}
+			
+			input[type="file"] {
+				display: none;
 			}
 			
 			.nombre-archivo {
@@ -163,13 +164,12 @@
 		&.btn-juegas {
 			margin-top: 10px;
 			margin-bottom: 10px;
-			width: calc(100% - 20px);
-			max-width: 320px;
+			width: 180px;
 			font-size: 16px;
 			padding: 10px;
 		}
 
-		&.btn-eliminar-tarea {
+		&.btn-eliminar-desafio, &.btn-cancelar {
 			background-color: salmon;
 		}
 	}

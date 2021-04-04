@@ -4,16 +4,17 @@
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
-			<h1><span class="material-icons">rule</span> Revisión<br/><small>{{revision.tarea.titulo}}</small></h1>
+			<h1><span class="material-icons">rule</span> Revisión<br/><small>{{revision.desafio.titulo}}</small></h1>
+			
 			<div class="descripcion">
 				<div class="encabezado">
 					<i class="material-icons">keyboard_arrow_down</i>
 					&nbsp;<span>EL DESAFÍO</span>
 				</div>
-				<p>{{{revision.tarea.descripcion}}}</p>
+				<p>{{{revision.desafio.descripcion}}}</p>
 			</div>
 
-			<div class="marco-fotos">
+			<div class="marco-revision marco-fotos">
 				<div class="titulo">Evidencias <small>({{cantidadEvidencias}})</small></div>
 				<div class="fotos">
 					{{#each fotos}}
@@ -25,7 +26,7 @@
 				</div>
 			</div>
 			
-			<div class="marco-evaluacion">
+			<div class="marco-revision marco-evaluacion">
 				<div class="titulo">{{#if revision.entrega.evaluacion}}Ésta fue tu evaluación{{else}}¿Cómo calificas ésta entrega?{{/if}}</div>
 				<div class="marco-evaluaciones">				
 					{{#each evaluaciones}}
@@ -37,9 +38,27 @@
 				</div>
 			</div>
 			
-			<div class="cuadro-comentario">
-				<p>{{#if revision.entrega.evalacion}}Esta fue la evaluación{{else}}¿Algún comentario?{{/if}}</p>
+			<div class="marco-revision cuadro-comentario">
+				<div class="titulo">{{#if revision.entrega.evalacion}}Esta fue la evaluación{{else}}¿Algún comentario?{{/if}}</div>
 				<textarea rows="5" id="input-comentarios" style="width: 320px">{{revision.entrega.comentario}}</textarea>
+			</div>
+			
+			<div class="marco-revision contenedor-kpsis">
+				<div class="titulo">Autoevaluación</div>
+				<div class="kpsis">
+					{{#each revision.entrega.kpsis}}
+					<div class="kpsi">
+						<div class="texto">{{letra}})</div>
+						<p class="descripcion-kpsi">{{valor}}</p>
+						<div class="valor" id="{{indice}}">
+							<div class="numero {{#if seleccionado1}}activo{{/if}}">1</div>
+							<div class="numero {{#if seleccionado2}}activo{{/if}}">2</div>
+							<div class="numero {{#if seleccionado3}}activo{{/if}}">3</div>
+							<div class="numero {{#if seleccionado4}}activo{{/if}}">4</div>
+						</div>
+					</div>
+					{{/each}}
+				</div>
 			</div>
 			
 			<button class="btn-juegas btn-guardar-revision">

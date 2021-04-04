@@ -1,40 +1,30 @@
-Template.panel.onCreated(function () {
-
-});
-
-Template.panel.rendered = function () {
-  let estado = Session.get("EstadoApp");
-	
-	let home = estado.esAlumno ? 'agenda' : 
-	estado.esProfesor ? 'entregas' : 
-	estado.esAdmin ? 'cuentas' : 'panel-gestion';	
-	
-	UIUtils.toggleVisible('area', home);  
-}
-
-Template.panel.helpers({
-  esAlumno() {
-    return Session.get("EstadoApp").esAlumno;
-  },
-  esProfesor() {
-    return Session.get("EstadoApp").esProfesor;
-  },
-  esDirector() {
-    return Session.get("EstadoApp").esDirector;
-  },
-  esAdmin() {
-    return Session.get("EstadoApp").esAdmin;
-  }
+Template.pie.helpers({
+	esProfesor() {
+		return Meteor.user() && Meteor.user().profile.rol == 3;
+	},
+	esAlumno() {
+		return Meteor.user() && Meteor.user().profile.rol == 2;
+	},
+	esAdmin() {
+		return Meteor.user() && Meteor.user().profile.rol == 1;
+	}
 })
 
-Template.panel.events({
-  "click .accion"(e) {
-    var item = e.currentTarget.classList[1];
-    UIUtils.toggleClass('accion', item, 'activo');
-    UIUtils.toggleVisible('area', item);
+Template.pie.events({
+  "click .accion:not(.activo)"(e) {
+    const ruta = e.currentTarget.attributes["ruta"].value;
+		$(".accion").removeClass('activo');
+		e.currentTarget.classList.add('activo');
+    Router.go(ruta);
+  },
+  "click .modal .cruz"(e) {
+    e.currentTarget.parentElement.parentElement.classList.remove("activo");
+  }
+});
 
-    if (item == "logros") {
-      var width = window.innerWidth;
+/*
+
+var width = window.innerWidth;
       var arreglo = [{
         selector: "calorias",
         color: "green",
@@ -82,15 +72,6 @@ Template.panel.events({
 
 
       renderMultiTimer();
-    }
-  },
-  "click .menu, click .contenedor-menu .cruz"() {
-    document.querySelector(".contenedor-menu").classList.toggle("activo");
-  },
-  "click .modal .cruz"(e) {
-    e.currentTarget.parentElement.parentElement.classList.remove("activo");
-  }
-});
 
 function renderMultiTimer() {
   var clockOptions = {
@@ -149,4 +130,4 @@ function getClockData() {
       }
     }
   ];
-}
+}*/

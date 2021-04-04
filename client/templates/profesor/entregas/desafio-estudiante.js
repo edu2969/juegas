@@ -1,63 +1,60 @@
 export {
-  Capsulas
+  VideosCapsulas
 };
+
+const { ASIGNATURAS } = require('../../../../lib/constantes');
 
 var currentUpload;
 
-Template.tarea.onCreated(function() {
+Template.desafioestudiante.onCreated(function() {
 	currentUpload = new ReactiveVar(false);
 });
 
-Template.tarea.rendered = () => {
-	Tracker.autorun(() => {
-		const tarea = Session.get("TareaSeleccionada");
-		if( !tarea || !tarea._id ) return false;		
-		Meteor.subscribe('capsula', tarea._id);
-	});
-}
-
-Template.tarea.helpers({
-	tarea() {
-		const tarea = Session.get("TareaSeleccionada");
-		if(!tarea) return;
-		const asignatura = ASIGNATURAS[tarea.asignatura];
-		tarea.asignatura = asignatura;
-		return tarea;
+Template.desafioestudiante.helpers({
+	desafio() {
+		const desafio = Session.get("DesafioSeleccionado");
+		if(!desafio) return;
+		if(desafio.asignatura) {
+			const asignatura = ASIGNATURAS[desafio.asignatura];
+			desafio.asignatura = asignatura;
+		}
+		return desafio;
 	},
 	capsula() {
-		const tarea = Session.get("TareaSeleccionada");
-		if(!tarea) return;
-		let capsula = Capsulas.findOne({ "meta.tareaId": tarea._id });
-		return capsula && capsula.link();
+		const desafio = Session.get("DesafioSeleccionado");
+		if(!desafio) return;
+		let capsula = VideosCapsulas.findOne({ "meta.desafioId": desafio._id });
+		return capsula && capsula.name;
 	},
 	currentUpload() {
 		return currentUpload.get();
 	},
 	video() {
-		const tarea = Session.get("TareaSeleccionada");
-		if( !tarea || !tarea._id ) return false;
-		const capsula = Capsulas.findOne({ "meta.tareaId": tarea._id });
+		const desafio = Session.get("DesafioSeleccionado");
+		if( !desafio || !desafio._id ) return false;
+		const capsula = VideosCapsulas.findOne({ "meta.desafioId": desafio._id });
 		return capsula && capsula.link();
 	}
 })
 
-Template.tarea.events({
-	"click .contenedor-tarea .cruz"() {
-		delete Session.keys.TareaSeleccionada;
-    document.querySelector(".contenedor-tarea")
+Template.desafioestudiante.events({
+	"click .contenedor-desafio-estudiante .cruz"() {
+		Session.set("DesafioSeleccionado", false);
+    document.querySelector(".contenedor-desafio-estudiante")
 			.classList.toggle("activo");
+		$(".contenedor-desafio-estudiante .detalle").scrollTop(0);
 	},
 	"click input[type='radio']"(e) {
 		$(".cuadro-capsula").hide();
 		$("#tipo-" + e.currentTarget.id.split("-")[1]).show();
 	},
-	"click .btn-guardar-tarea"() {
-		const tarea = Session.get("TareaSeleccionada");
+	"click .btn-guardar-desafio"() {
+		const desafio = Session.get("DesafioSeleccionado");
 		let doc = {};
 		let tipo = document.querySelector("input[type='radio']:checked").value;
 		document.querySelectorAll(".campo").forEach(function(item) {
 			const atributo = item.id.split("-")[1];
-			const anterior = tarea[atributo];
+			const anterior = desafio[atributo];
 			const esFecha = item.classList.value.indexOf("datetimepicker-component") != -1;
 			let valor = esFecha ? moment(item.value, 'DD/MM/YYYY HH:mm').toDate() : item.value;
 			
@@ -72,26 +69,35 @@ Template.tarea.events({
 		}
 		
 		var descripcion = $("#summernote").summernote("code");
-		if( descripcion != tarea.descripcion ) {
+		if( descripcion != desafio.descripcion ) {
 			doc.descripcion = descripcion;
 		}
-		delete Session.keys.TareaSeleccionada;
+		if(!desafio._id) {
+			doc.asignatura = desafio.asignatura;
+			doc.nivel = desafio.nivel;
+			if(!doc.desde) doc.desde = desafio.desde;
+			if(!doc.hasta) doc.hasta = desafio.hasta;
+		}
 		if( !IsEmpty(doc) ) {
-			Meteor.call("GuardarTarea", tarea._id, doc, function(err, resp) {
+			Meteor.call("GuardarDesafio", desafio._id, doc, function(err, resp) {
 				if(!err) {
-					document.querySelector(".contenedor-tarea")
+					Session.set("DesafioSeleccionado", false);
+					document.querySelector(".contenedor-desafio-estudiante")
 						.classList.toggle("activo");
 				}
 			})
-		} else document.querySelector(".contenedor-tarea")
-			.classList.toggle("activo");
+		} else {
+			Session.set("DesafioSeleccionado", false);
+			document.querySelector(".contenedor-desafio-estudiante")
+				.classList.toggle("activo");
+		}
 	},
-	"click .btn-eliminar-tarea"(e) {
-		const tarea = Session.get("TareaSeleccionada");
-		Meteor.call("DetallesEliminarTarea", tarea._id, function(err, resp) {
+	"click .btn-eliminar-desafio"(e) {
+		const desafio = Session.get("DesafioSeleccionado");
+		Meteor.call("DetallesEliminarTarea", desafio._id, function(err, resp) {
 			if(!err) {
 				Session.set("DetallesEliminarTarea", resp);
-				$("#modaleliminartarea").modal("show");
+				$("#modaleliminardesafio").modal("show");
 			} else {
 				console.error(err);
 			}
@@ -118,15 +124,15 @@ Template.tarea.events({
     e.preventDefault();
 		t.$(".drop-video").removeClass("activo");
 		t.$(".uploading-video").addClass("activo");
-    var tarea = Session.get("TareaSeleccionada");
+    var desafio = Session.get("DesafioSeleccionado");
     if (e.originalEvent.dataTransfer.files && e.originalEvent.dataTransfer.files[0]) {
-			Capsulas.remove({ "meta.tareaId": tarea._id });
-      const upload = Capsulas.insert({
+			VideosCapsulas.remove({ "meta.desafioId": desafio._id });
+      const upload = VideosCapsulas.insert({
         file: e.originalEvent.dataTransfer.files[0],
         streams: 'dynamic',
         chunkSize: 'dynamic',
         meta: {
-          tareaId: tarea._id
+          desafioId: desafio._id
         }
       }, false);
 
@@ -150,15 +156,15 @@ Template.tarea.events({
     $("#upload-video").click();
   },
   'change #upload-video'(e) {
-    var tarea = Session.get("TareaSeleccionada");
+    var desafio = Session.get("DesafioSeleccionado");
     if (e.currentTarget.files && e.currentTarget.files[0]) {
-			Capsulas.remove({ "meta.tareaId": tarea._id });
-      const upload = Capsulas.insert({
+			VideosCapsulas.remove({ "meta.desafioId": desafio._id });
+      const upload = VideosCapsulas.insert({
         file: e.currentTarget.files[0],
         streams: 'dynamic',
         chunkSize: 'dynamic',
         meta: {
-          tareaId: tarea._id
+          desafioId: desafio._id
         }
       }, false);
 
@@ -174,4 +180,8 @@ Template.tarea.events({
       upload.start();
     }
   },
+	"click .btn-cancelar"() {
+		document.querySelector(".contenedor-desafio-estudiante")
+			.classList.toggle("activo");
+	}
 });

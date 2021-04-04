@@ -1,3 +1,5 @@
+const { ASIGNATURAS, EVALUACIONES } = require('../../../lib/constantes');
+
 Template.menu.helpers({
 	esProfesor() {
 		return Meteor.user() && Meteor.user().profile.rol == 3;
@@ -24,6 +26,13 @@ Template.menu.helpers({
 
 Template.menu.events({
   "click #link-logout"() {
-    Session.set("EstadoApp", false);
-  }
+		document.querySelector(".contenedor-menu").classList.toggle("activo");
+		setTimeout(()=> {
+			Meteor.logout();
+			Router.go('/');
+		}, 500);
+  },
+	 "click .contenedor-menu .cruz"() {
+    document.querySelector(".contenedor-menu").classList.toggle("activo");
+  },
 });

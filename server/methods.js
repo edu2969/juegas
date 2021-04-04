@@ -38,7 +38,7 @@ Meteor.methods({
 				}
 			};
 			if(profile.rol==3) {
-				docNew.profile.asignaturas = doc.asignaturas;
+				docNew.profile.asignaciones = doc.asignaciones;
 			}
 			Accounts.createUser(docNew);			
 		}
@@ -46,20 +46,29 @@ Meteor.methods({
 	
 	// Alumnos
 	EnviarDesafio(doc) {
+		var docSet = {};
 		if(!doc.entregaId) {
-			Entregas.insert({
-				alumnoId: this.userId,
-				tareaId: doc.desafioId,
+			docSet = {
+				estudianteId: this.userId,
+				desafioId: doc.desafioId,
 				fecha: new Date()
-			});
+			}
+			if(doc.kpsis) {
+				docSet.kpsis = doc.kpsis;
+			}
+			Entregas.insert(docSet);
 		} else {
+			docSet = {
+				mejora: true
+			}
+			if(doc.kpsis) {
+				docSet.kpsis = doc.kpsis;
+			}
 			Entregas.update({
-				alumnoId: this.userId,
-				tareaId: doc.desafioId
+				estudianteId: this.userId,
+				desafioId: doc.desafioId
 			}, {
-				$set: {
-					mejora: true
-				}
+				$set: docSet
 			});
 		}
 	},
@@ -78,24 +87,24 @@ Meteor.methods({
 	},
 
 	// Profesores
-	GuardarTarea(tareaId, doc) {
-		if(tareaId) {
-			Tareas.update({ _id: tareaId }, { $set: doc });
-			return tareaId;
+	GuardarDesafio(desafioId, doc) {
+		if(desafioId) {
+			Desafios.update({ _id: desafioId }, { $set: doc });
+			return desafioId;
 		} else {
-			return Tareas.insert(doc);
+			return Desafios.insert(doc);
 		}		
 	},
-	DetallesEliminarTarea(tareaId) {
-		const tarea = Tareas.findOne({ _id: tareaId });
+	DetallesEliminarDesafio(desafioId) {
+		const desafio = Desafios.findOne({ _id: desafioId });
 		return {
-			fecha: tarea.desde,
-			titulo: tarea.titulo,
-			entregas: Entregas.find({ tareaId: tarea._id }).count()
+			fecha: desafio.desde,
+			titulo: desafio.titulo,
+			entregas: Entregas.find({ desafioId: desafio._id }).count()
 		}
 	},
-	EliminarTarea(tareaId) {
-		Tareas.remove(tareaId);
+	EliminarDesafio(desafioId) {
+		Desafios.remove(desafioId);
 	},
 
 	// MISCELANEOS
@@ -112,9 +121,6 @@ Meteor.methods({
 
 	// Admin
 	IngresarAlumnos(doc) {
-		console.log("IMPORTANDO ---------------------------------_>");
-		console.log(doc);
-
 		Object.keys(doc).forEach(function (key) {
 			doc[key].forEach(function (registro) {
 				registro.nombres = registro.nombres.map(function(item) {
@@ -123,42 +129,29 @@ Meteor.methods({
 				registro.apellidos = registro.apellidos.map(function(item) {
 					return item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
 				});
-				console.log("USERNAME: " + registro.rut, key, registro.nombres.join(" ").trim(), registro.apellidos.join(" ").trim());
-				let curso = Cursos.findOne({ nivel: key });
+				//console.log("USERNAME: " + registro.rut, key, registro.nombres.join(" ").trim(), registro.apellidos.join(" ").trim());
+				let curso = Cursos.findOne({ curso: key });
 				if(!curso) {
-					const cursoId = Cursos.insert({ nivel: key });
+					const cursoId = Cursos.insert({ curso: key });
 					curso = Cursos.findOne({ _id: cursoId });
 				}
-				let alumno = {
+				let estudiante = {
 					username: registro.rut,
 					password: registro.rut.substring(0, 4),
 					profile: {
 						nombres: registro.nombres.join(" ").trim(),
 						apellidos: registro.apellidos.join(" ").trim(),
 						rol: 2,
-						curso: curso._id
+						cursoId: curso._id
 					}
 				}					
-				Accounts.createUser(alumno);
+				Accounts.createUser(estudiante);
 			});
 		});
 	},
 
 
 	// TEST
-	_TestTareas() {
-		let desde = moment("19/11/2020 08:00", "DD/MM/YYYY HH:mm");
-		let hasta = moment("20/11/2020 08:00", "DD/MM/YYYY HH:mm");
-		Tareas.insert({
-			asignatura: "HIST",
-			nivel: "7",
-			titulo: "El islam en la edad Media",
-			descripcion: "<p>Instrucciones: </p><ul><li>Responde las actividades de acuerdo a lo aprendido en la cápsula.</li><li>Al terminar la evaluación recuerda enviarla al WhatsApp de tu profesor.</li><li>Cualquier duda o consulta lo puedes hacer al WhatsApp de tu profesor.</li></ul><ol><li><p>Según el gráfico de crecimiento de la población en la edad media ¿cuánto es el aumento de la población entre los años 1150 y 1250?<img src='/img/tareas/tarea01.jpeg'></p></li><li>Buscar el significado de:<ul><li>Esperanza de vida: ______________</li><li>Demografía: _____________________</li><li>Tasa de mortalidad: _____________</li></ul></li><li><p>Según la fuente de la pág. 155 de tu texto escolar ¿Quiénes se ven beneficiadas ante las mejoras alimenticias y de qué forma?</p><img src='/img/tareas/tarea02.jpeg'></li><li>Averigüe que factor provoco el descenso demográfico repentino en Europa entre los años 1350 y 1450.</li></ol>",
-			desde: desde.toDate(),
-			hasta: hasta.toDate(),
-			video: "/videos/video01.mp4"
-		});
-	},
 	_DatosIniciales() {
 		const defecto = [{
 			username: "12973705-0",
@@ -174,7 +167,7 @@ Meteor.methods({
 			profile: {
 				nombres: "Profe Test",
 				apellidos: "Apellidos Ambos",
-				asignaturas: { 
+				asignaciones: { 
 					"HIST": [], 
 					"MATE": [] 
 				},
@@ -186,7 +179,7 @@ Meteor.methods({
 			profile: {
 				nombres: "Profe Dos",
 				apellidos: "Test Segundo",
-				asignaturas: {
+				asignaciones: {
 					"INGL": [], 
 					"CIEN": [] 
 				},
