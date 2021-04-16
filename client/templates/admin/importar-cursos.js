@@ -17,7 +17,7 @@ Template.importarcursos.events({
 				for(let curso = 0; curso < wb.SheetNames.length; curso++ ) {
 					const ws = wb.Sheets[wb.SheetNames[curso]];
 					var columnas = ["numero", "rut", "nombres"];
-					let j = 8;
+					let j = 7;
 					var registros = [];
 					let etiqueta = wb.SheetNames[curso];
 					let nivel = etiqueta.split("°")[0];
@@ -31,9 +31,9 @@ Template.importarcursos.events({
 						var nombres = ws["E" + j].v;
             console.log("Procesando alumno", rut);
 						cursos[nombreCurso].push({
-							rut: rut,
-							nombres: nombres,
-							apellidos: apellidos
+							rut: rut.trim().replace(/\./g, ''),
+							nombres: nombres.trim(),
+							apellidos: apellidos.trim()
 						})
 						j++;
 					}
