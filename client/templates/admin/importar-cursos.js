@@ -17,33 +17,36 @@ Template.importarcursos.events({
 				for(let curso = 0; curso < wb.SheetNames.length; curso++ ) {
 					const ws = wb.Sheets[wb.SheetNames[curso]];
 					var columnas = ["numero", "rut", "nombres"];
-					let j = 6;
+					let j = 8;
 					var registros = [];
 					let etiqueta = wb.SheetNames[curso];
-					let nivel = etiqueta.split("° ")[0];
-					let numero = etiqueta.split("° ")[1];
+					let nivel = etiqueta.split("°")[0];
+					let numero = etiqueta.split("°")[1];
 					const nombreCurso = nivel + numero;
 					cursos[nombreCurso] = [];
+          console.log("Procesando curso", nombreCurso);
 					while (ws["B" + j]) {
-						var rut = ws["C" + j].v;
-						var nombreCompleto = ws["D" + j].v.trim().split(" ");
-						var nombres = nombreCompleto.slice(2, nombreCompleto.length);
-						var apellidos = nombreCompleto.slice(0, 2);
+            var rut = ws["B" + j].v;
+						var apellidos = ws["C" + j].v;
+						var nombres = ws["E" + j].v;
+            console.log("Procesando alumno", rut);
 						cursos[nombreCurso].push({
-							rut: rut, 
-							nombres: nombres, 
+							rut: rut,
+							nombres: nombres,
 							apellidos: apellidos
 						})
-						j++;						
+						j++;
 					}
 					doc[nombreCurso] = cursos[nombreCurso];
 				}
-				
+
+        console.log("Se ha procesao del excel:", doc);
+
 				Meteor.call("IngresarAlumnos", doc, function(err, resp) {
           if(!err) {
-						
+						console.log("Todo correcto....!");
 					} else {
-
+            console.error(err);
 					}
         });
       });

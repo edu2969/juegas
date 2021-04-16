@@ -3,8 +3,20 @@ const { PERFILES } = require('../../../lib/constantes');
 Template.cuentas.onCreated(function () {
 	let tipo = PERFILES.indexOf(Router.current().params.tipo) + 1;
 	this.perfil = new ReactiveVar(tipo);
-	this.cursoId = new ReactiveVar(Cursos.findOne()._id);
+	this.cursoId = new ReactiveVar(false);
 });
+
+Template.cuentas.rendered = function() {
+	const template = Template.instance();
+	Tracker.autorun((computation) => {
+		const curso = Cursos.findOne();
+		const cursoId = template.cursoId.get();
+		if(!cursoId && curso) {
+			template.cursoId.set(curso._id);
+			computation.stop();
+		}
+	})
+}
 
 Template.cuentas.helpers({
 	cuentas() {
@@ -24,7 +36,7 @@ Template.cuentas.helpers({
 		})
 	},
 	perfil() {
-		return Template.instance().perfil.get();	
+		return Template.instance().perfil.get();
 	},
 	perfilAlumno() {
 		return Template.instance().perfil.get() == 2;

@@ -40,10 +40,10 @@ Meteor.methods({
 			if(profile.rol==3) {
 				docNew.profile.asignaciones = doc.asignaciones;
 			}
-			Accounts.createUser(docNew);			
+			Accounts.createUser(docNew);
 		}
   },
-	
+
 	// Alumnos
 	EnviarDesafio(doc) {
 		var docSet = {};
@@ -93,7 +93,7 @@ Meteor.methods({
 			return desafioId;
 		} else {
 			return Desafios.insert(doc);
-		}		
+		}
 	},
 	DetallesEliminarDesafio(desafioId) {
 		const desafio = Desafios.findOne({ _id: desafioId });
@@ -123,13 +123,7 @@ Meteor.methods({
 	IngresarAlumnos(doc) {
 		Object.keys(doc).forEach(function (key) {
 			doc[key].forEach(function (registro) {
-				registro.nombres = registro.nombres.map(function(item) {
-					return item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
-				});
-				registro.apellidos = registro.apellidos.map(function(item) {
-					return item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
-				});
-				//console.log("USERNAME: " + registro.rut, key, registro.nombres.join(" ").trim(), registro.apellidos.join(" ").trim());
+				console.log("USERNAME: " + registro.rut, key, registro.nombres, registro.apellidos);
 				let curso = Cursos.findOne({ curso: key });
 				if(!curso) {
 					const cursoId = Cursos.insert({ curso: key });
@@ -139,12 +133,12 @@ Meteor.methods({
 					username: registro.rut,
 					password: registro.rut.substring(0, 4),
 					profile: {
-						nombres: registro.nombres.join(" ").trim(),
-						apellidos: registro.apellidos.join(" ").trim(),
+						nombres: registro.nombres,
+						apellidos: registro.apellidos,
 						rol: 2,
 						cursoId: curso._id
 					}
-				}					
+				}
 				Accounts.createUser(estudiante);
 			});
 		});
@@ -167,9 +161,9 @@ Meteor.methods({
 			profile: {
 				nombres: "Profe Test",
 				apellidos: "Apellidos Ambos",
-				asignaciones: { 
-					"HIST": [], 
-					"MATE": [] 
+				asignaciones: {
+					"HIST": [],
+					"MATE": []
 				},
 				rol: 3
 			}
@@ -180,8 +174,8 @@ Meteor.methods({
 				nombres: "Profe Dos",
 				apellidos: "Test Segundo",
 				asignaciones: {
-					"INGL": [], 
-					"CIEN": [] 
+					"INGL": [],
+					"CIEN": []
 				},
 				rol: 3
 			}
