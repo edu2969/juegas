@@ -4,10 +4,8 @@ export {
 
 const { ASIGNATURAS, EVALUACIONES } = require('../../../../lib/constantes');
 
-var currentUpload;
-
 Template.desafio.onCreated(function () {
-  currentUpload = new ReactiveVar(false);
+  this.currentUpload = new ReactiveVar(false);
 });
 
 Template.desafio.helpers({
@@ -29,7 +27,7 @@ Template.desafio.helpers({
 			};
 			if(valoresKpsis[index]!=-1) {
 				resultado["seleccionado" + valoresKpsis[index]] = true;
-			}									
+			}
 			return resultado;
 		});
 		return desafio;
@@ -67,7 +65,7 @@ Template.desafio.helpers({
 		}
 		entrega.calificacion = EVALUACIONES[entrega.evaluacion];
 		const fechaLimite = moment(desafio.hasta);
-		if( moment().isBefore(fechaLimite) && 
+		if( moment().isBefore(fechaLimite) &&
 			 ( !entrega.calificacion || entrega.calificacion.ponderacion <= 2 ) ) {
 			entrega.abierta = true;
 		}
@@ -83,7 +81,7 @@ Template.desafio.events({
 	},
 	"click .btn-enviar-desafio"() {
 		let desafio = Session.get("DesafioSeleccionado");
-		let doc = { 
+		let doc = {
 			desafioId: desafio._id
 		};
 		const entrega = Entregas.findOne();
@@ -105,7 +103,7 @@ Template.desafio.events({
 		Session.set("ImagenSeleccionada", img && img.link());
     document.querySelector(".marco-foto-full")
 			.classList.toggle("activo");
-	},	
+	},
   "dragover .camara": function (e, t) {
     e.stopPropagation();
     e.preventDefault();
@@ -135,16 +133,16 @@ Template.desafio.events({
       }, false);
 
       upload.on('start', function () {
-        currentUpload.set(this);
+        t.currentUpload.set(this);
       });
-			
+
       upload.on('end', function (error, fileObj) {
         if (error) {
           alert('Error during upload: ' + error);
         } else {
           //console.log("FileImage", fileObj);
         }
-        currentUpload.set(false);
+        t.currentUpload.set(false);
         t.$(".drop-texto").removeClass("activo");
       });
       upload.start();
@@ -153,7 +151,7 @@ Template.desafio.events({
   'click .camara'(e) {
     $("#upload-image").click();
   },
-  'change #upload-image'(e) {
+  'change #upload-image'(e, template) {
     var desafio = Session.get("DesafioSeleccionado");
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       const upload = ImagesEvidencias.insert({
@@ -166,14 +164,14 @@ Template.desafio.events({
       }, false);
 
       upload.on('start', function () {
-        currentUpload.set(this);
+        template.currentUpload.set(this);
       });
 
       upload.on('end', function (error, fileObj) {
-        currentUpload.set(false);
-        $("#upload-image").removeClass("activo");       
+        template.currentUpload.set(false);
+        $("#upload-image").removeClass("activo");
       });
-			
+
       upload.start();
     }
   },
