@@ -166,12 +166,13 @@ Template.editorCuenta.events({
 			asignaciones[asignatura] = [];
 		} else {
 			delete asignaciones[asignatura];
-			if($("#selector-asignaturas").val()==asignatura && asignaciones.length) {
-				template.asignaturaSeleccionada.set(asignaciones[0].asignatura);
+			if($("#selector-asignaturas").val()==asignatura && Object.keys(asignaciones).length) {
+				template.asignaturaSeleccionada.set(Object.keys(asignaciones)[0]);
 			}
 		};
 		cuenta.profile.asignaciones = asignaciones;
 		Session.set("CuentaSeleccionada", cuenta);
+		console.log("Nuevo", template.asignaturaSeleccionada.get());
 	},
 	"change #selector-asignaturas"(e, template) {
 		template.asignaturaSeleccionada.set($("#selector-asignaturas").val());

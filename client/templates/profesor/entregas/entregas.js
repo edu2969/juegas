@@ -1,7 +1,7 @@
-const { 
-	EVALUACIONES, 
-	CALIFICACIONES, 
-	ASIGNATURAS 
+const {
+	EVALUACIONES,
+	CALIFICACIONES,
+	ASIGNATURAS
 } = require('../../../../lib/constantes');
 
 Template.entregas.onCreated(function() {
@@ -9,7 +9,7 @@ Template.entregas.onCreated(function() {
 	this.cursoId = new ReactiveVar(false);
 });
 
-Template.entregas.rendered = function() {	
+Template.entregas.rendered = function() {
 	const instance = Template.instance();
 	Tracker.autorun(() => {
 		const profesor = Meteor.user();
@@ -45,7 +45,7 @@ Template.entregas.helpers({
 			let entregas = Desafios.find({
 				asignatura: asignatura,
 				nivel: nivel
-			}).map(function(desafio) {
+			}, { sort: { desde: -1 }}).map(function(desafio) {
 				const entrega = Entregas.findOne({ desafioId: desafio._id, estudianteId: estudiante._id });
 				var evaluacion = EVALUACIONES[( entrega && entrega.evaluacion ) || ( entrega && "OK" ) || "SR"];
 				let docEntrega = {
@@ -92,13 +92,13 @@ Template.entregas.helpers({
 		return Desafios.find({
 			asignatura: asignatura,
 			nivel: nivel
-		}).map(function(desafio) {
+		}, { sort: { desde: -1 }}).map(function(desafio) {
 			let entregas = Meteor.users.find({ "profile.cursoId": curso.nivel })
 			return {
 				_id: desafio._id,
 				fecha: desafio.desde
 			}
-		})
+		});
 	},
 	cursos() {
 		const profesor = Meteor.user();
@@ -116,7 +116,7 @@ Template.entregas.helpers({
 			const entidad = Cursos.findOne({ _id: cursoId });
 			if(!entidad) return false;
 			const curso = entidad.curso;
-			let etiqueta = curso.charAt(0) == "P" ? ( "Prekinder " + curso.charAt(2) ) : ( curso + " básico" ); 
+			let etiqueta = curso.charAt(0) == "P" ? ( "Prekinder " + curso.charAt(2) ) : ( curso + " básico" );
 			return {
 				_id: entidad._id,
 				etiqueta: etiqueta
@@ -149,9 +149,9 @@ Template.entregas.events({
 			});
 
 			let tipo = "video";
-			if( desafio.url ) 
-				tipo = "url"; 
-			else if( desafio.youtube ) 
+			if( desafio.url )
+				tipo = "url";
+			else if( desafio.youtube )
 				tipo = "youtube";
 			Session.set("DesafioSeleccionado", desafio);
 			$("#summernote").summernote("code", desafio.descripcion ? desafio.descripcion : "");
@@ -160,7 +160,7 @@ Template.entregas.events({
 			document.querySelector("#radio-" + tipo).checked = true;
 			document.querySelector(".contenedor-desafio-estudiante").classList.toggle("activo");
 		}
-		
+
 		const id = e.currentTarget.id;
 		["video", "youtube", "url"].forEach(function(tipo) {
 			document.querySelector("#tipo-" + tipo).style.display = 'none';

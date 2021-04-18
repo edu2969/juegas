@@ -1,7 +1,7 @@
 const { EVALUACIONES, ASIGNATURAS } = require('../../../../lib/constantes');
 
 const inicializarYoutube = function() {
-	var videos = document.getElementsByClassName("youtube"); 
+	var videos = document.getElementsByClassName("youtube");
 
 	for (var i=0; i<videos.length; i++) {
 
@@ -9,14 +9,14 @@ const inicializarYoutube = function() {
 
 		// Based on the YouTube ID, we can easily find the thumbnail image
 		var img = document.createElement("img");
-		img.setAttribute("src", "http://i.ytimg.com/vi/" 
+		img.setAttribute("src", "http://i.ytimg.com/vi/"
 														+ youtube.id + "/hqdefault.jpg");
 		img.setAttribute("class", "thumb");
 
 
 		// Overlay the Play icon to make it look like a video player
 		var circle = document.createElement("div");
-		circle.setAttribute("class","circle");  
+		circle.setAttribute("class","circle");
 
 		youtube.appendChild(img);
 		youtube.appendChild(circle);
@@ -27,8 +27,8 @@ const inicializarYoutube = function() {
 			// Create an iFrame with autoplay set to true
 			var iframe = document.createElement("iframe");
 			iframe.setAttribute("src",
-						"https://www.youtube.com/embed/" + this.id 
-					+ "?autoplay=1&autohide=1&border=0&wmode=opaque&enablejsapi=1"); 
+						"https://www.youtube.com/embed/" + this.id
+					+ "?autoplay=1&autohide=1&border=0&wmode=opaque&enablejsapi=1");
 
 			// The height and width of the iFrame should be the same as parent
 			iframe.style.width  = this.style.width;
@@ -37,7 +37,7 @@ const inicializarYoutube = function() {
 			// Replace the YouTube thumbnail with YouTube HTML5 Player
 			this.parentNode.replaceChild(iframe, this);
 
-		}; 
+		};
 	}
 }
 
@@ -52,7 +52,7 @@ Template.desafios.helpers({
 			let entrega = Entregas.findOne({ desafioId: desafio._id });
 			if(entrega) {
 				desafio.color = entrega && entrega.comentado ? "amarillo" : "verde";
-				desafio.icono = ( entrega && entrega.evaluacion ) ? EVALUACIONES[entrega.evaluacion].icono : "hourglass_top";				
+				desafio.icono = ( entrega && entrega.evaluacion ) ? EVALUACIONES[entrega.evaluacion].icono : "hourglass_top";
 				if(entrega.comentario) {
 					desafio.comentario = entrega.comentario;
 				}
@@ -62,6 +62,8 @@ Template.desafios.helpers({
 			}
 			desafio.asignatura = ASIGNATURAS[desafio.asignatura];
 			return desafio;
+		}).sort(function(a, b) {
+			return moment(a.desde).isBefore(b.desde) ? -1 : 1;
 		});
 	},
 	stats() {
@@ -85,8 +87,8 @@ Template.desafios.events({
     document.querySelector(".contenedor-desafio").classList.toggle("activo");
 		if(desafio.youtube) {
 			setTimeout(function() {
-				inicializarYoutube();	
-			}, 1000);			
+				inicializarYoutube();
+			}, 1000);
 		}
 	}
 });

@@ -92,9 +92,9 @@ Template.desafioestudiante.events({
 	},
 	"click .btn-eliminar-desafio"(e) {
 		const desafio = Session.get("DesafioSeleccionado");
-		Meteor.call("DetallesEliminarTarea", desafio._id, function(err, resp) {
+		Meteor.call("DetallesEliminarDesafio", desafio._id, function(err, resp) {
 			if(!err) {
-				Session.set("DetallesEliminarTarea", resp);
+				Session.set("DetallesEliminarDesafio", resp);
 				$("#modaleliminardesafio").modal("show");
 			} else {
 				console.error(err);
