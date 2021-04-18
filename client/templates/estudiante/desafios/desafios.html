@@ -1,17 +1,18 @@
 <template name="desafios">
 	<section name="desafios">
+		<div class="menu"><i class="material-icons">menu</i></div>
 		<div class="info">
 			<h3 style="margin-top: 6px;">
-				<i class="material-icons" 
-					 style="position: relative; top: 5px;">schedule</i> 
+				<i class="material-icons"
+					 style="position: relative; top: 5px;">schedule</i>
 				Habitación de desafíos
 			</h3>
 			<div class="creditos">
 				<div class="resumen">
 					<p class="titulo">Llevas</p>
 					<p class="contador">{{stats.entregas}}/{{stats.total}}</p>
-					<p class="pie">Desafíos</p>  
-				</div>      
+					<p class="pie">Desafíos</p>
+				</div>
 			</div>
 		</div>
 
@@ -22,7 +23,7 @@
 				<div class="barra {{color}}" id="{{_id}}">
 					<div class="tipo">
 						<i class="material-icons">{{asignatura.icon}}</i>
-					</div>      
+					</div>
 					<div class="descripcion-tarea">
 						<div class="titulo">{{titulo}}</div>
 						<div class="plazo">
@@ -31,11 +32,11 @@
 							</div>
 							<div class="hasta">
 								<span><i class="material-icons">alarm_on</i>{{formatoFecha hasta 'dd D/MMM HH:mm'}}</span>
-							</div>						
+							</div>
 						</div>
 					</div>
 					<div class="marco-iconos">
-						<div class="contenedor-iconos">						
+						<div class="contenedor-iconos">
 							{{#if comentario}}
 								<i class="material-icons">record_voice_over</i>
 							{{/if}}

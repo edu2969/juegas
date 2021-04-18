@@ -4,10 +4,8 @@ export {
 
 const { ASIGNATURAS } = require('../../../../lib/constantes');
 
-var currentUpload;
-
 Template.desafioestudiante.onCreated(function() {
-	currentUpload = new ReactiveVar(false);
+	this.currentUpload = new ReactiveVar(false);
 });
 
 Template.desafioestudiante.helpers({
@@ -27,7 +25,7 @@ Template.desafioestudiante.helpers({
 		return capsula && capsula.name;
 	},
 	currentUpload() {
-		return currentUpload.get();
+		return Template.instance().currentUpload.get();
 	},
 	video() {
 		const desafio = Session.get("DesafioSeleccionado");
@@ -57,17 +55,17 @@ Template.desafioestudiante.events({
 			const anterior = desafio[atributo];
 			const esFecha = item.classList.value.indexOf("datetimepicker-component") != -1;
 			let valor = esFecha ? moment(item.value, 'DD/MM/YYYY HH:mm').toDate() : item.value;
-			
+
 			if( ( !esFecha && ( anterior !== valor ) ) ||
 				( esFecha && ( anterior.getTime() !== valor.getTime() ) ) ) {
-				doc[atributo] = valor;	
+				doc[atributo] = valor;
 			}
 		});
-		
+
 		if(tipo=="V") {
 			delete doc["url"];
 		}
-		
+
 		var descripcion = $("#summernote").summernote("code");
 		if( descripcion != desafio.descripcion ) {
 			doc.descripcion = descripcion;
@@ -101,10 +99,10 @@ Template.desafioestudiante.events({
 			} else {
 				console.error(err);
 			}
-		});		
+		});
 	},
-	
-	
+
+
   "dragover .video": function (e, t) {
     e.stopPropagation();
     e.preventDefault();
@@ -129,24 +127,22 @@ Template.desafioestudiante.events({
 			VideosCapsulas.remove({ "meta.desafioId": desafio._id });
       const upload = VideosCapsulas.insert({
         file: e.originalEvent.dataTransfer.files[0],
-        streams: 'dynamic',
-        chunkSize: 'dynamic',
         meta: {
           desafioId: desafio._id
         }
       }, false);
 
       upload.on('start', function () {
-        currentUpload.set(this);
+        t.currentUpload.set(this);
       });
-			
+
       upload.on('end', function (error, fileObj) {
         if (error) {
           alert('Error during upload: ' + error);
         } else {
           //console.log("FileImage", fileObj);
         }
-        currentUpload.set(false);
+        t.currentUpload.set(false);
         t.$(".drop-video").removeClass("activo");
       });
       upload.start();
@@ -155,28 +151,26 @@ Template.desafioestudiante.events({
   'click .video'(e) {
     $("#upload-video").click();
   },
-  'change #upload-video'(e) {
+  'change #upload-video'(e, template) {
     var desafio = Session.get("DesafioSeleccionado");
     if (e.currentTarget.files && e.currentTarget.files[0]) {
 			VideosCapsulas.remove({ "meta.desafioId": desafio._id });
       const upload = VideosCapsulas.insert({
         file: e.currentTarget.files[0],
-        streams: 'dynamic',
-        chunkSize: 'dynamic',
         meta: {
           desafioId: desafio._id
         }
       }, false);
 
       upload.on('start', function () {
-        currentUpload.set(this);
+        template.currentUpload.set(this);
       });
 
       upload.on('end', function (error, fileObj) {
-        currentUpload.set(false);
-        $("#upload-video").removeClass("activo");       
+        template.currentUpload.set(false);
+        $("#upload-video").removeClass("activo");
       });
-			
+
       upload.start();
     }
   },

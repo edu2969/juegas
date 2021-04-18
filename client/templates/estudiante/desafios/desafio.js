@@ -125,7 +125,6 @@ Template.desafio.events({
     if (e.originalEvent.dataTransfer.files && e.originalEvent.dataTransfer.files[0]) {
       const upload = ImagesEvidencias.insert({
         file: e.originalEvent.dataTransfer.files[0],
-        streams: 'dynamic',
         chunkSize: 'dynamic',
         meta: {
           desafioId: desafio._id
@@ -156,7 +155,6 @@ Template.desafio.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       const upload = ImagesEvidencias.insert({
         file: e.currentTarget.files[0],
-        streams: 'dynamic',
         chunkSize: 'dynamic',
         meta: {
           desafioId: desafio._id

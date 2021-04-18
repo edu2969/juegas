@@ -77,6 +77,7 @@ Template.editorCuenta.helpers({
 		return Template.instance().error.get();
 	},
 	asignaturaSeleccionada() {
+		console.log("REACTIVO@@", Template.instance().asignaturaSeleccionada.get());
 		return Template.instance().asignaturaSeleccionada.get();
 	}
 });
@@ -96,7 +97,7 @@ Template.editorCuenta.events({
 		let cuenta = Session.get("CuentaSeleccionada");
 		let doc = { }
 		document.querySelectorAll("input[type='text']").forEach(function(item) {
-			let atributo = item.id.split("-")[1];			
+			let atributo = item.id.split("-")[1];
 			if( atributo == "password" ) {
 				if(!IsEmpty(item.value)) doc.password = item.value;
 			} else if( atributo == "username" ) {
@@ -133,7 +134,7 @@ Template.editorCuenta.events({
 				template.error.set("<i class='material-icons'>warning</i><span> Los campos son obligatorios</span>");
 			}
 
-		} else ocultarEditor(template);		
+		} else ocultarEditor(template);
 	},
 	"click ul.cursos li"(e, template) {
 		const target = e.currentTarget;
@@ -144,10 +145,10 @@ Template.editorCuenta.events({
 		const cursoEntity = Cursos.findOne({ curso: curso });
 		const indice = asignaciones[asignatura].indexOf(cursoEntity._id);
 		if(indice==-1) {
-			asignaciones[asignatura].push(cursoEntity._id);	
+			asignaciones[asignatura].push(cursoEntity._id);
 		} else {
 			asignaciones[asignatura].splice(indice, 1);
-		}		
+		}
 		asignaciones[asignatura].sort((a, b) => {
 			const cursoA = Cursos.findOne({ _id: a });
 			const cursoB = Cursos.findOne({ _id: b });
@@ -165,6 +166,9 @@ Template.editorCuenta.events({
 			asignaciones[asignatura] = [];
 		} else {
 			delete asignaciones[asignatura];
+			if($("#selector-asignaturas").val()==asignatura && asignaciones.length) {
+				template.asignaturaSeleccionada.set(asignaciones[0].asignatura);
+			}
 		};
 		cuenta.profile.asignaciones = asignaciones;
 		Session.set("CuentaSeleccionada", cuenta);

@@ -4,7 +4,7 @@
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
-			
+
 			<div class="resumen bordeado">
 				<h4><span class="material-icons">{{desafio.asignaturaObj.icon}}</span> Desafío <small> en {{desafio.asignaturaObj.label}}</small></h4>
 				<h2>{{desafio.titulo}}</h2>
@@ -13,9 +13,9 @@
 				<p class="pregunta">¿Para qué lo aprenderé?</p>
 				<p>{{desafio.paraque}}</p>
 				<p class="pregunta">¿Cómo lo aprenderé?</p>
-				<p>{{desafio.como}}</p>			
+				<p>{{desafio.como}}</p>
 			</div>
-			
+
 			<div class="video">
 				{{#if capsula}}
 				<video src="{{capsula}}" controls></video>
@@ -26,7 +26,7 @@
 					{{/if}}
 					{{#if desafio.video}}
 					<video controls>
-						<source src="{{desafio.video}}" type="video/mp4">					
+						<source src="{{desafio.video}}" type="video/mp4">
 						Your browser does not support the video tag.
 					</video>
 					{{/if}}
@@ -36,7 +36,7 @@
 				{{/if}}
 
 			</div>
-			
+
 			<div class="descripcion bordeado">
 				<div class="encabezado">
 					<i class="material-icons">keyboard_arrow_down</i>
@@ -44,7 +44,7 @@
 				</div>
 				<p>{{{desafio.descripcion}}}</p>
 			</div>
-			
+
 			<div class="marco-fotografias bordeado">
 				<p class="titulo">TUS EVIDENCIAS</p>
 				<div class="evidencias">
@@ -52,7 +52,7 @@
 					<div class="camara">
 						<i class="material-icons">photo_camera</i><br />
 						<p>Tomar / Arrastrar<br />fotografía</p>
-						<div class="drop-texto"></div>					
+						<div class="drop-texto"></div>
 					</div>
 					{{/if}}
 					<div class="fotos">
@@ -63,7 +63,7 @@
 								<p class="nombre" id="{{_id}}">Página {{indice}}</p>
 								{{#if entrega.abierta}}
 								<div class="eliminar" id="{{_id}}">
-									<i class="material-icons">clear</i>
+									<i class="material-icons">delete</i>
 									<span>Eliminar</span>
 								</div>
 								{{/if}}
@@ -76,7 +76,7 @@
 					<input type="file" id="upload-image" style="display: none;">
 				</div>
 			</div>
-			
+
 			{{#if entrega.calificacion}}
 			<div class="marco-calificacion bordeado">
 				<h4>Has sido calificado con un:</h4>
@@ -87,10 +87,10 @@
 			</div>
 			<div class="marco-comentarios-profesor bordeado">
 				<h3><i class="material-icons">record_voice_over</i> Comentarios <small>del profesor</small></h3>
-				<p>{{entrega.comentario}}</p>
+				<p style="white-space: pre-wrap;">{{{entrega.comentario}}}</p>
 			</div>
 			{{/if}}
-			
+
 			<div class="contenedor-kpsis bordeado">
 				<div class="titulo">Autoevaluándome</div>
 				<div class="subtitulo">Desarolla tu capacidad de evaluar lo aprendido.</div>
@@ -117,7 +117,7 @@
 					{{/each}}
 				</div>
 			</div>
-			
+
 			{{#if entrega.abierta}}
 			<button class="btn-juegas btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
 				<i class="material-icons">send</i>

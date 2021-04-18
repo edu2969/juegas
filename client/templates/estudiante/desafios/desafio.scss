@@ -4,38 +4,38 @@
   height: 100vh;
   display: block;
   top: 0;
-  transform: translate(100%, 0); 
+  transform: translate(100%, 0);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 	background-image: url(/img/back-desafio.png);
 	background-size: cover;
 	padding-top: 42px;
-	
+
 	&.activo {
-		transform: translate(0%, 0); 
+		transform: translate(0%, 0);
 		transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 	}
-	
+
 	.cruz {
 		position: absolute;
 		right: 10px;
 		top: 10px;
 		font-size: 18px;
 	}
-	
+
 	.detalle {
 		margin: 2px;
 		background-color: rgba(255, 255, 255, 0.95);
 		color: black;
 		overflow-y: scroll;
 		height: calc(100vh - 120px);
-		
+
 		.resumen {
 			.pregunta {
 				font-size: 18px;
 				font-weight: bolder;
 			}
 		}
-		
+
 		.bordeado {
 			background-color: white;
 			border: 2px solid gray;
@@ -43,34 +43,34 @@
 			margin: 0 1em 2em 1em;
 			padding: 0 1em 0.2em 1em;
 		}
-		
+
 		small {
 			color: black;
 		}
-					
+
 		.video {
 			video {
 				width: 100%;
 			}
-			
+
 			.thumb {
 				width: 400px;
 				margin-left: 50%;
 			}
 		}
-		
-		.descripcion {			
+
+		.descripcion {
 			padding: 0.4em;
-			
+
 			p {
 				text-align: justify;
 			}
-		
+
 			.encabezado {
-				display: flex;				
+				display: flex;
 			}
 		}
-		
+
 		.marco-fotografias {
 			.titulo {
 				font-size: 18px;
@@ -96,8 +96,8 @@
 						opacity: 0;
 						width: 116px;
 						height: 116px;
-						background-image: url(/img/drag-and-drop.png);				
-						background-size: cover;					
+						background-image: url(/img/drag-and-drop.png);
+						background-size: cover;
 						background-position: center;
 						border-radius: 6px;
 						top: 0px;
@@ -123,7 +123,8 @@
 				}
 
 				.fotos {
-					display: flex;
+          display: flex;
+					flex-wrap: wrap;
 					width: calc(100% - 120px);
 
 					.foto {
@@ -154,6 +155,7 @@
 								color: white;
 								height: 30px;
 								margin: 2px;
+                cursor: pointer;
 
 								i {
 									margin-top: 1px;
@@ -169,8 +171,8 @@
 				}
 			}
 		}
-		
-		
+
+
 		.marco-calificacion {
 			text-align: center;
 			.calificacion {
@@ -179,21 +181,21 @@
 				height: 120px;
 				padding: 0.5em;
 				border-radius: 50%;
-				
+
 				i {
 					margin-top: 16px;
 					font-size: 42px;
 				}
 			}
 		}
-		
+
 		.marco-comentarios-profesor {
 			p {
 				text-align: justify;
 				font-size: 14px;
 			}
 		}
-		
+
 		button {
 			margin-top: 10px;
 			margin-bottom: 10px;
@@ -202,12 +204,12 @@
 			padding: 10px;
 		}
 	}
-	
+
 	.contenedor-kpsis {
 		.titulo {
 			font-size: 22px;
 		}
-			
+
 		.leyenda-kpsi {
 			padding: 4px 5px 0px 5px;
 			margin: 10px 80px;
@@ -219,25 +221,25 @@
 				text-align: left;
 			}
 		}
-		
+
 		.kpsis {
-		
+
 			.kpsi {
 				display: flex;
 				margin-bottom: 4px;
-				
+
 				.texto {
 					width: 20px;
 				}
-				
+
 				.descripcion-kpsi {
 					width: 250px;
 					text-align: left;
 				}
-				
+
 				.valor {
 					display: flex;
-					
+
 					.numero {
 						width: 32px;
 						height: 32px;
@@ -247,7 +249,7 @@
 						margin-right: 6px;
 						padding-top: 3px;
 						cursor: pointer;
-						
+
 						&.activo {
 							border: 2px solid skyblue;
 							background-color: deepskyblue;
@@ -259,5 +261,3 @@
 		}
 	}
 }
-
-

@@ -38,7 +38,7 @@
 			</div>
 			<div class="campo-descripcion">
 				{{> htmleditor}}
-			</div>			
+			</div>
 			<div class="campo-formulario">
 				<input id="radio-video" type="radio" name="tipo-capsula" value="video"> Video MP4
 				<input id="radio-youtube" type="radio" name="tipo-capsula" value="youtube"> Youtube
@@ -51,11 +51,6 @@
 						<i class="material-icons">videocam</i><br />
 						<p>Subir / Arrastrar<br />video MP4</p>
 						<div class="drop-video"></div>
-						{{#with currentUpload}}
-						<div class="uploading-video">
-							<progress id="video-upload" value="0" max="100"> {{progress.get}}% </progress>
-						</div>
-						{{/with}}						
 					</div>
 					<input type="file" id="upload-video">
 					<div class="nombre-archivo {{#unless capsula}}rojo{{/unless}}">
@@ -64,30 +59,35 @@
 						{{else}}
 							<i class="material-icons">videocam_off</i><span> Sin video</span>
 						{{/if}}
+						{{#if currentUpload}}
+						<div class="uploading-video">
+							<progress id="video-upload" value="20" max="100"> {{currentUpload.progress.get}}% </progress>
+						</div>
+						{{/if}}
 					</div>
 				</div>
 			</div>
 			<div class="campo-formulario cuadro-capsula" id="tipo-youtube">
 				<div class="label">URL Youtube</div>
-				<input type="text" id="input-youtube" class="campo" value="{{desafio.youtube}}">				
+				<input type="text" id="input-youtube" class="campo" value="{{desafio.youtube}}">
 			</div>
 			<div class="campo-formulario cuadro-capsula" id="tipo-url">
 				<div class="label">URL Cápsula</div>
-				<input type="text" id="input-url" class="campo" value="{{desafio.url}}">				
+				<input type="text" id="input-url" class="campo" value="{{desafio.url}}">
 			</div>
 			<div class="campo-formulario addonleft">
 				<div class="label">Fecha Inicio</div>
-				<input type="text" id="input-desde" class="datetimepicker-component campo" 
+				<input type="text" id="input-desde" class="datetimepicker-component campo"
 							 value="{{formatoFecha desafio.desde 'DD/MM/YYYY HH:mm'}}">
-				<i class="material-icons">calendar_today</i>				
+				<i class="material-icons">calendar_today</i>
 			</div>
 			<div class="campo-formulario addonleft">
 				<div class="label">Fecha Término</div>
-				<input type="text" id="input-hasta" class="datetimepicker-component campo" 
+				<input type="text" id="input-hasta" class="datetimepicker-component campo"
 							 value="{{formatoFecha desafio.hasta 'DD/MM/YYYY HH:mm'}}">
-				<i class="material-icons">calendar_today</i>				
+				<i class="material-icons">calendar_today</i>
 			</div>
-			
+
 			<div class="kpsi">
 				<div class="titulo">KPSI</div>
 				<div class="campo-formulario">

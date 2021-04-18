@@ -4,17 +4,17 @@
   height: 100vh;
   display: block;
   top: 0;
-  transform: translate(100%, 0); 
+  transform: translate(100%, 0);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 	background-color: ghostwhite;
 	background-size: cover;
 	padding-top: 42px;
-	
+
 	&.activo {
-		transform: translate(0%, 0); 
+		transform: translate(0%, 0);
 		transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 	}
-	
+
 	.cruz {
 		position: absolute;
 		right: 10px;
@@ -22,7 +22,7 @@
 		font-size: 18px;
 		cursor: pointer;
 	}
-	
+
 	.detalle {
 		margin: 2px;
 		background-color: rgba(255, 255, 255, 0.8);
@@ -32,23 +32,23 @@
 		overflow-y: scroll;
 		height: calc(100vh - 120px);
 	}
-	
+
 	.campo-descripcion {
 		text-align: justify;
 		margin: 0px 0.5em;
 	}
-	
+
 	.campo-formulario {
 		max-width: 320px;
 		margin: 0.7em auto;
-		
+
 		&.addonleft {
 			position: relative;
-			
+
 			input {
 				z-index: 0;
 			}
-			
+
 			i {
 				color: darkgrey;
 				position: absolute;
@@ -58,26 +58,26 @@
 				z-index: 1;
 			}
 		}
-		
+
 		.label {
 			display: block;
 			width: 100%;
 			text-align: left;
 			color: black;
 		}
-		
+
 		.datetimepicker-component {
 			padding-left: 48px;
 		}
-		
+
 		input[type="radio"] {
 			margin-left: 12px;
 		}
-		
+
 		.marco-video-upload {
 			display: flex;
 			width: 100%;
-			
+
 			.video {
 				display: block;
 				position: relative;
@@ -94,8 +94,8 @@
 					opacity: 0;
 					width: 116px;
 					height: 116px;
-					background-image: url(/img/drag-and-drop.png);				
-					background-size: cover;					
+					background-image: url(/img/drag-and-drop.png);
+					background-size: cover;
 					background-position: center;
 					border-radius: 6px;
 					top: 0px;
@@ -106,15 +106,15 @@
 						opacity: 1;
 					}
 				}
-				
+
 				.uploading-video {
 					opacity: 0;
 					z-index: 2;
-					
+
 					&.activo {
 						opacity: 1;
 					}
-				}				
+				}
 
 				i {
 					width: 45px;
@@ -126,13 +126,13 @@
 					padding-top: 2px;
 					font-size: 38px;
 					color: gray;
-				}				
+				}
 			}
-			
+
 			input[type="file"] {
 				display: none;
 			}
-			
+
 			.nombre-archivo {
 				position: relative;
 				display: block;
@@ -142,22 +142,27 @@
 				border: 2px solid black;
 				border-radius: 8px;
 				top: 40px;
-				
+
 				i {
 					top: -4px;
 				}
-				
-				span {
+
+				a {
 					position: relative;
 					top: -8px;
+          display: inline-block;
+          width: 120px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
 				}
-				
+
 				&.rojo {
 					color: orangered;
 					border: 2px solid orangered;
 				}
 			}
-		}		
+		}
 	}
 
 	button {

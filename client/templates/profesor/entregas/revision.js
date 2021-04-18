@@ -11,9 +11,9 @@ Template.revision.helpers({
 		const desafio = revision.desafio;
 		const entrega = revision.entrega;
 		const valoresKpsis = entrega.kpsis || [-1, -1, -1, -1];
-		entrega.kpsis = [ 
-			desafio.kpsi1, desafio.kpsi2, 
-			desafio.kpsi3, desafio.kpsi4 
+		entrega.kpsis = [
+			desafio.kpsi1, desafio.kpsi2,
+			desafio.kpsi3, desafio.kpsi4
 		].map((kpsi, index) => {
 			let resultado = {
 				indice: index,
@@ -22,7 +22,7 @@ Template.revision.helpers({
 			};
 			if(valoresKpsis[index]!=-1) {
 				resultado["seleccionado" + valoresKpsis[index]] = true;
-			}									
+			}
 			return resultado;
 		});
 		return revision;
@@ -48,7 +48,8 @@ Template.revision.helpers({
 		const revision = Session.get("Seleccion");
 		if(!revision || !revision.desafio) return;
 		return ImagesEvidencias.find({
-			"meta.desafioId": revision.desafio._id
+			"meta.desafioId": revision.desafio._id,
+      userId: revision.entrega.estudianteId
 		}).map(function(image, index) {
 			var img = ImagesEvidencias.findOne({ _id: image._id });
 			return {
@@ -85,7 +86,7 @@ Template.revision.events({
 		}, function(err, resp) {
 			Session.set("Seleccion", {});
 			document.querySelector(".contenedor-revision")
-				.classList.toggle("activo");			
+				.classList.toggle("activo");
 		})
 	},
 	"click .evaluacion"(e) {

@@ -20,7 +20,10 @@ Meteor.publishComposite('estudiante.desafios', () => {
 		},
 		children: [{
 			find(desafio) {
-				return Entregas.find({ desafioId: desafio._id });
+				return Entregas.find({
+          estudianteId: estudianteId,
+          desafioId: desafio._id
+        });
 			}
 		}, {
 			find(desafio) {
