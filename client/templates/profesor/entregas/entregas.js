@@ -140,12 +140,12 @@ Template.entregas.events({
 		const renderDesafio = (desafio) => {
 			$('#input-desde').datetimepicker({
 				format: 'DD/MM/YYYY HH:mm',
-				defaultDate: moment(desafio.desde)
+				defaultDate: moment(desafio.desde).toDate()
 			});
 
 			$('#input-hasta').datetimepicker({
 				format: 'DD/MM/YYYY HH:mm',
-				defaultDate: moment(desafio.hasta)
+				defaultDate: moment(desafio.hasta).toDate()
 			});
 
 			let tipo = "video";
