@@ -46,3 +46,10 @@ Meteor.publishComposite('profesor.entregas', function() {
 		}]
 	}
 });
+
+Meteor.publish('profesor.capsulaPendiente', () => {
+	return VideosCapsulas.find({
+		userId: Meteor.userId(),
+		"meta.pendiente": true
+	}).cursor;
+})

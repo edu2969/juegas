@@ -1,3 +1,7 @@
+export {
+  VideosCapsulas
+};
+
 var XLSX = Npm.require('xlsx');
 
 Meteor.methods({
@@ -92,7 +96,18 @@ Meteor.methods({
 			Desafios.update({ _id: desafioId }, { $set: doc });
 			return desafioId;
 		} else {
-			return Desafios.insert(doc);
+			const desafioId = Desafios.insert(doc);
+			const capsulaPendiente = VideosCapsulas.findOne({
+				"userId": Meteor.userId(),
+				"meta.pendiente": true
+			});
+			if(capsulaPendiente) {
+				VideosCapsulas.update({ _id: capsulaPendiente._id }, { 
+					$set: { "meta.desafioId": desafioId },
+					$unset: { "meta.pendiente": "" } 
+				});
+			}
+			return desafioId;
 		}
 	},
 	DetallesEliminarDesafio(desafioId) {

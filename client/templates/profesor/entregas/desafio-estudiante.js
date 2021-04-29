@@ -21,7 +21,10 @@ Template.desafioestudiante.helpers({
 	capsula() {
 		const desafio = Session.get("DesafioSeleccionado");
 		if(!desafio) return;
-		let capsula = VideosCapsulas.findOne({ "meta.desafioId": desafio._id });
+		let capsula = VideosCapsulas.findOne({ $or: [
+			{"meta.desafioId": desafio._id },
+			{"meta.pendiente": true }]
+		});
 		return capsula && capsula.name;
 	},
 	currentUpload() {
@@ -124,12 +127,11 @@ Template.desafioestudiante.events({
 		t.$(".uploading-video").addClass("activo");
     var desafio = Session.get("DesafioSeleccionado");
     if (e.originalEvent.dataTransfer.files && e.originalEvent.dataTransfer.files[0]) {
-			VideosCapsulas.remove({ "meta.desafioId": desafio._id });
-      const upload = VideosCapsulas.insert({
+			const meta = desafio._id ? { desafioId: desafio._id } : { pendiente: true }; 
+      VideosCapsulas.remove({ meta: meta });
+			const upload = VideosCapsulas.insert({
         file: e.originalEvent.dataTransfer.files[0],
-        meta: {
-          desafioId: desafio._id
-        }
+        meta: meta
       }, false);
 
       upload.on('start', function () {
@@ -154,12 +156,11 @@ Template.desafioestudiante.events({
   'change #upload-video'(e, template) {
     var desafio = Session.get("DesafioSeleccionado");
     if (e.currentTarget.files && e.currentTarget.files[0]) {
-			VideosCapsulas.remove({ "meta.desafioId": desafio._id });
+			const meta = desafio._id ? { desafioId: desafio._id } : { pendiente: true }; 
+			VideosCapsulas.remove({ meta: meta });
       const upload = VideosCapsulas.insert({
         file: e.currentTarget.files[0],
-        meta: {
-          desafioId: desafio._id
-        }
+        meta: meta
       }, false);
 
       upload.on('start', function () {
