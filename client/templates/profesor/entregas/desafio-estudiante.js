@@ -8,6 +8,17 @@ Template.desafioestudiante.onCreated(function() {
 	this.currentUpload = new ReactiveVar(false);
 });
 
+Template.desafioestudiante.rendered = () => {
+	$('#input-desde').datetimepicker({
+		format: 'DD/MM/YYYY HH:mm',
+		defaultDate: moment().startOf("day").hour(8).toDate()
+	});
+	$('#input-hasta').datetimepicker({
+		format: 'DD/MM/YYYY HH:mm',
+		defaultDate: moment().startOf("day").add(44, "hour").toDate()
+	});	
+}
+
 Template.desafioestudiante.helpers({
 	desafio() {
 		const desafio = Session.get("DesafioSeleccionado");

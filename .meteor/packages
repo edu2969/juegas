@@ -16,8 +16,8 @@ d3js:d3
 session
 accounts-base
 accounts-password
-momentjs:moment
 rzymek:moment-locale-es
+momentjs:moment
 
 fourseven:scss
 seba:minifiers-autoprefixer
