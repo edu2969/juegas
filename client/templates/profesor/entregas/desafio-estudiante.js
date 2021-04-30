@@ -36,7 +36,14 @@ Template.desafioestudiante.helpers({
 		const capsula = VideosCapsulas.findOne({ "meta.desafioId": desafio._id });
 		return capsula && capsula.link();
 	}
-})
+});
+
+const cerrarTarea = () => {
+	const videoPendiente = VideosCapsulas.findOne({ "meta.pendiente": true });
+	if(videoPendiente) {
+		VideosCapsulas.remove({ _id: videoPendiente._id });
+	}
+}
 
 Template.desafioestudiante.events({
 	"click .contenedor-desafio-estudiante .cruz"() {
@@ -44,6 +51,7 @@ Template.desafioestudiante.events({
     document.querySelector(".contenedor-desafio-estudiante")
 			.classList.toggle("activo");
 		$(".contenedor-desafio-estudiante .detalle").scrollTop(0);
+		cerrarTarea();
 	},
 	"click input[type='radio']"(e) {
 		$(".cuadro-capsula").hide();
@@ -178,5 +186,6 @@ Template.desafioestudiante.events({
 	"click .btn-cancelar"() {
 		document.querySelector(".contenedor-desafio-estudiante")
 			.classList.toggle("activo");
+		cerrarTarea();
 	}
 });
