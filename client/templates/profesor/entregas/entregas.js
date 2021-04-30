@@ -10,6 +10,14 @@ Template.entregas.onCreated(function() {
 });
 
 Template.entregas.rendered = function() {
+	$('#input-desde').datetimepicker({
+		format: 'DD/MM/YYYY HH:mm',
+		defaultDate: moment().startOf("day").hour(8).toDate()
+	});
+	$('#input-hasta').datetimepicker({
+		format: 'DD/MM/YYYY HH:mm',
+		defaultDate: moment().startOf("day").add(44, "hour").toDate()
+	});
 	const instance = Template.instance();
 	Tracker.autorun(() => {
 		const profesor = Meteor.user();
@@ -140,12 +148,12 @@ Template.entregas.events({
 		const renderDesafio = (desafio) => {
 			$('#input-desde').datetimepicker({
 				format: 'DD/MM/YYYY HH:mm',
-				defaultDate: moment(desafio.desde).toDate()
+				defaultDate: desafio.desde
 			});
 
 			$('#input-hasta').datetimepicker({
 				format: 'DD/MM/YYYY HH:mm',
-				defaultDate: moment(desafio.hasta).toDate()
+				defaultDate: desafio.hasta
 			});
 
 			let tipo = "video";
