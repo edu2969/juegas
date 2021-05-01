@@ -10,10 +10,12 @@ Template.desafioestudiante.onCreated(function() {
 
 Template.desafioestudiante.rendered = () => {
 	$('#input-desde').datetimepicker({
+		locale: moment.locale('es'),
 		format: 'DD/MM/YYYY HH:mm',
 		defaultDate: moment().startOf("day").hour(8).toDate()
 	});
 	$('#input-hasta').datetimepicker({
+		locale: moment.locale('es'),
 		format: 'DD/MM/YYYY HH:mm',
 		defaultDate: moment().startOf("day").add(44, "hour").toDate()
 	});	

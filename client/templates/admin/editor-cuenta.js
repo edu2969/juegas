@@ -50,7 +50,10 @@ Template.editorCuenta.helpers({
 		const cuenta = Session.get("CuentaSeleccionada");
 		if( !cuenta || cuenta.profile.rol!=3 ) return;
 		let asignaciones = cuenta.profile.asignaciones;
+		if(!asignaciones) return false;
 		const cursoSeleccionado = instance.asignaturaSeleccionada.get();
+		const asignaturaSeleccionada = instance.asignaturaSeleccionada.get();
+		if(!asignaturaSeleccionada || !cursoSeleccionado) return false;
 		return Cursos.find().map(cursoEntity => {
 			const asignaturaSeleccionada = instance.asignaturaSeleccionada.get();
 			const asignatura = asignaciones[asignaturaSeleccionada];
@@ -62,7 +65,7 @@ Template.editorCuenta.helpers({
 	},
 	asignaturasSeleccionadas() {
 		const cuenta = Session.get("CuentaSeleccionada");
-		if( !cuenta || cuenta.profile.rol!=3 ) return;
+		if( !cuenta || cuenta.profile.rol!=3 || !cuenta.profile.asignaciones ) return;
 		const keys = Object.keys(cuenta.profile.asignaciones);
 		const asignaturaSeleccionada = Template.instance().asignaturaSeleccionada.get();
 		return keys.map(asignatura => {
@@ -98,9 +101,7 @@ Template.editorCuenta.events({
 		let doc = { }
 		document.querySelectorAll("input[type='text']").forEach(function(item) {
 			let atributo = item.id.split("-")[1];
-			if( atributo == "password" ) {
-				if(!IsEmpty(item.value)) doc.password = item.value;
-			} else if( atributo == "username" ) {
+			if( atributo == "username" ) {
 				if(cuenta.username !== item.value) doc.username = item.value;
 			} else if( cuenta.profile[atributo] !== item.value ) {
 				doc[atributo] = item.value;
@@ -111,17 +112,25 @@ Template.editorCuenta.events({
 		if(perfil == 3) {
 			doc.asignaciones = cuenta.profile.asignaciones;
 		}
+		const password = $("#input-password").val().trim();
+		if(password!="") {
+			doc.password = password;
+		}
 		if(!IsEmpty(doc)) {
 			let valido = true;
 			if(cuenta._id) {
 				doc._id = cuenta._id;
 			} else {
 				valido = Object.keys(doc).length == 5;
+				doc.perfil = perfil;
 			}
+			console.log(doc);
 			if(valido) {
 				Meteor.call("ActualizarCuenta", doc, function(err, resp) {
 					if(!err) {
 						ocultarEditor(template);
+					} else {
+						console.error(err);
 					}
 				});
 			} else {
@@ -162,6 +171,7 @@ Template.editorCuenta.events({
 		const isChecked = e.currentTarget.checked;
 		const cuenta = Session.get("CuentaSeleccionada");
 		let asignaciones = cuenta.profile.asignaciones;
+		if(!asignaciones) asignaciones = {};
 		if(isChecked) {
 			asignaciones[asignatura] = [];
 		} else {

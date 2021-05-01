@@ -41,7 +41,7 @@ Meteor.methods({
 					rol: doc.perfil
 				}
 			};
-			if(profile.rol==3) {
+			if(doc.perfil==3) {
 				docNew.profile.asignaciones = doc.asignaciones;
 			}
 			Accounts.createUser(docNew);
