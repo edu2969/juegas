@@ -139,11 +139,13 @@ Template.entregas.events({
 	"click th.rotated"(e) {
 		const renderDesafio = (desafio) => {
 			$('#input-desde').datetimepicker({
+				locale: moment.locale('es'),
 				format: 'DD/MM/YYYY HH:mm',
 				defaultDate: desafio.desde
 			});
 
 			$('#input-hasta').datetimepicker({
+				locale: moment.locale('es'),
 				format: 'DD/MM/YYYY HH:mm',
 				defaultDate: desafio.hasta
 			});
