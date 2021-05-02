@@ -84,12 +84,15 @@ Template.desafio.events({
 		let doc = {
 			desafioId: desafio._id
 		};
-		const entrega = Entregas.findOne();
+		const entrega = Entregas.findOne({
+			desafioId: desafio._id
+		});
 		if(entrega) {
 			doc.entregaId = entrega._id;
 		} else {
 			doc.kpsis = desafio.respuestasKpsis || [-1, -1, -1, -1];
 		}
+		console.log("Enviando desafio", doc);
 		Meteor.call("EnviarDesafio", doc, function(err, resp) {
 			if(!err) {
 				Session.set("DesafioSeleccionado", {});
