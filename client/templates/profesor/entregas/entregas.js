@@ -138,18 +138,8 @@ Template.entregas.helpers({
 Template.entregas.events({
 	"click th.rotated"(e) {
 		const renderDesafio = (desafio) => {
-			$('#input-desde').datetimepicker({
-				locale: moment.locale('es'),
-				format: 'DD/MM/YYYY HH:mm',
-				defaultDate: desafio.desde
-			});
-
-			$('#input-hasta').datetimepicker({
-				locale: moment.locale('es'),
-				format: 'DD/MM/YYYY HH:mm',
-				defaultDate: desafio.hasta
-			});
-
+			$('#input-desde').val(moment(desafio.desde).format("DD/MM/YYYY HH:mm"));
+			$('#input-hasta').val(moment(desafio.hasta).format("DD/MM/YYYY HH:mm"));
 			let tipo = "video";
 			if( desafio.url )
 				tipo = "url";
