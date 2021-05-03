@@ -190,6 +190,7 @@ Template.entregas.events({
 		if(!id) return;
 		$(".evaluacion.seleccionado").toggleClass("seleccionado");
 		const entrega = Entregas.findOne({ _id: id });
+		if(!entrega.comentario) entrega.comentario = "";
 		Session.set("Seleccion", {
 			desafio: Desafios.findOne({ _id: entrega.desafioId }),
 			entrega: entrega
