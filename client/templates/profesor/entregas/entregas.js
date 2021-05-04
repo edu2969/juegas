@@ -11,7 +11,7 @@ Template.entregas.onCreated(function() {
 
 Template.entregas.rendered = function() {
 	const instance = Template.instance();
-	Tracker.autorun(() => {
+	this.autorun(() => {
 		const profesor = Meteor.user();
 		if(!profesor) return false;
 		const asignaciones = profesor.profile.asignaciones;
