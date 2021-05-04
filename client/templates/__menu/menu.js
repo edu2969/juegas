@@ -29,7 +29,6 @@ Template.menu.events({
 		document.querySelector(".contenedor-menu").classList.toggle("activo");
 		setTimeout(()=> {
 			Meteor.logout();
-			Router.go('/');
 		}, 500);
   },
 	 "click .contenedor-menu .cruz"() {
