@@ -3,7 +3,9 @@
 		{{> yield}}
 		{{#if loginIn}}
 			{{> menu}}
+			{{#unless esEstudiante}}
 			{{> pie}}
+			{{/unless}}
 		{{/if}}
 	</section>
 </template>

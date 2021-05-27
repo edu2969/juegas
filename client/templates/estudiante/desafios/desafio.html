@@ -1,19 +1,25 @@
 <template name="desafio">
 	<div class="contenedor-desafio">
-		<div class="cruz">
+		<div class="cruz" id="cruz-desafio">
 			<i class="material-icons">clear</i>
 		</div>
 		<div class="detalle">
 
 			<div class="resumen bordeado">
-				<h4><span class="material-icons">{{desafio.asignaturaObj.icon}}</span> Desafío <small> en {{desafio.asignaturaObj.label}}</small></h4>
-				<h2>{{desafio.titulo}}</h2>
-				<p class="pregunta">¿Qué aprenderé hoy?</p>
-				<p>{{desafio.que}}</p>
-				<p class="pregunta">¿Para qué lo aprenderé?</p>
-				<p>{{desafio.paraque}}</p>
-				<p class="pregunta">¿Cómo lo aprenderé?</p>
-				<p>{{desafio.como}}</p>
+				<div class="encabezado">
+					<div class="titulo">{{desafio.titulo}}</div>
+					<div class="asignatura">
+						<i class="material-icons">{{desafio.asignaturaObj.icon}}</i><span>{{desafio.asignaturaObj.label}}</span>
+					</div>
+				</div>
+				<div class="contenido">
+					<p class="pregunta">¿Qué aprenderé hoy?</p>
+					<p>{{desafio.que}}</p>
+					<p class="pregunta">¿Para qué lo aprenderé?</p>
+					<p>{{desafio.paraque}}</p>
+					<p class="pregunta">¿Cómo lo aprenderé?</p>
+					<p>{{desafio.como}}</p>
+				</div>
 			</div>
 
 			<div class="video">
@@ -34,48 +40,96 @@
 						<div class="youtube" id="{{desafio.youtubeId}}" style="width:560px; height: 315px;"></div>
 					{{/if}}
 				{{/if}}
-
 			</div>
 
 			<div class="descripcion bordeado">
 				<div class="encabezado">
-					<i class="material-icons">keyboard_arrow_down</i>
-					&nbsp;<span>EL DESAFÍO</span>
+					<div class="titulo">
+						EL DESAFÍO
+					</div>
+					<div class="subtitulo">En esta sección esta el detalle del desafío. Leelo atentamente.</div>
 				</div>
-				<p>{{{desafio.descripcion}}}</p>
+				<div class="editor">
+					{{{desafio.descripcion}}}
+				</div>
 			</div>
 
-			<div class="marco-fotografias bordeado">
-				<p class="titulo">TUS EVIDENCIAS</p>
-				<div class="evidencias">
-					{{#if entrega.abierta}}
-					<div class="camara">
-						<i class="material-icons">photo_camera</i><br />
-						<p>Tomar / Arrastrar<br />fotografía</p>
-						<div class="drop-texto"></div>
-					</div>
-					{{/if}}
-					<div class="fotos">
-						{{#each fotos}}
-						<div class="foto" id={{_id}}>
-							<div class="marco-desafio">
-								<img src="{{imagen}}">
-								<p class="nombre" id="{{_id}}">Página {{indice}}</p>
-								{{#if entrega.abierta}}
-								<div class="eliminar" id="{{_id}}">
-									<i class="material-icons">delete</i>
-									<span>Eliminar</span>
-								</div>
-								{{/if}}
-							</div>
-						</div>
-						{{else}}
-						<h2>Falta que subas fotos</h2>
-						{{/each}}
-					</div>
-					<input type="file" id="upload-image" style="display: none;">
+			{{#if entrega.abierta}}
+			<div class="marco-evidencias bordeado">
+				<div class="encabezado">
+					<div class="titulo">TUS EVIDENCIAS</div>
+					<div class="subtitulo">En esta sección, sube las evidencias necesarias para completar el desafío. 
+					Procura que se vean claras para que tu profesor pueda revisarlas.</div>
 				</div>
+				
+				{{#each desafio.tipoEvidencias}}
+				{{#if isEqual this 'IMG'}}
+				<div class="marco-fotografias submarco">
+					<div class="evidencias">
+						{{#if entrega.abierta}}
+						<div class="camara">
+							<i class="material-icons">photo_camera</i><br />
+							<p>Tomar / Arrastrar<br />fotografía</p>
+							<div class="drop-texto"></div>
+						</div>
+						{{/if}}
+						<div class="fotos">
+							{{#each fotos}}
+							<div class="foto" id={{_id}}>
+								<div class="marco-foto-evidencia">
+									<img src="{{imagen}}">
+									<p class="nombre" id="{{_id}}">Página {{indice}}</p>
+									{{#if entrega.abierta}}
+									<div class="eliminar-foto-evidencia" id="{{_id}}">
+										<i class="material-icons">delete</i>
+										<span>Eliminar</span>
+									</div>
+									{{/if}}
+								</div>
+							</div>
+							{{else}}
+							<p class="no-fotos">Falta que subas tus fotos</p>
+							{{/each}}
+						</div>
+						<input type="file" id="upload-image" style="display: none;">
+					</div>
+				</div>
+				{{/if}}
+
+				{{#if isEqual this 'VID'}}
+				<div class="marco-videos submarco">
+					<div class="evidencias">
+						{{#if entrega.abierta}}
+						<div class="videocamara">
+							<i class="material-icons">videocam</i><br />
+							<p>Grabar<br />video</p>
+						</div>
+						{{/if}}
+						<div class="videos">
+							{{#each videos}}
+							<div class="evidencia-video" id={{_id}}>
+								<div class="marco-video-evidencias">
+									<p class="nombre-video" id="{{_id}}">Video_{{indice}}</p>
+									{{#if entrega.abierta}}
+									<div class="eliminar-video-evidencia" id="{{_id}}">
+										<i class="material-icons">delete</i>
+										<span>Eliminar</span>
+									</div>
+									{{/if}}
+								</div>
+							</div>
+							{{else}}
+							<p class="no-videos">Falta que grabes tus videos</p>
+							{{/each}}
+						</div>
+						<input type="file" id="upload-image" style="display: none;">
+					</div>
+				</div>
+				{{/if}}
+				{{/each}}
 			</div>
+			{{/if}}			
+
 
 			{{#if entrega.calificacion}}
 			<div class="marco-calificacion bordeado">
@@ -91,40 +145,62 @@
 			</div>
 			{{/if}}
 
+			{{#if entrega.abierta}}
 			<div class="contenedor-kpsis bordeado">
-				<div class="titulo">Autoevaluándome</div>
-				<div class="subtitulo">Desarolla tu capacidad de evaluar lo aprendido.</div>
-				<div class="leyenda-kpsi">
-					<ul>
-						<li>1 = Lo sé y puedo explicarlo</li>
-						<li>2 = Lo sé</li>
-						<li>3 = Me suena</li>
-						<li>4 = No se nada</li>
-					</ul>
+				<div class="encabezado">
+					<div class="titulo">Autoevaluándome</div>
+					<div class="subtitulo">Desarolla tu capacidad de evaluar lo aprendido. Haz click en el numero que pienses que corresponde
+						a tu nivel de comprensión. Esto ayudará mucho a tus profesores.</div>
 				</div>
-				<div class="kpsis">
-					{{#each desafio.kpsis}}
-					<div class="kpsi">
-						<div class="texto">{{letra}})</div>
-						<p class="descripcion-kpsi">{{valor}}</p>
-						<div class="valor" id="{{indice}}">
-							<div class="numero {{#if seleccionado1}}activo{{/if}}">1</div>
-							<div class="numero {{#if seleccionado2}}activo{{/if}}">2</div>
-							<div class="numero {{#if seleccionado3}}activo{{/if}}">3</div>
-							<div class="numero {{#if seleccionado4}}activo{{/if}}">4</div>
-						</div>
+				<div class="contenido">
+					<div class="leyenda">
+						<ul>
+							<li><b>1</b> : Lo sé y puedo explicarlo</li>
+							<li><b>2</b> : Lo sé</li>
+							<li><b>3</b> : Me suena</li>
+							<li><b>4</b> : No se nada</li>
+						</ul>
 					</div>
-					{{/each}}
+					<div class="kpsis">
+						{{#each desafio.kpsis}}
+						<div class="kpsi">
+							<div class="texto"><b>{{letra}})</b></div>
+							<p class="descripcion-kpsi">{{valor}}</p>
+							<div class="valor" id="{{indice}}">
+								<div class="numero {{#if seleccionado1}}activo{{/if}}">1</div>
+								<div class="numero {{#if seleccionado2}}activo{{/if}}">2</div>
+								<div class="numero {{#if seleccionado3}}activo{{/if}}">3</div>
+								<div class="numero {{#if seleccionado4}}activo{{/if}}">4</div>
+							</div>
+						</div>
+						{{/each}}
+					</div>
 				</div>
 			</div>
-
-			{{#if entrega.abierta}}
 			<button class="btn-juegas btn-enviar-desafio" disabled="{{#unless tieneFotos}}disabled{{/unless}}">
 				<i class="material-icons">send</i>
 				<span>Enviar desafío a revisión</span>
 			</button>
+			{{else}}
+			<div class="bordeado">
+				<div class="encabezado">
+					<div class="titulo">Esta tarea ha finalizado</div>
+				</div>
+				<div class="contenido">
+					<span>El periodo de entrega de evidencias ha concluido</span>
+				</div>
+			</div>
 			{{/if}}
-
+		</div>
+		<div class="marco-video">
+			<div class="cruz" id="cruz-video">
+				<i class="material-icons">clear</i>
+			</div>
+			<video id="selector-video" controls autoplay playsinline></video>	
+			<div class="marco-boton">
+				<div id="btn-start-recording"></div>
+				<div id="btn-stop-recording"></div>
+			</div>
 		</div>
 	</div>
 	{{> foto}}

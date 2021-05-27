@@ -3,5 +3,4 @@ import {
 } from 'meteor/meteor';
 
 Meteor.startup(() => {
-	
 });

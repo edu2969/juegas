@@ -37,6 +37,7 @@
 				<textarea id="input-como" class="campo" rows="3">{{desafio.como}}</textarea>
 			</div>
 			<div class="campo-descripcion">
+				<div class="titulo">Detalle del desafío</div>
 				{{> htmleditor}}
 			</div>
 			<div class="campo-formulario">
@@ -84,6 +85,18 @@
 				<div class="label">Fecha Término</div>
 				<input type="text" id="input-hasta" class="datetimepicker-component campo">
 				<i class="material-icons">calendar_today</i>
+			</div>
+
+			<div class="tipo-evidencias cuadro-capsula">
+				<div class="titulo">Tipo de evidencias</div>
+				<div class="campo-formulario">
+					<ul>
+						<li><input type="checkbox" name="tipo-evidencia" value="IMG"> Imagenes</li>
+						<li><input type="checkbox" name="tipo-evidencia" value="VID"> Video</li>
+						<li><input type="checkbox" name="tipo-evidencia" value="AUD"> Audio</li>
+						<li><input type="checkbox" name="tipo-evidencia" value="CUE"> Cuestionario</li>
+					</ul>
+				</div>
 			</div>
 
 			<div class="kpsi">

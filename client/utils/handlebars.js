@@ -1,17 +1,21 @@
-const { VERSION } = require('../../lib/constantes');
+const { VERSION } = require("../../lib/constantes");
 
 Handlebars.registerHelper("formatoFecha", function (date, mask) {
-  if(!date) return '--/--';
+  if (!date) return "--/--";
   var m = moment(date);
-  if (!m) return '--/--';
-  if (!mask) mask = 'dd/MM/yyyy';
+  if (!m) return "--/--";
+  if (!mask) mask = "dd/MM/yyyy";
   return m.format(mask);
 });
 
 Handlebars.registerHelper("selectValor", (valor1, valor2) => {
-	return valor1==valor2 ? 'selected' : '';
+  return valor1 == valor2 ? "selected" : "";
 });
 
 Handlebars.registerHelper("version", () => {
-	return VERSION;
+  return VERSION;
+});
+
+Handlebars.registerHelper("isEqual", (a, b) => {
+  return a == b;
 });

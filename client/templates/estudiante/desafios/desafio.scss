@@ -5,259 +5,462 @@
   display: block;
   top: 0;
   transform: translate(100%, 0);
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-	background-image: url(/img/back-desafio.png);
-	background-size: cover;
-	padding-top: 42px;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  background-image: linear-gradient(180deg, #a8dfb5, #aadcd8, #d0def7);
+  background-size: cover;
+  padding-top: 42px;
 
-	&.activo {
-		transform: translate(0%, 0);
-		transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-	}
+  &.activo {
+    transform: translate(0%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  }
 
-	.cruz {
-		position: absolute;
-		right: 10px;
-		top: 10px;
-		font-size: 18px;
-	}
+  .cruz {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 22px;
+  }
 
-	.detalle {
-		margin: 2px;
-		background-color: rgba(255, 255, 255, 0.95);
-		color: black;
-		overflow-y: scroll;
-		height: calc(100vh - 120px);
+  .detalle {
+    margin: 2px;
+    color: black;
+    overflow-y: scroll;
+    height: calc(100vh - 60px);
 
-		.resumen {
-			.pregunta {
-				font-size: 18px;
-				font-weight: bolder;
-			}
-		}
+    .resumen {
+      .pregunta {
+        font-size: 18px;
+        font-weight: bolder;
+      }
+    }
 
-		.bordeado {
-			background-color: white;
-			border: 2px solid gray;
-			border-radius: 8px;
-			margin: 0 1em 2em 1em;
-			padding: 0 1em 0.2em 1em;
-		}
+    .bordeado {
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      margin: 0 1em 2em 1em;
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 
-		small {
-			color: black;
-		}
+      .encabezado {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 1em;
+        .titulo {
+          font-size: 22px;
+          font-weight: bolder;
+        }
+        .subtitulo {
+          font-size: 16px;
+        }
+        .asignatura {
+          margin: 0 auto;
+          background-color: rgba(0, 0, 0, 0.4);
+          border-radius: 16px;
+          color: white;
+          font-size: 14px;
+          width: 180px;
+          position: relative;
+          left: -4px;
+          .material-icons {
+            font-size: 26px;
+            position: relative;
+            top: 4px;
+          }
+          span {
+            position: relative;
+            top: -5px;
+            left: 4px;
+          }
+        }
+      }
 
-		.video {
-			video {
-				width: 100%;
-			}
+      .contenido {
+        padding: 1em;
+        color: #505774;
 
-			.thumb {
-				width: 400px;
-				margin-left: 50%;
-			}
-		}
+        .leyenda {
+          background-color: rgba(255, 255, 255, 0.7);
+          padding: 8px 6px 3px 6px;
+          margin: 2px 80px 15px 80px;
+          border-radius: 8px;
+          box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+          li {
+            list-style: none;
+            text-align: left;
+          }
+        }
+      }
 
-		.descripcion {
-			padding: 0.4em;
+      .submarco {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 8px 6px 3px 6px;
+        margin: 1em;
+        border-radius: 8px;
+        box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+      }
+    }
 
-			p {
-				text-align: justify;
-			}
+    small {
+      color: black;
+    }
 
-			.encabezado {
-				display: flex;
-			}
-		}
+    .video {
+      video {
+        width: 100%;
+      }
 
-		.marco-fotografias {
-			.titulo {
-				font-size: 18px;
-				font-weight: bolder;
-			}
-			.evidencias {
-				display: flex;
-				padding: 0.5em;
+      .thumb {
+        width: 400px;
+        margin-left: 50%;
+      }
+    }
 
-				.camara {
-					display: block;
-					position: relative;
-					width: 120px;
-					height: 120px;
-					border: 2px solid gray;
-					border-radius: 6px;
-					font-size: 12px;
-					margin-top: 4px;
-					z-index: 0;
+    .descripcion {
+      .editor {
+        padding: 10px;
+        text-align: justify;
+      }
+    }
 
-					.drop-texto {
-						position: absolute;
-						opacity: 0;
-						width: 116px;
-						height: 116px;
-						background-image: url(/img/drag-and-drop.png);
-						background-size: cover;
-						background-position: center;
-						border-radius: 6px;
-						top: 0px;
-						left: 0px;
-						z-index: 1;
+    .marco-fotografias {
+      background-image: linear-gradient(45deg, #bde6ca, #d2e5e4);
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 
-						&.activo {
-							opacity: 1;
-						}
-					}
+      .evidencias {
+        display: flex;
+        padding: 0.5em;
 
-					i {
-						width: 45px;
-						height: 45px;
-						background-color: ghostwhite;
-						border: 2px solid gray;
-						border-radius: 50%;
-						margin-top: 15px;
-						padding-top: 2px;
-						font-size: 38px;
-						color: gray;
-					}
-				}
+        .camara {
+          display: block;
+          position: relative;
+          width: 120px;
+          height: 120px;
+          background-color: white;
+          border-radius: 6px;
+          font-size: 12px;
+          margin-top: 4px;
+          color: #359791;
+          box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+          z-index: 0;
+          cursor: pointer;
 
-				.fotos {
+          .drop-texto {
+            position: absolute;
+            opacity: 0;
+            width: 116px;
+            height: 116px;
+            background-image: url(/img/drag-and-drop.png);
+            background-size: cover;
+            background-position: center;
+            border-radius: 6px;
+            top: 0px;
+            left: 0px;
+            z-index: 1;
+
+            &.activo {
+              opacity: 1;
+            }
+          }
+
+          i {
+            width: 50px;
+            height: 50px;
+            background-color: #359791;
+            border: 2px solid white;
+            border-radius: 50%;
+            margin-top: 15px;
+            padding-top: 4px;
+            font-size: 38px;
+            color: white;
+          }
+        }
+
+        .fotos {
           display: flex;
-					flex-wrap: wrap;
-					width: calc(100% - 120px);
+          flex-wrap: wrap;
+          width: calc(100% - 120px);
 
-					.foto {
-						.marco-desafio {
-							margin-left: 16px;
-							border: 2px solid gray;
-							border-radius: 4px;
-							margin: 4px;
+          .no-fotos {
+            font-size: 18px;
+            margin: 4px auto;
+            color: #505774;
+            font-weight: bolder;
+          }
 
-							img {
-								width: 40px;
-								margin: 2px;
-							}
+          .foto {
+            .marco-foto-evidencia {
+              margin-left: 16px;
+              background-color: rgba(255, 255, 255, 0.5);
+              border-radius: 4px;
+              margin: 4px;
 
-							p {
-								padding-left: 4px;
-								text-decoration: underline;
-								color: royalblue;
-								width: 100%;
-								text-align: left;
-								cursor: zoom-in;
-							}
+              img {
+                width: 100px;
+                margin: 2px;
+              }
 
-							.eliminar {
-								background-color: orangered;
-								border-radius: 3px;
-								padding: 2px 8px;
-								color: white;
-								height: 30px;
-								margin: 2px;
+              p {
+                padding-left: 4px;
+                text-decoration: underline;
+                color: royalblue;
+                width: 100%;
+                text-align: left;
+                cursor: zoom-in;
+              }
+
+              .eliminar-foto-evidencia {
+                background-color: orangered;
+                border-radius: 3px;
+                padding: 2px 8px;
+                color: white;
+                height: 30px;
+                width: 100px;
+                margin: 2px;
                 cursor: pointer;
 
-								i {
-									margin-top: 1px;
-								}
+                i {
+                  margin-top: 1px;
+                }
 
-								span {
-									position: relative;
-									top: -8px;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+                span {
+                  position: relative;
+                  top: -8px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 
+    .marco-videos {
+      background-image: linear-gradient(45deg, #bde6ca, #d2e5e4);
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 
-		.marco-calificacion {
-			text-align: center;
-			.calificacion {
-				margin: 0 auto 1em auto;
-				width: 120px;
-				height: 120px;
-				padding: 0.5em;
-				border-radius: 50%;
+      .evidencias {
+        display: flex;
+        padding: 0.5em;
 
-				i {
-					margin-top: 16px;
-					font-size: 42px;
-				}
-			}
-		}
+        .videocamara {
+          display: block;
+          position: relative;
+          width: 120px;
+          height: 120px;
+          background-color: white;
+          border-radius: 6px;
+          font-size: 12px;
+          margin-top: 4px;
+          color: #359791;
+          box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+          z-index: 0;
+          cursor: pointer;
 
-		.marco-comentarios-profesor {
-			p {
-				text-align: justify;
-				font-size: 14px;
-			}
-		}
+          i {
+            width: 50px;
+            height: 50px;
+            background-color: #359791;
+            border: 2px solid white;
+            border-radius: 50%;
+            margin-top: 15px;
+            padding-top: 4px;
+            font-size: 38px;
+            color: white;
+          }
+        }
 
-		button {
-			margin-top: 10px;
-			margin-bottom: 10px;
-			width: calc(100% - 20px);
-			font-size: 16px;
-			padding: 10px;
-		}
-	}
+        .videos {
+          display: flex;
+          flex-wrap: wrap;
+          width: calc(100% - 120px);
 
-	.contenedor-kpsis {
-		.titulo {
-			font-size: 22px;
-		}
+          .no-videos {
+            font-size: 18px;
+            margin: 4px auto;
+            color: #505774;
+            font-weight: bolder;
+          }
 
-		.leyenda-kpsi {
-			padding: 4px 5px 0px 5px;
-			margin: 10px 80px;
-			border: 2px solid gray;
-			border-radius: 8px;
+          .evidencia-video {
+            .marco-video-evidencias {
+              margin-left: 16px;
+              background-color: rgba(255, 255, 255, 0.5);
+              border-radius: 4px;
+              margin: 4px;
 
-			li {
-				text-decoration: none;
-				text-align: left;
-			}
-		}
+              .nombre-video {
+                padding: 4px 6px 0px 6px;
+                text-decoration: underline;
+                color: royalblue;
+                width: 100%;
+                text-align: left;
+                cursor: zoom-in;
+              }
 
-		.kpsis {
+              .eliminar-video-evidencia {
+                background-color: orangered;
+                border-radius: 3px;
+                padding: 2px 8px;
+                color: white;
+                height: 30px;
+                margin: 2px;
+                cursor: pointer;
 
-			.kpsi {
-				display: flex;
-				margin-bottom: 4px;
+                i {
+                  margin-top: 1px;
+                }
 
-				.texto {
-					width: 20px;
-				}
+                span {
+                  position: relative;
+                  top: -8px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 
-				.descripcion-kpsi {
-					width: 250px;
-					text-align: left;
-				}
+    .marco-calificacion {
+      text-align: center;
+      .calificacion {
+        margin: 0 auto 1em auto;
+        width: 120px;
+        height: 120px;
+        padding: 0.5em;
+        border-radius: 50%;
 
-				.valor {
-					display: flex;
+        i {
+          margin-top: 16px;
+          font-size: 42px;
+        }
+      }
+    }
 
-					.numero {
-						width: 32px;
-						height: 32px;
-						text-align: center;
-						border: 2px solid gray;
-						border-radius: 8px;
-						margin-right: 6px;
-						padding-top: 3px;
-						cursor: pointer;
+    .marco-comentarios-profesor {
+      p {
+        text-align: justify;
+        font-size: 14px;
+      }
+    }
 
-						&.activo {
-							border: 2px solid skyblue;
-							background-color: deepskyblue;
-							color: white;
-						}
-					}
-				}
-			}
-		}
-	}
+    button {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: calc(100% - 20px);
+      font-size: 16px;
+    }
+  }
+
+  .contenedor-kpsis {
+    .kpsis {
+      .kpsi {
+        display: flex;
+        margin-bottom: 4px;
+
+        .texto {
+          width: 20px;
+        }
+
+        .descripcion-kpsi {
+          width: 250px;
+          text-align: left;
+        }
+
+        .valor {
+          display: flex;
+
+          .numero {
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            margin-right: 6px;
+            padding-top: 5px;
+            cursor: pointer;
+
+            &.activo {
+              background-color: #2875d2;
+              color: white;
+              -webkit-box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
+              -moz-box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
+              box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .marco-video {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    transform: translate(-100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+
+    .cruz {
+      position: absolute;
+      display: block;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      .material-icons {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 42px;
+      }
+    }
+
+    &.activo {
+      transform: translate(100%, 0);
+    }
+
+    video {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      background-color: black;
+    }
+
+    .marco-boton {
+      position: absolute;
+      display: block;
+      left: calc(50% - 40px);
+      bottom: 40px;
+      border: 4px solid white;
+      background-color: transparent;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+
+      #btn-start-recording {
+        position: absolute;
+        display: block;
+        top: 4px;
+        left: 4px;
+        background-color: orangered;
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+      }
+
+      #btn-stop-recording {
+        position: absolute;
+        display: none;
+        top: 14px;
+        left: 14px;
+        background-color: orangered;
+        border-radius: 10%;
+        width: 44px;
+        height: 44px;
+      }
+    }
+  }
 }
